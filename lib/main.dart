@@ -1,6 +1,5 @@
-import 'package:acmc/src/features/home/views/home.dart';
-import 'package:acmc/src/features/settings/controller/set_controller.dart';
-import 'package:acmc/src/features/settings/services/settings_service.dart';
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
+import 'package:acmc/src/features/onboarding/view/onboard.dart';
 import 'package:acmc/src/features/settings/views/settings_view.dart';
 import 'package:acmc/src/router/router.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
@@ -46,17 +45,19 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
               restorationScopeId: 'app',
-              title: 'Kuro Bookkeeping',
+              title: 'acmc',
               debugShowCheckedModeBanner: false,
               darkTheme: IdTheme.darkTheme,
               themeMode: ThemeMode.system,
               theme: IdTheme.lightTheme,
-              initialRoute: IdRoute.main,
+              initialRoute: IdRoute.onboarding,
               onGenerateRoute: (RouteSettings settings) {
                 return IdRoute.fadeThrough(settings, (context) {
                   switch (settings.name) {
                     case IdRoute.main:
-                      return const Home();
+                      return const HomeScreen();
+                    case IdRoute.onboarding:
+                      return const Onboard();
 
                     default:
                       return SettingsView(

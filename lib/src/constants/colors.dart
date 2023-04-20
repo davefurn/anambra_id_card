@@ -18,8 +18,11 @@ class IdColors {
   static const backgroundColour = Colors.white;
   static const mainColor = Color(0xffFDB813);
   static const textColorBlack = Color(0xff010C20);
+  static const textColorGrey = Color(0xff5E6166);
   static const textColorYellow = Color(0xffD69908);
   static const failureColor = Color(0xffDD3333);
-  static const subColor = Colors.grey;
-  
+  static const subColor = Color(0xffDADEE5);
+  static const hintTextColor = Color(0xffA5AAB2);
+  static const brandBlue = Color(0xff165AD5);
+  static const otpGrey = Color(0xff718096);
 }
