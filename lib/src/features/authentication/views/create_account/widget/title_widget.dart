@@ -55,6 +55,7 @@ class TitleWidget extends StatelessWidget {
                 .textTheme
                 .headlineLarge
                 ?.copyWith(fontSize: fontSize ?? 28),
+                maxLines: 1,
           ),
         ),
       ),

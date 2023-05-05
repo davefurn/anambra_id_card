@@ -44,7 +44,7 @@ class Onboard extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: getProportionateScreenHeight(483),
+              top: getProportionateScreenHeight(450),
               bottom: getProportionateScreenHeight(103),
             ),
             child: Column(
@@ -60,17 +60,22 @@ class Onboard extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: getProportionateScreenWidth(49.5),
                             right: getProportionateScreenWidth(48.5)),
-                        child: Text(
-                          "Scan or search an\nindividuals identity",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge!
-                              .copyWith(
-                                fontSize: 24,
-                                color: IdColors.backgroundColour,
-                                fontWeight: FontWeight.w600,
-                              ),
-                          textAlign: TextAlign.center,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                              maxWidth: getProportionateScreenWidth(277),
+                              maxHeight: getProportionateScreenHeight(58)),
+                          child: Text(
+                            "Scan or search an individuals identity",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineLarge!
+                                .copyWith(
+                                  fontSize: 24,
+                                  color: IdColors.backgroundColour,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -81,15 +86,19 @@ class Onboard extends StatelessWidget {
                           left: getProportionateScreenWidth(41),
                           right: getProportionateScreenWidth(40),
                         ),
-                        child: Text(
-                          "The Anambra ID Scanner allows you scan a QR code or search the states database for any employees information",
-                          style:
-                              Theme.of(context).textTheme.bodySmall!.copyWith(
-                                    fontSize: 16,
-                                    color: IdColors.backgroundColour,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                          textAlign: TextAlign.center,
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                              maxWidth: getProportionateScreenWidth(294)),
+                          child: Text(
+                            "The Anambra ID Scanner allows you scan a QR code or search the states database for any employees information",
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 16,
+                                      color: IdColors.backgroundColour,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ],
@@ -101,7 +110,7 @@ class Onboard extends StatelessWidget {
                 CustomButton(
                   text: 'Next',
                   onpressed: () {
-                    pushReplacementTo(context, const Auth());
+                    pushTo(context, const Auth());
                   },
                   thickLine: 1,
                 ),

@@ -20,14 +20,14 @@ class TextsTheme {
   static TextTheme lightTheme = const TextTheme(
     //titles
     headlineLarge: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
-      fontSize: 23,
+      fontSize: 24,
       color: IdColors.textColorBlack,
     ),
     //elevated buttons
     labelMedium: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
       fontSize: 19,
       color: IdColors.textColorBlack,
@@ -35,14 +35,14 @@ class TextsTheme {
 
     // for chats user
     bodyMedium: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
       fontSize: 13,
       color: IdColors.textColorBlack,
     ),
     //reply bot
     bodySmall: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w400,
       fontSize: 13,
       color: IdColors.textColorBlack,
@@ -51,14 +51,14 @@ class TextsTheme {
   static TextTheme darkTheme = const TextTheme(
     //titles
     headlineLarge: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
       fontSize: 23,
       color: IdColors.backgroundColour,
     ),
     //elevated buttons
     labelMedium: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
       fontSize: 19,
       color: IdColors.backgroundColour,
@@ -66,14 +66,14 @@ class TextsTheme {
 
     // for chats user
     bodyMedium: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w700,
       fontSize: 13,
       color: IdColors.backgroundColour,
     ),
     //reply bot
     bodySmall: TextStyle(
-      fontFamily: 'Livvic',
+      fontFamily: 'Inter',
       fontWeight: FontWeight.w400,
       fontSize: 13,
       color: IdColors.backgroundColour,

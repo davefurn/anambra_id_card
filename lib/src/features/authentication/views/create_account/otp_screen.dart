@@ -65,7 +65,7 @@ class _OtpScreenState extends State<OtpScreen> {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.only(
+             padding: EdgeInsets.only(
                 left: getProportionateScreenWidth(20),
                 top: getProportionateScreenHeight(67),
               ),

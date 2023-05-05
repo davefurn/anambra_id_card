@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/extension/underline_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../extension/size_config.dart';
@@ -60,10 +61,10 @@ class OnClickToNewPage extends StatelessWidget {
           child: Text(
             text2,
             style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                fontSize: 16, fontWeight: FontWeight.w500, color: textColor2,
+               fontSize: 16, fontWeight: FontWeight.w700, color: textColor2,
                 decoration: TextDecoration.underline,
-     decorationThickness: 2,
-                ),
+      decorationThickness: 1
+            )
           ),
         ),
       ],

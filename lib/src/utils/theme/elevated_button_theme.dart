@@ -21,7 +21,7 @@ class ElevatedButtonThemes {
       elevation: 0,
       minimumSize: const Size(double.maxFinite, 56),
       textStyle: const TextStyle(
-          fontFamily: 'Livvic',
+          fontFamily: 'Inter',
           color: IdColors.backgroundColour,
           fontWeight: FontWeight.w700,
           fontSize: 20),
@@ -35,12 +35,12 @@ class ElevatedButtonThemes {
     ),
   );
 
-   static ElevatedButtonThemeData darkTheme = ElevatedButtonThemeData(
+  static ElevatedButtonThemeData darkTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: 0,
       minimumSize: const Size(double.maxFinite, 56),
       textStyle: const TextStyle(
-          fontFamily: 'Livvic',
+          fontFamily: 'Inter',
           color: IdColors.backgroundColour,
           fontWeight: FontWeight.w700,
           fontSize: 20),

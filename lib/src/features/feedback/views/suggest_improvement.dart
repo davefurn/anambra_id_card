@@ -11,8 +11,14 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 import 'package:flutter/material.dart';
 
-import '../controller/set_controller.dart';
-import '../services/settings_service.dart';
+class SuggestImprovement extends StatelessWidget {
+  const SuggestImprovement({Key? key}) : super(key: key);
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}

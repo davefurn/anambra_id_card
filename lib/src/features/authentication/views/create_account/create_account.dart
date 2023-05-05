@@ -15,15 +15,18 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
+import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
+import 'package:acmc/src/utils/date_time_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
+import '../../../../widgets/special_button_2.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
-import 'otp_screen.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
@@ -33,6 +36,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
+  DateTime dateTime = DateTime.now();
   String? email;
   String? password;
   final _formKey = GlobalKey<FormState>();
@@ -90,9 +94,21 @@ class _CreateAccountState extends State<CreateAccount> {
                 padding:
                     EdgeInsets.only(right: getProportionateScreenWidth(184)),
                 child: CustomTextInput(
+                  onTap: () => Utils.showSheet(context,
+                      child: buildDatePicker(), onClicked: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+
+                    final value = DateFormat('yyyy/MM/dd').format(dateTime);
+                    dateController.text = value;
+                    Navigator.pop(context);
+                  }),
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
-                  validator: (v) {},
+                  validator: (v) {
+                       if (v!.isEmpty || v.length < 1) {
+                 return 'Choose Date';
+               }
+                  },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
                   titleText: 'Date of birth',
@@ -104,7 +120,7 @@ class _CreateAccountState extends State<CreateAccount> {
                     ),
                     onPressed: () {},
                   ),
-                  keyboardType: TextInputType.datetime,
+                  keyboardType: TextInputType.none,
                   controller: dateController,
                   prefixIcon: Icons.email,
                 ),
@@ -115,7 +131,8 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomButton(
                 thickLine: 1,
                 onpressed: () {
-                   pushTo(context, const HomeScreen());
+                  
+                  pushToAndClearStack(context, const HomeScreen());
                 },
                 text: 'Create Account',
                 textcolor: IdColors.textColorBlack,
@@ -134,9 +151,11 @@ class _CreateAccountState extends State<CreateAccount> {
               OnClickToNewPage(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                text1: 'Don\'t have an account?',
-                onTap: () {},
-                text2: 'Create one',
+                text1: 'Already have an account?',
+                onTap: () {
+                  pushTo(context, const Login());
+                },
+                text2: 'Login',
                 textColor: IdColors.textColorBlack,
                 textColor2: IdColors.textColorYellow,
               ),
@@ -152,6 +171,9 @@ class _CreateAccountState extends State<CreateAccount> {
                     height: getProportionateScreenHeight(1),
                     color: IdColors.subColor,
                   ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(2),
+                  ),
                   Text(
                     'or',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -159,18 +181,26 @@ class _CreateAccountState extends State<CreateAccount> {
                           fontSize: 16,
                         ),
                   ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(2),
+                  ),
                   Container(
-                     width: getProportionateScreenWidth(49.5),
+                    width: getProportionateScreenWidth(49.5),
                     height: getProportionateScreenHeight(1),
                     color: IdColors.subColor,
                   ),
-
                 ],
               ),
-              SizedBox(height: getProportionateScreenHeight(17),),
+              SizedBox(
+                height: getProportionateScreenHeight(17),
+              ),
               Padding(
-                padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(112),),
-                child: CustomButton(text: "Use as guest", onpressed: (){}, thickLine: 1, borderColor: IdColors.subColor, color: IdColors.backgroundColour,),
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(112),
+                ),
+                child: const SpecialButton2(
+                  text: 'Use as guest',
+                ),
               ),
             ],
           ),
@@ -178,4 +208,16 @@ class _CreateAccountState extends State<CreateAccount> {
       ),
     );
   }
+
+  Widget buildDatePicker() => SizedBox(
+        height: getProportionateScreenHeight(180),
+        child: CupertinoDatePicker(
+          minimumYear: 1900,
+          maximumYear: DateTime.now().year,
+          initialDateTime: dateTime,
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) =>
+              setState(() => this.dateTime = dateTime),
+        ),
+      );
 }

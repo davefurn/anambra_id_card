@@ -1,11 +1,11 @@
 // Copyright 2023 Davefurn
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,22 +15,29 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
-import 'package:acmc/src/widgets/special_button_2.dart';
+import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
+
 
 import '../../../../extension/size_config.dart';
-import '../../../onboarding/widgets/custom_button.dart';
-import '../auth_decide/widgets/click_to_new_page.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+import '../../../../router/app_routes.dart';
+import '../../../../utils/date_time_util.dart';
+import '../../../onboarding/widgets/custom_button.dart';
+
+
+class SearchParameters extends StatefulWidget {
+  const SearchParameters({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SearchParameters> createState() => _SearchParametersState();
 }
 
-class _LoginState extends State<Login> {
+class _SearchParametersState extends State<SearchParameters> {
+  DateTime dateTime = DateTime.now();
   String? email;
   String? password;
   final _formKey = GlobalKey<FormState>();
@@ -56,17 +63,27 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+            textAlign:TextAlign.start,
+            'Enter Parameters',
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge
+                ?.copyWith(fontSize: 24),
+                maxLines: 1,
+          ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SingleChildScrollView(
+        
         child: Form(
           key: _formKey,
           child: Column(
             children: [
-              TitleWidget(
-                text: 'Create Account',
-                pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
-                fontSize: 24,
-              ),
               SizedBox(
                 height: getProportionateScreenHeight(32),
               ),
@@ -76,7 +93,7 @@ class _LoginState extends State<Login> {
                 validator: (v) {},
                 validate: _validate,
                 textInputAction: TextInputAction.next,
-                titleText: 'Staff ID',
+                titleText: 'Staff ID / Phone Number / Email',
                 keyboardType: TextInputType.number,
                 controller: staffIdController,
                 prefixIcon: Icons.email,
@@ -88,9 +105,21 @@ class _LoginState extends State<Login> {
                 padding:
                     EdgeInsets.only(right: getProportionateScreenWidth(184)),
                 child: CustomTextInput(
+                  onTap: () => Utils.showSheet(context,
+                      child: buildDatePicker(), onClicked: () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+
+                    final value = DateFormat('yyyy/MM/dd').format(dateTime);
+                    dateController.text = value;
+                    Navigator.pop(context);
+                  }),
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
-                  validator: (v) {},
+                  validator: (v) {
+                       if (v!.isEmpty || v.length < 1) {
+                 return 'Choose Date';
+               }
+                  },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
                   titleText: 'Date of birth',
@@ -102,7 +131,7 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {},
                   ),
-                  keyboardType: TextInputType.datetime,
+                  keyboardType: TextInputType.none,
                   controller: dateController,
                   prefixIcon: Icons.email,
                 ),
@@ -112,66 +141,28 @@ class _LoginState extends State<Login> {
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () {},
-                text: 'Log in',
+                onpressed: () {
+                  pushTo(context, const Searching());
+                },
+                text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(58),
-              ),
-              Image.asset(
-                "assets/images/icon2.png",
-                height: getProportionateScreenHeight(73),
-                width: getProportionateScreenWidth(73),
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(58),
-              ),
-              OnClickToNewPage(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                text1: 'Don\'t have an account?',
-                onTap: () {},
-                text2: 'Create one',
-                textColor: IdColors.textColorBlack,
-                textColor2: IdColors.textColorYellow,
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(17),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
-                    color: IdColors.subColor,
-                  ),
-                  Text(
-                    'or',
-                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                        ),
-                  ),
-                  Container(
-                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
-                    color: IdColors.subColor,
-                  ),
-
-                ],
-              ),
-              SizedBox(height: getProportionateScreenHeight(17),),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(112),),
-                child: const SpecialButton2(text: 'Use as guest',)
-              ),
+            
             ],
           ),
         ),
       ),
     );
   }
+ Widget buildDatePicker() => SizedBox(
+        height: getProportionateScreenHeight(180),
+        child: CupertinoDatePicker(
+          minimumYear: 1900,
+          maximumYear: DateTime.now().year,
+          initialDateTime: dateTime,
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) =>
+              setState(() => this.dateTime = dateTime),
+        ),
+      );
 }

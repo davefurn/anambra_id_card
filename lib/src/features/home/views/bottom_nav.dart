@@ -13,15 +13,16 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../settings/models/settings_models.dart';
+
 import '../../settings/views/settings_view.dart';
 import '../models/home_model.dart';
 
@@ -32,132 +33,79 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(currentIndexProvider);
     final tabIndex = ref.watch(tabIndexProvider);
-
-    return WillPopScope(
-      onWillPop: () async {
-        bool willLeave = false;
-        // show the confirm dialog
-        await showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-                  icon: SvgPicture.asset(
-                    'assets/svg/Vector (5).svg',
-                    width: 50,
-                    height: 50,
-                  ),
-                  title: const Text(
-                    'Are you sure want to leave?',
-                    style: TextStyle(
-                      fontFamily: 'Notosans',
-                      color: Colors.black,
-                    ),
-                  ),
-                  actions: [
-                    SizedBox(
-                      width: 60,
-                      height: 40,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            willLeave = true;
-                            SystemChannels.platform
-                                .invokeMethod('SystemNavigator.pop');
-                          },
-                          child: const Text(
-                            'Yes',
-                            style: TextStyle(
-                              fontFamily: 'Notosans',
-                              fontWeight: FontWeight.normal,
-                              fontSize: 15,
-                            ),
-                          )),
-                    ),
-                    TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: const Text(
-                          'No',
-                          style: TextStyle(
-                            color: IdColors.mainColor,
-                            fontFamily: 'Notosans',
-                          ),
-                        ))
-                  ],
-                ));
-        return willLeave;
-      },
-      child: Scaffold(
-          bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(
-               splashColor: Colors.transparent,
-    highlightColor: Colors.transparent,
-            ),
-            child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-                onTap: (index) {
-                  ref.read(currentIndexProvider.notifier).state = index;
-                  ref.read(tabIndexProvider.notifier).state = index;
-                },
-                selectedLabelStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ) ,
-                unselectedLabelStyle:Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ) ,
-                currentIndex: currentIndex,
-                elevation: 5,
-                selectedItemColor: IdColors.mainColor,
-                unselectedItemColor: IdColors.textColorBlack,
-                backgroundColor: IdColors.backgroundColour,
-                showSelectedLabels: true,
-                showUnselectedLabels: true,
-                items: [
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/svgs/home.svg',
-                        color: currentIndex == 0
-                            ? IdColors.mainColor
-                            : IdColors.textColorBlack,
-                      ),
-                      label: 'Home'),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/svgs/history.svg',
-                        color: currentIndex == 1
-                            ? IdColors.mainColor
-                            : IdColors.textColorBlack,
-                      ),
-                      label: 'History'),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/svgs/notification.svg',
-                        color: currentIndex == 2
-                            ? IdColors.mainColor
-                            : IdColors.textColorBlack,
-                      ),
-                      label: 'Notifications'),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/svgs/settingsApp.svg',
-                        color: currentIndex == 3
-                            ? IdColors.mainColor
-                            : IdColors.textColorBlack,
-                      ),
-                      label: 'Settings'),
-                ]),
+    SizeConfig().init(context);
+    return Scaffold(
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
           ),
-          body: IndexedStack(
-            index: tabIndex,
-            children: [
-              const Home(),
-              const History(),
-              const NotificationP(),
-              SettingsView(
-                viewModel: settingsViewModel,
-                navigatorKey: navigatorKey,
-              ),
-            ],
-          )),
-    );
+          child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              onTap: (index) {
+                ref.read(currentIndexProvider.notifier).state = index;
+                ref.read(tabIndexProvider.notifier).state = index;
+              },
+              selectedLabelStyle:
+                  Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+              unselectedLabelStyle:
+                  Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 12,
+                      ),
+              currentIndex: currentIndex,
+              elevation: 5,
+              selectedItemColor: IdColors.mainColor,
+              unselectedItemColor: IdColors.textColorBlack,
+              backgroundColor: IdColors.backgroundColour,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              items: [
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'assets/svgs/home.svg',
+                      color: currentIndex == 0
+                          ? IdColors.mainColor
+                          : IdColors.textColorBlack,
+                    ),
+                    label: 'Home'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'assets/svgs/history.svg',
+                      color: currentIndex == 1
+                          ? IdColors.mainColor
+                          : IdColors.textColorBlack,
+                    ),
+                    label: 'History'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'assets/svgs/notification.svg',
+                      color: currentIndex == 2
+                          ? IdColors.mainColor
+                          : IdColors.textColorBlack,
+                    ),
+                    label: 'Notifications'),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'assets/svgs/settingsApp.svg',
+                      color: currentIndex == 3
+                          ? IdColors.mainColor
+                          : IdColors.textColorBlack,
+                    ),
+                    label: 'Settings'),
+              ]),
+        ),
+        body: IndexedStack(
+          index: tabIndex,
+          children: const [
+            Home(),
+            History(),
+            NotificationP(),
+            SettingsView(),
+          ],
+        ));
   }
 }
