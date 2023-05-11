@@ -46,16 +46,16 @@ dev_dependencies:
     sdk: flutter
 
 flutter_native_splash:
-  color: "#FDB813"
-  dark_color: "#272727"
+  color: '#FDB813'
+  dark_color: '#272727'
   image: assets/images/splash.png
   image_dark: assets/images/splash.png
 
   andriod_12:
     image: assets/images/splash.png
-    icon_background_color: "#FDB813"
+    icon_background_color: '#FDB813'
     image_dark: assets/images/splash.png
-    icon_background_color_dark: "#272727"
+    icon_background_color_dark: '#272727'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
