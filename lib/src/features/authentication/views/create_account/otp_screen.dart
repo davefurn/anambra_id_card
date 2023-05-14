@@ -46,7 +46,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void startTimer() {
     const onsec = Duration(seconds: 1);
-    Timer timer = Timer.periodic(onsec, (timer) {
+    Timer.periodic(onsec, (timer) {
       if (start == 0) {
         setState(() {
           timer.cancel();
@@ -79,6 +79,29 @@ class _OtpScreenState extends State<OtpScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: getProportionateScreenWidth(20),
+                top: getProportionateScreenHeight(67),
+              ),
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom: getProportionateScreenHeight(6)),
+                    child: backButton(context),
+                  ),
+                  SizedBox(
+                    width: getProportionateScreenWidth(16),
+                  ),
+                  const TitleWidget(
+                    text: 'OTP',
+                    pDtop: 0,
+                    pDleft: 0,
+                  ),
+                ],
+              ),
+            ),
             SizedBox(
               height: getProportionateScreenHeight(32),
             ),
@@ -113,14 +136,11 @@ class _OtpScreenState extends State<OtpScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding:  EdgeInsets.only(left: getProportionateScreenWidth(20)),
-                  child: Text('Phone OTP',
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                          )),
-                ),
+                Text('Phone OTP',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        )),
                 SizedBox(
                   height: getProportionateScreenHeight(8),
                 ),
@@ -138,15 +158,24 @@ class _OtpScreenState extends State<OtpScreen> {
                         color: IdColors.textColorBlack, fontSize: 17),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                      prefixIcon: null,
-                      hintText: '',
-                      hintStyle:
-                          Theme.of(context).textTheme.bodySmall!.copyWith(
-                                fontSize: 16,
-                                color: IdColors.hintTextColor,
-                              ),
-                      fillColor: IdColors.subColor,
-                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: IdColors.failureColor,
+                        ),
+                      ),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 19, horizontal: 8),
                       suffixIcon: InkWell(

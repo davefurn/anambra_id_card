@@ -13,10 +13,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/extension/underline_text.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../extension/size_config.dart';
 
 class OnClickToNewPage extends StatelessWidget {
   final MainAxisAlignment mainAxisAlignment;
@@ -29,7 +27,7 @@ class OnClickToNewPage extends StatelessWidget {
   const OnClickToNewPage({
     Key? key,
     this.mainAxisAlignment = MainAxisAlignment.start,
-    this.crossAxisAlignment =  CrossAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.start,
     required this.text1,
     required this.onTap,
     required this.text2,
@@ -43,28 +41,30 @@ class OnClickToNewPage extends StatelessWidget {
       mainAxisAlignment: mainAxisAlignment,
       crossAxisAlignment: crossAxisAlignment,
       children: [
-        Text(
-          text1,
-          style: TextStyle(
-            fontFamily: 'Inter',
-            fontWeight: FontWeight.w500,
-            fontSize: 16,
-            color: textColor,
-         
-          ),
-        ),
-        SizedBox(
-          width: getProportionateScreenWidth(8),
-        ),
-        InkWell(
-          onTap: onTap,
-          child: Text(
-            text2,
-            style: Theme.of(context).textTheme.labelMedium!.copyWith(
-               fontSize: 16, fontWeight: FontWeight.w700, color: textColor2,
-                decoration: TextDecoration.underline,
-      decorationThickness: 1
-            )
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: '$text1   ',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: textColor,
+                ),
+              ),
+              TextSpan(
+                text: text2,
+                style: Theme.of(context).textTheme.labelMedium!.copyWith(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: textColor2,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 1,
+                    decorationColor: textColor2),
+                recognizer: TapGestureRecognizer()..onTap = onTap,
+              )
+            ],
           ),
         ),
       ],

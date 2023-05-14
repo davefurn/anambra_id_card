@@ -27,15 +27,18 @@ class CustomButton extends StatelessWidget {
   final Color? textcolor;
   final Color? borderColor;
   final double thickLine;
-  const CustomButton(
-      {super.key,
-      this.hpD,
-      required this.text,
-      required this.onpressed,
-      this.color,
-      this.textcolor,
-      required this.thickLine,
-      this.borderColor,  this.fontWeight = FontWeight.w600,  this.fontSize = 16});
+  const CustomButton({
+    super.key,
+    this.hpD,
+    required this.text,
+    required this.onpressed,
+    this.color,
+    this.textcolor,
+    required this.thickLine,
+    this.borderColor,
+    this.fontWeight = FontWeight.w600,
+    this.fontSize = 16,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,11 +55,14 @@ class CustomButton extends StatelessWidget {
             color: borderColor ?? IdColors.mainColor,
           ),
         ),
-        child: Text(text,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+        child: Text(
+          text,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
                 fontSize: fontSize,
                 color: IdColors.textColorBlack,
-                fontWeight: fontWeight)),
+                fontWeight: fontWeight,
+              ),
+        ),
       ),
     );
   }

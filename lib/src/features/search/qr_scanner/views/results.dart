@@ -15,7 +15,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../home/models/home_model.dart';
 
 class QrCode extends ConsumerStatefulWidget {
   final String code;

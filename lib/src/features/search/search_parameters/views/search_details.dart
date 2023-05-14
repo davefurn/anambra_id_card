@@ -1,7 +1,6 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/widgets/special_button.dart';
-import 'package:acmc/src/widgets/title_back_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/data_testing.dart';
@@ -11,8 +10,9 @@ class SearchDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _scaffoldKey = new GlobalKey<ScaffoldState>();
+    final scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         title: Text(
           textAlign: TextAlign.start,
@@ -117,7 +117,7 @@ class SearchDetails extends StatelessWidget {
                                   children: [
                                     GestureDetector(
                                         onTap: () {  
-                                          final snackBar = const SnackBar(
+                                          const snackBar = SnackBar(
                                               elevation: 0,
                                               backgroundColor:
                                                   Colors.transparent,
