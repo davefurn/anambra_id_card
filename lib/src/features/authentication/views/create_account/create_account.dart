@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
@@ -132,7 +133,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 thickLine: 1,
                 onpressed: () {
                   
-                  pushToAndClearStack(context, const HomeScreen());
+                  pushToAndClearStack(context, const OtpScreen());
                 },
                 text: 'Create Account',
                 textcolor: IdColors.textColorBlack,

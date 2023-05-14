@@ -20,6 +20,8 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/tit
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 
+import '../../../onboarding/widgets/custom_button.dart';
+
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);
 
@@ -61,34 +63,24 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          textAlign: TextAlign.start,
+          'OTP',
+          style:
+              Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
+          maxLines: 1,
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-             padding: EdgeInsets.only(
-                left: getProportionateScreenWidth(20),
-                top: getProportionateScreenHeight(67),
-              ),
-              child: Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        bottom: getProportionateScreenHeight(6)),
-                    child: backButton(context),
-                  ),
-                  SizedBox(
-                    width: getProportionateScreenWidth(16),
-                  ),
-                  const TitleWidget(
-                    text: 'OTP',
-                    pDtop: 0,
-                    pDleft: 0,
-                  ),
-                ],
-              ),
-            ),
             SizedBox(
-              height: getProportionateScreenHeight(38),
+              height: getProportionateScreenHeight(32),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -121,46 +113,42 @@ class _OtpScreenState extends State<OtpScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Text('Phone OTP',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  )),
-          SizedBox(
-            height: getProportionateScreenHeight(8),
-          ),
+                Padding(
+                  padding:  EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                  child: Text('Phone OTP',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          )),
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(8),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width - 40,
                   height: 60,
+                  margin: EdgeInsets.only(left: getProportionateScreenWidth(20)),
                   decoration: BoxDecoration(
                     color: IdColors.subColor,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(8),
                   ),
                   child: TextFormField(
                     controller: phoneController,
-                    style: const TextStyle(color: IdColors.textColorBlack, fontSize: 17),
+                    style: const TextStyle(
+                        color: IdColors.textColorBlack, fontSize: 17),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                       border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: IdColors.failureColor,
-                ),
-                 ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 19, horizontal: 8),
+                      prefixIcon: null,
+                      hintText: '',
+                      hintStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                color: IdColors.hintTextColor,
+                              ),
+                      fillColor: IdColors.subColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 19, horizontal: 8),
                       suffixIcon: InkWell(
                         onTap: wait
                             ? null
@@ -191,8 +179,90 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: getProportionateScreenHeight(16),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                  child: Text('Email OTP',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          )),
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(8),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width - 40,
+                  height: 60,
+                   margin: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                  decoration: BoxDecoration(
+                    color: IdColors.subColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextFormField(
+                    controller: phoneController,
+                    style: const TextStyle(
+                        color: IdColors.textColorBlack, fontSize: 17),
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      prefixIcon: null,
+                      hintText: '',
+                      hintStyle:
+                          Theme.of(context).textTheme.bodySmall!.copyWith(
+                                fontSize: 16,
+                                color: IdColors.hintTextColor,
+                              ),
+                      fillColor: IdColors.subColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 19, horizontal: 8),
+                      suffixIcon: InkWell(
+                        onTap: wait
+                            ? null
+                            : () async {
+                                setState(() {
+                                  start = 30;
+                                  wait = true;
+                                  buttonName = "Resend code";
+                                });
+                                // await authClass.verifyPhoneNumber(
+                                //     "+91 ${phoneController.text}",
+                                //     context,
+                                //     setData);
+                              },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 15),
+                          child: Text(
+                            buttonName,
+                            style: TextStyle(
+                              color: wait ? Colors.grey : Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: getProportionateScreenHeight(24),
+                ),
+                  CustomButton(
+                thickLine: 1,
+                onpressed: () {
+                  
+                  pushToAndClearStack(context, const OtpScreen());
+                },
+                text: 'Next',
+                textcolor: IdColors.textColorBlack,
+              ),
               ],
             ),
+
           ],
         ),
       ),

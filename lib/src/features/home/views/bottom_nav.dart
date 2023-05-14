@@ -53,7 +53,7 @@ class HomeScreen extends ConsumerWidget {
                       ),
               unselectedLabelStyle:
                   Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         fontSize: 12,
                       ),
               currentIndex: currentIndex,
