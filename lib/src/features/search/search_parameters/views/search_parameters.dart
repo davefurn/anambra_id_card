@@ -14,7 +14,6 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -90,7 +89,9 @@ class _SearchParametersState extends State<SearchParameters> {
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
-                validator: (v) {},
+                validator: (v) {
+                  return null;
+                },
                 validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: 'Staff ID / Phone Number / Email',
@@ -116,9 +117,10 @@ class _SearchParametersState extends State<SearchParameters> {
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
                   validator: (v) {
-                       if (v!.isEmpty || v.length < 1) {
+                       if (v!.isEmpty || v.isEmpty) {
                  return 'Choose Date';
                }
+                       return null;
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,

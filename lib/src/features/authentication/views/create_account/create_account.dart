@@ -79,7 +79,9 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
-                validator: (v) {},
+                validator: (v) {
+                  return null;
+                },
                 validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: 'Staff ID',
@@ -105,9 +107,10 @@ class _CreateAccountState extends State<CreateAccount> {
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
                   validator: (v) {
-                       if (v!.isEmpty || v.length < 1) {
+                       if (v!.isEmpty || v.isEmpty) {
                  return 'Choose Date';
                }
+                       return null;
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,

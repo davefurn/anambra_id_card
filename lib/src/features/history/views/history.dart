@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../extension/size_config.dart';
 import '../../home/models/home_model.dart';
-import 'package:collection/collection.dart';
 
 class History extends ConsumerWidget {
   const History({Key? key}) : super(key: key);

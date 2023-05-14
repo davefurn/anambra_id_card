@@ -44,7 +44,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
   void startTimer() {
     const onsec = Duration(seconds: 1);
-    Timer timer = Timer.periodic(onsec, (timer) {
+    Timer.periodic(onsec, (timer) {
       if (start == 0) {
         setState(() {
           timer.cancel();
@@ -65,7 +65,7 @@ class _OtpScreenState extends State<OtpScreen> {
         child: Column(
           children: [
             Padding(
-             padding: EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: getProportionateScreenWidth(20),
                 top: getProportionateScreenHeight(67),
               ),
@@ -121,14 +121,14 @@ class _OtpScreenState extends State<OtpScreen> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 Text('Phone OTP',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  )),
-          SizedBox(
-            height: getProportionateScreenHeight(8),
-          ),
+                Text('Phone OTP',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                        )),
+                SizedBox(
+                  height: getProportionateScreenHeight(8),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width - 40,
                   height: 60,
@@ -138,29 +138,30 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   child: TextFormField(
                     controller: phoneController,
-                    style: const TextStyle(color: IdColors.textColorBlack, fontSize: 17),
+                    style: const TextStyle(
+                        color: IdColors.textColorBlack, fontSize: 17),
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                       border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: IdColors.failureColor,
-                ),
-                 ),
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 19, horizontal: 8),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Color(0xFFF3F4F6)),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(
+                          color: IdColors.failureColor,
+                        ),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 19, horizontal: 8),
                       suffixIcon: InkWell(
                         onTap: wait
                             ? null
