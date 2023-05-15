@@ -16,7 +16,6 @@ import 'dart:async';
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/extension/size_config.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 

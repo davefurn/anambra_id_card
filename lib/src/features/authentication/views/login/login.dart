@@ -16,12 +16,12 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
-import 'package:acmc/src/features/home/views/bottom_nav.dart';
-import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../extension/size_config.dart';
+import '../../../../router/app_routes.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
@@ -118,10 +118,9 @@ class _LoginState extends State<Login> {
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () => pushReplacementTo(
-                  context,
-                  const HomeScreen(),
-                ),
+                onpressed: () {
+                  pushTo(context, const Home());
+                },
                 text: 'Log in',
                 textcolor: IdColors.textColorBlack,
               ),
