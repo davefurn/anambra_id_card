@@ -17,7 +17,6 @@ import 'package:acmc/src/features/authentication/views/create_account/otp_screen
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
-import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/utils/date_time_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +79,9 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
-                validator: (v) {},
+                validator: (v) {
+                  return null;
+                },
                 validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: 'Staff ID',
@@ -106,9 +107,10 @@ class _CreateAccountState extends State<CreateAccount> {
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
                   validator: (v) {
-                       if (v!.isEmpty || v.length < 1) {
+                       if (v!.isEmpty || v.isEmpty) {
                  return 'Choose Date';
                }
+                       return null;
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,

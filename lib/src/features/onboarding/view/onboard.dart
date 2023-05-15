@@ -27,97 +27,66 @@ class Onboard extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-              image: const AssetImage("assets/images/onboarding.png"),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.61),
-                BlendMode.darken,
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: const AssetImage("assets/images/onboarding.png"),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.61),
+              BlendMode.darken,
+            ),
+          ),
+        ),
+        padding: EdgeInsets.only(bottom: getProportionateScreenHeight(110)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: getProportionateScreenWidth(40),
               ),
-            )),
-          ),
-          Padding(
-            padding: EdgeInsets.only(
-              top: getProportionateScreenHeight(450),
-              bottom: getProportionateScreenHeight(103),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(41),
-                    right: getProportionateScreenWidth(40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Scan or search an individuals identity",
+                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                          fontSize: 24,
+                          color: IdColors.backgroundColour,
+                          fontWeight: FontWeight.w600,
+                        ),
+                    textAlign: TextAlign.center,
                   ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: getProportionateScreenWidth(49.5),
-                            right: getProportionateScreenWidth(48.5)),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxWidth: getProportionateScreenWidth(277),
-                              maxHeight: getProportionateScreenHeight(58)),
-                          child: Text(
-                            "Scan or search an individuals identity",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineLarge!
-                                .copyWith(
-                                  fontSize: 24,
-                                  color: IdColors.backgroundColour,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: getProportionateScreenHeight(15),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: getProportionateScreenWidth(41),
-                          right: getProportionateScreenWidth(40),
-                        ),
-                        child: ConstrainedBox(
-                          constraints: BoxConstraints(
-                              maxWidth: getProportionateScreenWidth(294)),
-                          child: Text(
-                            "The Anambra ID Scanner allows you scan a QR code or search the states database for any employees information",
-                            style:
-                                Theme.of(context).textTheme.bodySmall!.copyWith(
-                                      fontSize: 16,
-                                      color: IdColors.backgroundColour,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ],
+                  SizedBox(
+                    height: getProportionateScreenHeight(15),
                   ),
-                ),
-                SizedBox(
-                  height: getProportionateScreenHeight(29),
-                ),
-                CustomButton(
-                  text: 'Next',
-                  onpressed: () {
-                    pushTo(context, const Auth());
-                  },
-                  thickLine: 1,
-                ),
-              ],
+                  Text(
+                    "The Anambra ID Scanner allows you scan a QR code or search the states database for any employees information",
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 16,
+                          color: IdColors.backgroundColour,
+                          fontWeight: FontWeight.w500,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            SizedBox(
+              height: getProportionateScreenHeight(29),
+            ),
+            CustomButton(
+              text: 'Next',
+              onpressed: () {
+                pushTo(context, const Auth());
+              },
+              thickLine: 1,
+            ),
+          ],
+        ),
       ),
     );
   }

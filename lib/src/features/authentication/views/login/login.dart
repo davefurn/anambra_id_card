@@ -18,7 +18,6 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/tit
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
@@ -75,7 +74,9 @@ class _LoginState extends State<Login> {
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
-                validator: (v) {},
+                validator: (v) {
+                  return null;
+                },
                 validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: 'Staff ID',
@@ -92,7 +93,9 @@ class _LoginState extends State<Login> {
                 child: CustomTextInput(
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
-                  validator: (v) {},
+                  validator: (v) {
+                    return null;
+                  },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
                   titleText: 'Date of birth',
