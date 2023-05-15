@@ -1,11 +1,11 @@
 // Copyright 2023 Davefurn
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
@@ -63,7 +64,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: [
               TitleWidget(
-                text: 'Create Account',
+                text: 'Log in',
                 pDleft: getProportionateScreenWidth(20),
                 height: getProportionateScreenHeight(36),
                 fontSize: 24,
@@ -138,7 +139,7 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 text1: 'Don\'t have an account?',
-                onTap: () {},
+                onTap: () => pushReplacementTo(context, const CreateAccount()),
                 text2: 'Create one',
                 textColor: IdColors.textColorBlack,
                 textColor2: IdColors.textColorYellow,
@@ -163,18 +164,22 @@ class _LoginState extends State<Login> {
                         ),
                   ),
                   Container(
-                     width: getProportionateScreenWidth(49.5),
+                    width: getProportionateScreenWidth(49.5),
                     height: getProportionateScreenHeight(1),
                     color: IdColors.subColor,
                   ),
-
                 ],
               ),
-              SizedBox(height: getProportionateScreenHeight(17),),
-              Padding(
-                padding:  EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(112),),
-                child: const SpecialButton2(text: 'Use as guest',)
+              SizedBox(
+                height: getProportionateScreenHeight(17),
               ),
+              Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(112),
+                  ),
+                  child: const SpecialButton2(
+                    text: 'Use as guest',
+                  )),
             ],
           ),
         ),

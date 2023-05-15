@@ -14,6 +14,7 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/extension/size_config.dart';
+import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/home/views/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/router/app_routes.dart';
@@ -313,25 +314,30 @@ class _HomeState extends State<Home> {
                           color: IdColors.textColorGrey,
                         ),
                   ),
-                  SizedBox(
-                    width: getProportionateScreenWidth(5.73),
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        'More',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: IdColors.textColorGrey,
-                            ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 8,
-                        color: IdColors.textColorYellow,
-                      )
-                    ],
+                  InkWell(
+                    onTap: () => pushTo(
+                      context,
+                      const AllEmployee(),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'More',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: IdColors.textColorGrey,
+                                  ),
+                        ),
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 8,
+                          color: IdColors.textColorYellow,
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
