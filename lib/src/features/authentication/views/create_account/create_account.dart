@@ -98,7 +98,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 child: CustomTextInput(
                   onTap: () => Utils.showSheet(context,
                       child: buildDatePicker(), onClicked: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
+                    FocusScope.of(context).requestFocus(FocusNode());
 
                     final value = DateFormat('yyyy/MM/dd').format(dateTime);
                     dateController.text = value;
@@ -107,10 +107,10 @@ class _CreateAccountState extends State<CreateAccount> {
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
                   validator: (v) {
-                       if (v!.isEmpty || v.isEmpty) {
-                 return 'Choose Date';
-               }
-                       return null;
+                    if (v!.isEmpty || v.isEmpty) {
+                      return 'Choose Date';
+                    }
+                    return null;
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
@@ -134,7 +134,6 @@ class _CreateAccountState extends State<CreateAccount> {
               CustomButton(
                 thickLine: 1,
                 onpressed: () {
-                  
                   pushToAndClearStack(context, const OtpScreen());
                 },
                 text: 'Create Account',
@@ -155,10 +154,8 @@ class _CreateAccountState extends State<CreateAccount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 text1: 'Already have an account?',
-                onTap: () {
-                  pushTo(context, const Login());
-                },
-                text2: 'Login',
+                onTap: () => pushReplacementTo(context, const Login()),
+                text2: 'Log in',
                 textColor: IdColors.textColorBlack,
                 textColor2: IdColors.textColorYellow,
               ),

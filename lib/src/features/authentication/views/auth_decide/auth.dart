@@ -50,7 +50,7 @@ class Auth extends StatelessWidget {
               CustomButton(
                 text: "Create account",
                 onpressed: () {
-                   pushTo(context, const CreateAccount());
+                  pushTo(context, const CreateAccount());
                 },
                 thickLine: 1,
               ),
@@ -59,9 +59,7 @@ class Auth extends StatelessWidget {
               ),
               CustomButton(
                 text: 'Use as guest',
-                onpressed: () {
-                 
-                },
+                onpressed: () {},
                 thickLine: 1,
                 color: IdColors.backgroundColour,
                 borderColor: IdColors.subColor,
@@ -75,9 +73,7 @@ class Auth extends StatelessWidget {
                 ),
                 child: OnClickToNewPage(
                   text1: "Already have an account?",
-                  onTap: () {
-                     pushTo(context, const Login());
-                  },
+                  onTap: () => pushTo(context, const Login()),
                   text2: "Log in",
                   textColor: IdColors.textColorGrey,
                   textColor2: IdColors.textColorYellow,
