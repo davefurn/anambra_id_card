@@ -31,13 +31,18 @@ environment:
 dependencies:
   animations: ^2.0.7
   cupertino_icons: ^1.0.2
+  dio: ^5.1.2
   flutter:
     sdk: flutter
   flutter_barcode_scanner: ^2.0.0
   flutter_native_splash: ^2.0.1+1
   flutter_riverpod: ^2.3.4
   flutter_svg: ^1.1.6
+  get_time_ago: ^1.2.2
+  grouped_list: ^5.1.2
   intl: ^0.18.1
+  keyboard_dismisser: ^3.0.0
+  package_info_plus: ^4.0.0
   riverpod: ^2.3.4
 
 dev_dependencies:

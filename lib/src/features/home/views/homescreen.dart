@@ -314,30 +314,23 @@ class _HomeState extends State<Home> {
                           color: IdColors.textColorGrey,
                         ),
                   ),
-                  InkWell(
-                    onTap: () => pushTo(
-                      context,
-                      const AllEmployee(),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          'More',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                    color: IdColors.textColorGrey,
-                                  ),
-                        ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 8,
-                          color: IdColors.textColorYellow,
-                        )
-                      ],
-                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'More',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: IdColors.textColorGrey,
+                            ),
+                      ),
+                      const Icon(
+                        Icons.arrow_forward_ios,
+                        size: 8,
+                        color: IdColors.textColorYellow,
+                      )
+                    ],
                   )
                 ],
               ),
@@ -393,13 +386,17 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: getProportionateScreenHeight(40.5),
             ),
-            Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(87),
+            Center(
+              child: InkWell(
+                onTap: () => pushTo(
+                  context,
+                  const AllEmployee(),
                 ),
                 child: const SpecialButton2(
                   text: 'View all employees',
-                )),
+                ),
+              ),
+            ),
           ],
         ),
       ),

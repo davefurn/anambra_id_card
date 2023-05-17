@@ -17,95 +17,182 @@ import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
-import 'package:flutter/material.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 
 import '../../settings/views/settings_view.dart';
 import '../models/home_model.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  final List<GlobalKey<NavigatorState>> tabNavKeys = [
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+    GlobalKey<NavigatorState>(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
     final currentIndex = ref.watch(currentIndexProvider);
-    final tabIndex = ref.watch(tabIndexProvider);
     SizeConfig().init(context);
-    return Scaffold(
-        bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        currentIndex: currentIndex,
+        onTap: (value) {
+          bool? canpop = tabNavKeys[value].currentState?.canPop();
+          if (currentIndex == value && canpop == true) {
+            tabNavKeys[value].currentState!.popUntil((route) => route.isFirst);
+          }
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svgs/home.svg',
+              color: IdColors.textColorBlack,
+            ),
+            activeIcon: SvgPicture.asset(
+              'assets/svgs/home.svg',
+              color: IdColors.mainColor,
+            ),
+            label: 'Home',
           ),
-          child: BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-              onTap: (index) {
-                ref.read(currentIndexProvider.notifier).state = index;
-                ref.read(tabIndexProvider.notifier).state = index;
-              },
-              selectedLabelStyle:
-                  Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 12,
-                      ),
-              unselectedLabelStyle:
-                  Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                      ),
-              currentIndex: currentIndex,
-              elevation: 5,
-              selectedItemColor: IdColors.mainColor,
-              unselectedItemColor: IdColors.textColorBlack,
-              backgroundColor: IdColors.backgroundColour,
-              showSelectedLabels: true,
-              showUnselectedLabels: true,
-              items: [
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/svgs/home.svg',
-                      color: currentIndex == 0
-                          ? IdColors.mainColor
-                          : IdColors.textColorBlack,
-                    ),
-                    label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/svgs/history.svg',
-                      color: currentIndex == 1
-                          ? IdColors.mainColor
-                          : IdColors.textColorBlack,
-                    ),
-                    label: 'History'),
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/svgs/notification.svg',
-                      color: currentIndex == 2
-                          ? IdColors.mainColor
-                          : IdColors.textColorBlack,
-                    ),
-                    label: 'Notifications'),
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/svgs/settingsApp.svg',
-                      color: currentIndex == 3
-                          ? IdColors.mainColor
-                          : IdColors.textColorBlack,
-                    ),
-                    label: 'Settings'),
-              ]),
-        ),
-        body: IndexedStack(
-          index: tabIndex,
-          children: const [
-            Home(),
-            History(),
-            NotificationP(),
-            SettingsView(),
-          ],
-        ));
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svgs/history.svg',
+              color: IdColors.textColorBlack,
+            ),
+            activeIcon: SvgPicture.asset(
+              'assets/svgs/history.svg',
+              color: IdColors.mainColor,
+            ),
+            label: 'History',
+          ),
+          BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/svgs/notification.svg',
+                color: IdColors.textColorBlack,
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/svgs/notification.svg',
+                color: IdColors.mainColor,
+              ),
+              label: 'Notifications'),
+          BottomNavigationBarItem(
+            icon: SvgPicture.asset(
+              'assets/svgs/settingsApp.svg',
+              color: IdColors.textColorBlack,
+            ),
+            activeIcon: SvgPicture.asset(
+              'assets/svgs/settingsApp.svg',
+              color: IdColors.mainColor,
+            ),
+            label: 'Settings',
+          ),
+        ],
+      ),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return CupertinoTabView(
+              navigatorKey: tabNavKeys[0],
+              builder: (context) => const CupertinoPageScaffold(
+                child: Home(),
+              ),
+            );
+          case 1:
+            return CupertinoTabView(
+              navigatorKey: tabNavKeys[1],
+              builder: (context) => const CupertinoPageScaffold(
+                child: History(),
+              ),
+            );
+          case 2:
+            return CupertinoTabView(
+              navigatorKey: tabNavKeys[2],
+              builder: (context) => const CupertinoPageScaffold(
+                child: NotificationP(),
+              ),
+            );
+          default:
+            return CupertinoTabView(
+              navigatorKey: tabNavKeys[3],
+              builder: (context) => const CupertinoPageScaffold(
+                child: SettingsView(),
+              ),
+            );
+        }
+      },
+      // bottomNavigationBar: Theme(
+      //   data: Theme.of(context).copyWith(
+      //     splashColor: Colors.transparent,
+      //     highlightColor: Colors.transparent,
+      //   ),
+      //   child: BottomNavigationBar(
+      //       type: BottomNavigationBarType.fixed,
+      //       onTap: (index) {
+      //         ref.read(currentIndexProvider.notifier).state = index;
+      //         ref.read(tabIndexProvider.notifier).state = index;
+      //       },
+      //       selectedLabelStyle:
+      //           Theme.of(context).textTheme.bodyMedium!.copyWith(
+      //                 fontWeight: FontWeight.w600,
+      //                 fontSize: 12,
+      //               ),
+      //       unselectedLabelStyle:
+      //           Theme.of(context).textTheme.bodyMedium!.copyWith(
+      //                 fontWeight: FontWeight.w400,
+      //                 fontSize: 12,
+      //               ),
+      //       currentIndex: currentIndex,
+      //       elevation: 5,
+      //       selectedItemColor: IdColors.mainColor,
+      //       unselectedItemColor: IdColors.textColorBlack,
+      //       backgroundColor: IdColors.backgroundColour,
+      //       showSelectedLabels: true,
+      //       showUnselectedLabels: true,
+      //       items: [
+      //         BottomNavigationBarItem(
+      //             icon: SvgPicture.asset(
+      //               'assets/svgs/home.svg',
+      //               color: currentIndex == 0
+      //                   ? IdColors.mainColor
+      //                   : IdColors.textColorBlack,
+      //             ),
+      //             label: 'Home'),
+      //         BottomNavigationBarItem(
+      //             icon: SvgPicture.asset(
+      //               'assets/svgs/history.svg',
+      //               color: currentIndex == 1
+      //                   ? IdColors.mainColor
+      //                   : IdColors.textColorBlack,
+      //             ),
+      //             label: 'History'),
+      //         BottomNavigationBarItem(
+      //             icon: SvgPicture.asset(
+      //               'assets/svgs/notification.svg',
+      //               color: currentIndex == 2
+      //                   ? IdColors.mainColor
+      //                   : IdColors.textColorBlack,
+      //             ),
+      //             label: 'Notifications'),
+      //         BottomNavigationBarItem(
+      //             icon: SvgPicture.asset(
+      //               'assets/svgs/settingsApp.svg',
+      //               color: currentIndex == 3
+      //                   ? IdColors.mainColor
+      //                   : IdColors.textColorBlack,
+      //             ),
+      //             label: 'Settings'),
+      //       ]),
+      // ),
+    );
   }
 }

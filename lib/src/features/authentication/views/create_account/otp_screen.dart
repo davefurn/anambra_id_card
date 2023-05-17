@@ -20,6 +20,7 @@ import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../onboarding/widgets/custom_button.dart';
+import 'widget/title_widget.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key}) : super(key: key);

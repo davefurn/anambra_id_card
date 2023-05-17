@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../extension/size_config.dart';
@@ -27,6 +28,7 @@ class CustomButton extends StatelessWidget {
   final Color? textcolor;
   final Color? borderColor;
   final double thickLine;
+  final Widget? icon;
   const CustomButton({
     super.key,
     this.hpD,
@@ -38,6 +40,7 @@ class CustomButton extends StatelessWidget {
     this.borderColor,
     this.fontWeight = FontWeight.w600,
     this.fontSize = 16,
+    this.icon,
   });
 
   @override
@@ -55,13 +58,26 @@ class CustomButton extends StatelessWidget {
             color: borderColor ?? IdColors.mainColor,
           ),
         ),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: fontSize,
-                color: IdColors.textColorBlack,
-                fontWeight: fontWeight,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null)
+              Row(
+                children: [
+                  icon!,
+                  6.sbW,
+                ],
               ),
+            Text(
+              text,
+              style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                    fontSize: fontSize,
+                    color: IdColors.textColorBlack,
+                    fontWeight: fontWeight,
+                  ),
+            ),
+          ],
         ),
       ),
     );
