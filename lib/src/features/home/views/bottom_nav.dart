@@ -51,6 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           if (currentIndex == value && canpop == true) {
             tabNavKeys[value].currentState!.popUntil((route) => route.isFirst);
           }
+          ref.read(currentIndexProvider.notifier).state = value;
         },
         items: [
           BottomNavigationBarItem(

@@ -86,7 +86,7 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
                 ),
                 error: (error, trace) => const Text('Error'),
                 loading: () => const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator.adaptive(),
                 ),
               ),
             )

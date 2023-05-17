@@ -45,6 +45,7 @@ class _HistoryState extends ConsumerState<History> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
+        centerTitle: false,
       ),
       body: Column(
         children: [

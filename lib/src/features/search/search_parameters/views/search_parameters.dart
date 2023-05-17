@@ -20,13 +20,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 import '../../../../extension/size_config.dart';
 
 import '../../../../router/app_routes.dart';
 import '../../../../utils/date_time_util.dart';
 import '../../../onboarding/widgets/custom_button.dart';
-
 
 class SearchParameters extends StatefulWidget {
   const SearchParameters({super.key});
@@ -64,21 +62,14 @@ class _SearchParametersState extends State<SearchParameters> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            textAlign:TextAlign.start,
-            'Enter Parameters',
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(fontSize: 24),
-                maxLines: 1,
-          ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+          textAlign: TextAlign.start,
+          'Enter Parameters',
+          style:
+              Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
+          maxLines: 1,
         ),
       ),
       body: SingleChildScrollView(
-        
         child: Form(
           key: _formKey,
           child: Column(
@@ -108,7 +99,7 @@ class _SearchParametersState extends State<SearchParameters> {
                 child: CustomTextInput(
                   onTap: () => Utils.showSheet(context,
                       child: buildDatePicker(), onClicked: () {
-                        FocusScope.of(context).requestFocus(FocusNode());
+                    FocusScope.of(context).requestFocus(FocusNode());
 
                     final value = DateFormat('yyyy/MM/dd').format(dateTime);
                     dateController.text = value;
@@ -117,10 +108,10 @@ class _SearchParametersState extends State<SearchParameters> {
                   onSaved: (newValue) => email = newValue,
                   onChanged: (v) {},
                   validator: (v) {
-                       if (v!.isEmpty || v.isEmpty) {
-                 return 'Choose Date';
-               }
-                       return null;
+                    if (v!.isEmpty || v.isEmpty) {
+                      return 'Choose Date';
+                    }
+                    return null;
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
@@ -149,14 +140,14 @@ class _SearchParametersState extends State<SearchParameters> {
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),
-            
             ],
           ),
         ),
       ),
     );
   }
- Widget buildDatePicker() => SizedBox(
+
+  Widget buildDatePicker() => SizedBox(
         height: getProportionateScreenHeight(180),
         child: CupertinoDatePicker(
           minimumYear: 1900,

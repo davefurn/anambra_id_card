@@ -42,7 +42,7 @@ class SettingsView extends ConsumerWidget {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        // leading: SizedBox.shrink(),
+        centerTitle: false,
       ),
       body: ListView(
         physics: const NeverScrollableScrollPhysics(),

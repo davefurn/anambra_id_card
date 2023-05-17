@@ -34,10 +34,7 @@ class FailedScan extends ConsumerWidget {
                 ?.copyWith(fontSize: 24),
             maxLines: 1,
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {},
-          ),
+          
         ),
         body: Center(
             child: Column(

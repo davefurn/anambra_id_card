@@ -31,10 +31,7 @@ class Profile extends StatelessWidget {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+        
       ),
       body: ListView(
         padding: EdgeInsets.only(
