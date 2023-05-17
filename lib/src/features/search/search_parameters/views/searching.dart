@@ -16,16 +16,21 @@ import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../constants/colors.dart';
 import '../../../../widgets/special_button.dart';
 
-class Searching extends StatelessWidget {
+class Searching extends StatefulWidget {
   const Searching({Key? key}) : super(key: key);
 
   @override
+  State<Searching> createState() => _SearchingState();
+}
+
+class _SearchingState extends State<Searching> {
+  bool data = true;
+
+  @override
   Widget build(BuildContext context) {
-    bool data = true;
     return Scaffold(
       appBar: AppBar(
         title: Text(

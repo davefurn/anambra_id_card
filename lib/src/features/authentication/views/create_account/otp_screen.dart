@@ -63,6 +63,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   void dispose() {
     phoneController.dispose();
     emailController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 

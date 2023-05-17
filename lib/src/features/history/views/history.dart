@@ -12,18 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/all_employees/widget/employee_tile.dart';
+import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/riverpod/providers.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:get_time_ago/get_time_ago.dart';
+import 'package:grouped_list/grouped_list.dart';
 import '../../../extension/size_config.dart';
-import '../../home/models/home_model.dart';
 
-class History extends ConsumerWidget {
+class History extends ConsumerStatefulWidget {
   const History({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<History> createState() => _HistoryState();
+}
+
+class _HistoryState extends ConsumerState<History> {
+  @override
+  Widget build(BuildContext context) {
+    var employee = ref.watch(fetchEmployeeProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,42 +45,76 @@ class History extends ConsumerWidget {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            ref.read(currentIndexProvider.notifier).state = 0;
-            ref.read(tabIndexProvider.notifier).state = 0;
-          },
-        ),
       ),
       body: Column(
         children: [
           SizedBox(
             height: getProportionateScreenHeight(20),
           ),
-
           Padding(
             padding: EdgeInsets.only(
               left: getProportionateScreenWidth(20),
               right: getProportionateScreenWidth(237),
             ),
-            child: const SpecialButton(icon:  Icons.calendar_month, text: 'Select date', width: 118, height: 32),
+            child: const SpecialButton(
+                icon: Icons.calendar_month,
+                text: 'Select date',
+                width: 118,
+                height: 32),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(30),
+            height: getProportionateScreenHeight(10),
           ),
-          // SizedBox(
-          //   width: double.maxFinite,
-          //   height: getProportionateScreenHeight(529),
-          //   child: MediaQuery.removePadding(
-          //       context: context,
-          //                 removeTop: true,
-          //     child: ListView.separated(itemBuilder: (){}, separatorBuilder: {}{}, itemCount: 7),
-          //                 ),
-          //               )
-                ],
+          Expanded(
+            child: employee.when(
+              data: (data) => GroupedListView<EmployeeListModel, DateTime>(
+                padding: EdgeInsets.only(
+                  left: getProportionateScreenWidth(20),
+                  right: getProportionateScreenWidth(20),
+                  bottom: getProportionateScreenHeight(100),
+                  top: getProportionateScreenHeight(21),
+                ),
+                elements: data,
+                groupBy: (element) => element.date,
+                groupSeparatorBuilder: (DateTime groupByValue) => Column(
+                  children: [
+                    18.sbH,
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        GetTimeAgo.parse(groupByValue),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                          color: Color(0xff5E6166),
+                        ),
+                      ),
+                    ),
+                    18.sbH,
+                  ],
+                ),
+                itemBuilder: (context, EmployeeListModel element) => Column(
+                  children: [
+                    EmployeeTile(data: element),
+                    8.sbH,
+                    const Divider(
+                      color: IdColors.textColorGrey,
+                      thickness: 1,
+                      height: 20,
+                    )
+                  ],
+                ),
               ),
-                 );
-        
+              error: (error, trace) => const Center(
+                child: Text('Error'),
+              ),
+              loading: () => const Center(
+                child: CircularProgressIndicator.adaptive(),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

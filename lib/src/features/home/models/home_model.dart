@@ -16,4 +16,3 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final currentIndexProvider = StateProvider((ref) => 0);
-final tabIndexProvider = StateProvider((ref) => 0);
