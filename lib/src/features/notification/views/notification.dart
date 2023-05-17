@@ -41,10 +41,7 @@ class _NotificationPState extends ConsumerState<NotificationP> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        // leading: IconButton(
-        //   icon: const Icon(Icons.arrow_back),
-        //   onPressed: () {},
-        // ),
+        centerTitle: false,
       ),
       floatingActionButton: noData == false
           ? null
@@ -57,53 +54,47 @@ class _NotificationPState extends ConsumerState<NotificationP> {
             ),
       body: noData
           ? ListView.builder(
-            padding: EdgeInsets.only(
-              left: getProportionateScreenWidth(20),
-              right: getProportionateScreenWidth(20),
-              bottom: getProportionateScreenHeight(100),
-            ),
-            itemCount: 20,
-            itemBuilder: (context, index) => Material(
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                      width: 1, color: IdColors.backgroundColour),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                leading: const Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Icon(
-                      Icons.info_outline,
-                      color: IdColors.brandBlue,
-                      size: 20,
-                    ),
-                  ],
-                ),
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  'Your data has been updated on national database. ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black),
-                ),
-                subtitle: Text(
-                  'Tap to view update',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyMedium!
-                      .copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: IdColors.textColorBlack),
+              padding: EdgeInsets.only(
+                left: getProportionateScreenWidth(20),
+                right: getProportionateScreenWidth(20),
+                bottom: getProportionateScreenHeight(100),
+              ),
+              itemCount: 20,
+              itemBuilder: (context, index) => Material(
+                child: ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                        width: 1, color: IdColors.backgroundColour),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  leading: const Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.info_outline,
+                        color: IdColors.brandBlue,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    'Your data has been updated on national database. ',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black),
+                  ),
+                  subtitle: Text(
+                    'Tap to view update',
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: IdColors.textColorBlack),
+                  ),
                 ),
               ),
-            ),
-          )
+            )
           : Center(
               child: Image.asset(
                 'assets/images/nothing_here.png',

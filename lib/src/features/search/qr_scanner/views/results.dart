@@ -15,7 +15,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class QrCode extends ConsumerStatefulWidget {
   final String code;
   const QrCode({Key? key, required this.code}) : super(key: key);
@@ -45,12 +44,6 @@ class _QrCodeState extends ConsumerState<QrCode> {
           style:
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
         ),
       ),
       body: _isBusy == true

@@ -115,10 +115,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
+        
       ),
       body: SingleChildScrollView(
         child: Column(

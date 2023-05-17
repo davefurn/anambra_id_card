@@ -21,10 +21,6 @@ class SearchDetails extends StatelessWidget {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -116,7 +112,7 @@ class SearchDetails extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     GestureDetector(
-                                        onTap: () {  
+                                        onTap: () {
                                           const snackBar = SnackBar(
                                               elevation: 0,
                                               backgroundColor:
@@ -131,7 +127,7 @@ class SearchDetails extends StatelessWidget {
                                                 height: 40,
                                                 borderColor: IdColors.green,
                                               ));
-                                              ScaffoldMessenger.of(context)
+                                          ScaffoldMessenger.of(context)
                                               .showSnackBar(snackBar);
 
                                           // Find the ScaffoldMessenger in the widget tree
