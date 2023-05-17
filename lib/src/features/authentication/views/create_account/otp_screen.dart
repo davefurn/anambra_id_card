@@ -23,14 +23,7 @@ import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-<<<<<<< HEAD
-import '../../../onboarding/widgets/custom_button.dart';
-import 'widget/title_widget.dart';
-
-class OtpScreen extends StatefulWidget {
-=======
 class OtpScreen extends ConsumerStatefulWidget {
->>>>>>> 80a8a6d24b5eaae13a64cf1be6de5aa02af10102
   const OtpScreen({Key? key}) : super(key: key);
 
   @override
@@ -70,6 +63,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   void dispose() {
     phoneController.dispose();
     emailController.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
