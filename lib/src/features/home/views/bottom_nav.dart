@@ -22,7 +22,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../settings/views/settings_view.dart';
-import '../models/home_model.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -39,9 +38,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     GlobalKey<NavigatorState>(),
   ];
 
+  int currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
-    final currentIndex = ref.watch(currentIndexProvider);
     SizeConfig().init(context);
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
@@ -51,7 +51,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           if (currentIndex == value && canpop == true) {
             tabNavKeys[value].currentState!.popUntil((route) => route.isFirst);
           }
-          ref.read(currentIndexProvider.notifier).state = value;
+          currentIndex = value;
         },
         items: [
           BottomNavigationBarItem(

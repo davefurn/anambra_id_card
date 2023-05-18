@@ -149,3 +149,52 @@ class _StatusOrderingState extends State<StatusOrdering> {
     );
   }
 }
+
+class DayOrdering extends StatefulWidget {
+  final Function(DayOrder) onSelected;
+  const DayOrdering({
+    super.key,
+    required this.onSelected,
+  });
+
+  @override
+  State<DayOrdering> createState() => _DayOrderingState();
+}
+
+class _DayOrderingState extends State<DayOrdering> {
+  DayOrder value = DayOrder.today;
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: getProportionateScreenWidth(8),
+      children:
+          [DayOrder.today, DayOrder.thisWeek, DayOrder.thisMonth].map((e) {
+        late String text;
+
+        switch (e) {
+          case DayOrder.today:
+            text = 'Today';
+            break;
+          case DayOrder.thisWeek:
+            text = 'This Week';
+            break;
+          case DayOrder.thisMonth:
+            text = 'This Month';
+            break;
+          default:
+        }
+        return InkWell(
+          onTap: () {
+            setState(() => value = e);
+            widget.onSelected(e);
+          },
+          child: SpecialButton2(
+            text: text,
+            backgroundColor: value == e ? IdColors.mainColor : null,
+            borderColor: value == e ? Colors.transparent : null,
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
