@@ -94,7 +94,7 @@ class _StatisticsViewState extends State<StatisticsView> {
                 'How many times were the scan and search methods used?',
             pairs: [
               StatisticsPair(
-                name: 'QRCode ',
+                name: 'QRCode',
                 value: 10,
               ),
               StatisticsPair(
