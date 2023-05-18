@@ -19,3 +19,13 @@ class EmployeeListModel {
     );
   }
 }
+
+class StatisticsPair {
+  final String name;
+  final int value;
+
+  StatisticsPair({
+    required this.name,
+    required this.value,
+  });
+}

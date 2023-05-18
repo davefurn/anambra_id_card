@@ -17,7 +17,9 @@ import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/home/views/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
+import 'package:acmc/src/features/statistics/view/view.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -201,9 +203,10 @@ class _HomeState extends State<Home> {
                               color: IdColors.textColorGrey,
                             ),
                       ),
+                      8.sbW,
                       const Icon(
                         Icons.arrow_forward_ios,
-                        size: 8,
+                        size: 10,
                         color: IdColors.textColorYellow,
                       )
                     ],
@@ -314,23 +317,28 @@ class _HomeState extends State<Home> {
                           color: IdColors.textColorGrey,
                         ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'More',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: IdColors.textColorGrey,
-                            ),
-                      ),
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 8,
-                        color: IdColors.textColorYellow,
-                      )
-                    ],
+                  InkWell(
+                    onTap: () => pushTo(context, const StatisticsView()),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'More',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14,
+                                    color: IdColors.textColorGrey,
+                                  ),
+                        ),
+                        4.sbW,
+                        const Icon(
+                          Icons.arrow_forward_ios,
+                          size: 10,
+                          color: IdColors.textColorYellow,
+                        )
+                      ],
+                    ),
                   )
                 ],
               ),
