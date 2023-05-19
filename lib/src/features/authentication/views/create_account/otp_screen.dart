@@ -115,7 +115,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -201,14 +200,14 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                               : () async {
                                   resend();
                                   otpFormKey.currentState!.validate();
-                                  setState(() {
-                                    if (isResendAgain1) {
-                                      buttonName ==
-                                          'Try again in $_start seconds';
-                                    } else {
-                                      buttonName = 'Send';
-                                    }
-                                  });
+
+                                  if (isResendAgain1) {
+                                    buttonName ==
+                                        'Try again in $_start seconds';
+                                  } else {
+                                    buttonName = 'Send';
+                                  }
+
                                   // await authClass.verifyPhoneNumber(
                                   //     "+91 ${phoneController.text}",
                                   //     context,
@@ -253,15 +252,15 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         horizontal: getProportionateScreenWidth(20)),
                     child: TextFormField(
                       onChanged: (value) {
-                        if (value.isNotEmpty || !isResendAgain1) {
-                          removeError(error: kOtpError);
-                        }
+                        // if (value.isNotEmpty || !isResendAgain1) {
+                        //   removeError(error: kOtpError);
+                        // }
                       },
                       validator: (value) {
-                        if (value!.isEmpty || isResendAgain1) {
-                          addError(error: kOtpError);
-                          return "Try again in $_start seconds";
-                        }
+                        // if (value!.isEmpty || isResendAgain1) {
+                        //   addError(error: kOtpError);
+                        //   return "Try again in $_start seconds";
+                        // }
                         return null;
                       },
                       controller: emailController,
@@ -315,7 +314,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       onPressed: () async {
                         if (otpFormKey.currentState!.validate()) {
                           verify();
-                          pushTo(context, const PasswordInput());
+                          Future.delayed(const Duration(seconds: 1));
+                          // pushTo(context, const PasswordInput());
                         }
                       },
                       color: IdColors.mainColor,

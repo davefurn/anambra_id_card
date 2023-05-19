@@ -13,50 +13,50 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/create_account_2.dart';
-
+import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
-
+import 'package:acmc/src/utils/date_time_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
+import 'controller/navigation_controller.dart';
 
-class CreateAccount extends StatefulWidget {
-  const CreateAccount({super.key});
+class CreateAccount2 extends StatefulWidget {
+  const CreateAccount2({super.key});
 
   @override
-  State<CreateAccount> createState() => _CreateAccountState();
+  State<CreateAccount2> createState() => _CreateAccount2State();
 }
 
-class _CreateAccountState extends State<CreateAccount> {
+class _CreateAccount2State extends State<CreateAccount2> {
   DateTime dateTime = DateTime.now();
   String? email;
-  String? phoneNumber;
+  String? password;
   final _formKey = GlobalKey<FormState>();
-  String initialCountry = 'NG';
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
 
   final bool _validate = false;
-  late TextEditingController emailController;
-  late TextEditingController phoneNumberController;
+  late TextEditingController staffIdController;
+  late TextEditingController dateController;
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
-    phoneNumberController = TextEditingController();
+    dateController = TextEditingController();
+    staffIdController = TextEditingController();
   }
 
   @override
   void dispose() {
-    emailController.dispose();
-    phoneNumberController.dispose();
+    staffIdController.dispose();
+    dateController.dispose();
     super.dispose();
   }
 
@@ -70,64 +70,13 @@ class _CreateAccountState extends State<CreateAccount> {
           child: Column(
             children: [
               TitleWidget(
-                text: 'Create Account 1/2',
+                text: 'Create Account 2/2',
                 pDleft: getProportionateScreenWidth(20),
                 height: getProportionateScreenHeight(36),
                 fontSize: 24,
               ),
               SizedBox(
                 height: getProportionateScreenHeight(32),
-              ),
-              Padding(
-                padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(20),
-                    right: getProportionateScreenWidth(20)),
-                child: InternationalPhoneNumberInput(
-                  spaceBetweenSelectorAndTextField: 0,
-                  onInputChanged: (PhoneNumber number) {
-                    print(number.phoneNumber);
-                  },
-                  onInputValidated: (bool value) {
-                    print(value);
-                  },
-                  textStyle: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                    height: 1,
-                    color: Color(0xFF1F2937),
-                  ),
-                  inputDecoration: InputDecoration(
-                    // contentPadding: EdgeInsets.symmetric(
-                    //   vertical: 15.h,
-                    //   horizontal: prefix != null ? 15.w : 12.w,
-                    // ),
-                    hintText: 'Phone Number',
-                    hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          color: IdColors.hintTextColor,
-                        ),
-                    fillColor: IdColors.subColor,
-                    filled: true,
-                  ),
-                  selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: const TextStyle(color: Colors.black),
-                  initialValue: number,
-                  textFieldController: phoneNumberController,
-                  formatInput: true,
-                  keyboardType: const TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
-                  },
-                ),
-              ),
-              SizedBox(
-                height: getProportionateScreenHeight(16),
               ),
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
@@ -136,22 +85,83 @@ class _CreateAccountState extends State<CreateAccount> {
                   return null;
                 },
                 validate: _validate,
-                textInputAction: TextInputAction.done,
-                titleText: 'Email',
-                keyboardType: TextInputType.emailAddress,
-                controller: emailController,
+                textInputAction: TextInputAction.next,
+                titleText: 'Surname',
+                keyboardType: TextInputType.number,
+                controller: staffIdController,
                 prefixIcon: Icons.email,
+              ),
+              SizedBox(
+                height: getProportionateScreenHeight(16),
+              ),
+              Padding(
+                padding:
+                    EdgeInsets.only(right: getProportionateScreenWidth(184)),
+                child: CustomTextInput(
+                  onTap: () => Utils.showSheet(context,
+                      child: buildDatePicker(), onClicked: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+
+                    final value = DateFormat('yyyy/MM/dd').format(dateTime);
+                    dateController.text = value;
+                    Navigator.pop(context);
+                  }),
+                  onSaved: (newValue) => email = newValue,
+                  onChanged: (v) {},
+                  validator: (v) {
+                    if (v!.isEmpty || v.isEmpty) {
+                      return 'Choose Date';
+                    }
+                    return null;
+                  },
+                  validate: _validate,
+                  textInputAction: TextInputAction.next,
+                  titleText: 'Date of birth',
+                  hintText: "dd/mm/yyyy",
+                  suffixIcon: IconButton(
+                    icon: const Icon(
+                      Icons.calendar_month,
+                      color: IdColors.hintTextColor,
+                    ),
+                    onPressed: () {},
+                  ),
+                  keyboardType: TextInputType.none,
+                  controller: dateController,
+                  prefixIcon: Icons.email,
+                ),
               ),
               SizedBox(
                 height: getProportionateScreenHeight(24),
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () {
-                   Navigator.of(context)
-                      .push(CustomRoutes.slideIn(const CreateAccount2()));
+                onpressed: () async {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return const Center(
+                        child: SizedBox(
+                            height: 24,
+                            width: 24,
+                            child: CircularProgressIndicator()),
+                      );
+                    },
+                  );
+
+                  // Navigate to the new page.
+
+                  await Future.delayed(const Duration(seconds: 1), () {
+                    Navigator.pop(context); 
+                    pushTo(context, const OtpScreen());
+                  });
+                  
+
+                  // Hide the loading indicator.
+                
+                
                 },
-                text: 'Next',
+                text: 'Create Account',
                 textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
@@ -169,10 +179,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 text1: 'Already have an account?',
-                onTap: () {
-                  Navigator.of(context)
-                      .pushReplacement(CustomRoutes.slideIn(const Login()));
-                },
+                onTap: () => pushReplacementTo(context, const Login()),
                 text2: 'Log in',
                 textColor: IdColors.textColorBlack,
                 textColor2: IdColors.textColorYellow,
@@ -226,4 +233,16 @@ class _CreateAccountState extends State<CreateAccount> {
       ),
     );
   }
+
+  Widget buildDatePicker() => SizedBox(
+        height: getProportionateScreenHeight(180),
+        child: CupertinoDatePicker(
+          minimumYear: 1900,
+          maximumYear: DateTime.now().year,
+          initialDateTime: dateTime,
+          mode: CupertinoDatePickerMode.date,
+          onDateTimeChanged: (dateTime) =>
+              setState(() => this.dateTime = dateTime),
+        ),
+      );
 }

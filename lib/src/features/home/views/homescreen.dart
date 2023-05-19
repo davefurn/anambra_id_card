@@ -64,6 +64,7 @@ class _HomeState extends State<Home> {
     SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
             top: getProportionateScreenHeight(80)),
@@ -218,7 +219,8 @@ class _HomeState extends State<Home> {
               height: getProportionateScreenHeight(10),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(79),
+               height: getProportionateScreenHeight(90),
+                
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
@@ -227,8 +229,6 @@ class _HomeState extends State<Home> {
                     itemCount: 8,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: getProportionateScreenHeight(79),
-                        width: getProportionateScreenWidth(153),
                         decoration: BoxDecoration(
                           color: IdColors.mainGrey,
                           borderRadius: BorderRadius.circular(8),
@@ -240,7 +240,7 @@ class _HomeState extends State<Home> {
                           vertical: getProportionateScreenHeight(8),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -347,7 +347,7 @@ class _HomeState extends State<Home> {
               height: getProportionateScreenHeight(10),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(54),
+               height: getProportionateScreenHeight(60),
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
@@ -356,8 +356,6 @@ class _HomeState extends State<Home> {
                     itemCount: 8,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: getProportionateScreenHeight(54),
-                        width: getProportionateScreenWidth(78),
                         decoration: BoxDecoration(
                           color: IdColors.mainGrey,
                           borderRadius: BorderRadius.circular(8),
@@ -369,7 +367,7 @@ class _HomeState extends State<Home> {
                           vertical: getProportionateScreenHeight(6),
                         ),
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
@@ -391,6 +389,7 @@ class _HomeState extends State<Home> {
                     }),
               ),
             ),
+            
             SizedBox(
               height: getProportionateScreenHeight(40.5),
             ),
@@ -402,6 +401,15 @@ class _HomeState extends State<Home> {
                 ),
                 child: const SpecialButton2(
                   text: 'View all employees',
+                ),
+              ),
+            ),
+            14.5.sbH,
+            Center(
+              child: InkWell(
+                onTap: () {},
+                child: const SpecialButton2(
+                  text: 'Search MDAs',
                 ),
               ),
             ),
