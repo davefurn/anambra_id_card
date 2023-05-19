@@ -45,7 +45,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   verify() {
     ref.read(isLoading.notifier).state = true;
 
-    const oneSec = Duration(milliseconds: 2000);
+    const oneSec = Duration(milliseconds: 1000);
     _timer = Timer.periodic(oneSec, (timer) {
       ref.read(isLoading.notifier).state = false;
       ref.read(isVerified.notifier).state = true;
@@ -313,9 +313,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       elevation: 0,
                       onPressed: () async {
                         if (otpFormKey.currentState!.validate()) {
-                          verify();
-                          Future.delayed(const Duration(seconds: 1));
-                          // pushTo(context, const PasswordInput());
+                          await verify();
+                          Future.delayed(const Duration(seconds: 1), () async {
+                            pushTo(context, const PasswordInput());
+                          });
+                          
                         }
                       },
                       color: IdColors.mainColor,
