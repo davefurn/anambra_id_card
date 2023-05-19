@@ -153,7 +153,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
 
                   await Future.delayed(const Duration(seconds: 1), () {
                     Navigator.pop(context); 
-                    pushTo(context, const OtpScreen());
+                    pushReplacementTo(context, const OtpScreen());
                   });
                   
 
