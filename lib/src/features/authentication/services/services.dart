@@ -21,3 +21,6 @@ final isVerified = StateProvider<bool>((ref) => false);
 final errors = StateProvider<List<String?>>(
   (ref) => [],
 );
+final errorColor = StateProvider<bool>((ref) => false);
+
+
