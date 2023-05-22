@@ -33,24 +33,26 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late TextEditingController passwordController;
+   bool isVisible = false;
   String? email;
   String? password;
   final _formKey = GlobalKey<FormState>();
 
   final bool _validate = false;
-  late TextEditingController staffIdController;
-  late TextEditingController dateController;
+  late TextEditingController emailController;
+  
   @override
   void initState() {
     super.initState();
-    dateController = TextEditingController();
-    staffIdController = TextEditingController();
+    passwordController = TextEditingController();
+    emailController = TextEditingController();
   }
 
   @override
   void dispose() {
-    staffIdController.dispose();
-    dateController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
     super.dispose();
   }
 
@@ -80,38 +82,40 @@ class _LoginState extends State<Login> {
                 },
                 validate: _validate,
                 textInputAction: TextInputAction.next,
-                titleText: 'Staff ID',
-                keyboardType: TextInputType.number,
-                controller: staffIdController,
+                titleText: 'Email',
+                keyboardType: TextInputType.emailAddress,
+                controller: emailController,
                 prefixIcon: Icons.email,
               ),
               SizedBox(
                 height: getProportionateScreenHeight(16),
               ),
-              Padding(
-                padding:
-                    EdgeInsets.only(right: getProportionateScreenWidth(184)),
-                child: CustomTextInput(
-                  onSaved: (newValue) => email = newValue,
-                  onChanged: (v) {},
-                  validator: (v) {
-                    return null;
-                  },
-                  validate: _validate,
-                  textInputAction: TextInputAction.next,
-                  titleText: 'Date of birth',
-                  hintText: "dd/mm/yyyy",
-                  suffixIcon: IconButton(
-                    icon: const Icon(
-                      Icons.calendar_month,
-                      color: IdColors.hintTextColor,
-                    ),
-                    onPressed: () {},
-                  ),
-                  keyboardType: TextInputType.datetime,
-                  controller: dateController,
-                  prefixIcon: Icons.email,
-                ),
+              CustomTextInput(
+              onSaved: (newValue) => password = newValue,
+              onChanged: (v) {},
+              validator: (v) {
+                return null;
+              },
+              validate: _validate,
+              hintText: 'Enter a minimum of 8 characters',
+              textInputAction: TextInputAction.done,
+              titleText: 'Password',
+               enableSuggestions: false,
+               obscureText: isVisible ? false : true,
+              keyboardType: TextInputType.visiblePassword,
+              controller: passwordController,
+              suffixIcon: IconButton(
+              icon: Icon(
+                isVisible ? Icons.visibility : Icons.visibility_off,
+                color: IdColors.textColorGrey,
+              ),
+              onPressed: () {
+                setState(() {
+                  isVisible = !isVisible;
+                });
+              },
+              ),
+              
               ),
               SizedBox(
                 height: getProportionateScreenHeight(24),

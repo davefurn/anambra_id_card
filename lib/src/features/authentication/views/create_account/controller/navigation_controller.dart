@@ -12,15 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
+import 'package:acmc/src/features/authentication/services/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final isResendAgain = StateProvider<bool>((ref) => false);
+final loadingProvider = StateProvider<bool>((ref) => false);
 
-final isLoading = StateProvider<bool>((ref) => false);
-final isVerified = StateProvider<bool>((ref) => false);
-final errors = StateProvider<List<String?>>(
-  (ref) => [],
-);
-final errorColor = StateProvider<bool>((ref) => false);
-
-
+final timerProvidr = StreamProvider<int>((ref) async* {
+  late Timer _timer;
+  int start = 60;
+  const oneSec = Duration(seconds: 1);
+  _timer = Timer.periodic(oneSec, (timer) {
+    if (start == 0) {
+      start = 60;
+      ref.read(isResendAgain.notifier).state = false;
+      timer.cancel();
+    } else {
+      start--;
+    }
+  });
+  yield start;
+});

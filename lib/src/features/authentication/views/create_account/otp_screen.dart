@@ -32,20 +32,22 @@ class OtpScreen extends ConsumerStatefulWidget {
 
 class _OtpScreenState extends ConsumerState<OtpScreen> {
   final otpFormKey = GlobalKey<FormState>();
+  int _start = 60;
+
+  late String text = "Sending code in $_start seconds";
 
   late TextEditingController phoneController;
   late TextEditingController emailController;
   // final List<String?> errors = [];
 
-  String buttonName = "Send";
+  String buttonName = "Resend code";
 
   late Timer _timer;
-  int _start = 60;
 
   verify() {
     ref.read(isLoading.notifier).state = true;
 
-    const oneSec = Duration(milliseconds: 2000);
+    const oneSec = Duration(milliseconds: 1000);
     _timer = Timer.periodic(oneSec, (timer) {
       ref.read(isLoading.notifier).state = false;
       ref.read(isVerified.notifier).state = true;
@@ -73,6 +75,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     final isVerified1 = ref.watch(isVerified);
     final isLoading1 = ref.watch(isLoading);
     final errors1 = ref.watch(errors);
+    final errorColor1 = ref.watch(errorColor);
 
     void addError({String? error}) {
       if (!errors1.contains(error)) {
@@ -115,7 +118,6 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -175,16 +177,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         horizontal: getProportionateScreenWidth(20)),
                     child: TextFormField(
                       onChanged: (value) {
-                        if (value.isNotEmpty || !isResendAgain1) {
-                          removeError(error: kOtpError);
-                        }
+                        // if (value.isNotEmpty || !isResendAgain1) {
+                        //   removeError(error: kOtpError);
+                        // }
                       },
                       validator: (value) {
-                        if (value!.isEmpty || isResendAgain1) {
-                          addError(error: kOtpError);
-                          return "Try again in $_start seconds";
-                        }
-                        return null;
+                        // if (value!.isEmpty || isResendAgain1) {
+                        //   addError(error: kOtpError);
+                        //   return "Try again in $_start seconds";
+                        // }
+                        // return null;
                       },
                       controller: phoneController,
                       style: const TextStyle(
@@ -198,17 +200,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         suffixIcon: InkWell(
                           onTap: isResendAgain1
                               ? null
-                              : () async {
+                              : () {
                                   resend();
-                                  otpFormKey.currentState!.validate();
-                                  setState(() {
-                                    if (isResendAgain1) {
-                                      buttonName ==
-                                          'Try again in $_start seconds';
-                                    } else {
-                                      buttonName = 'Send';
-                                    }
-                                  });
+
                                   // await authClass.verifyPhoneNumber(
                                   //     "+91 ${phoneController.text}",
                                   //     context,
@@ -231,6 +225,28 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       ),
                     ),
                   ),
+                  isResendAgain1 == true
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                              right: getProportionateScreenWidth(20),
+                              top: getProportionateScreenHeight(8)),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              text,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: errorColor1 == true
+                                          ? IdColors.failureColor
+                                          : IdColors.mainColor),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                   SizedBox(
                     height: getProportionateScreenHeight(16),
                   ),
@@ -253,16 +269,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         horizontal: getProportionateScreenWidth(20)),
                     child: TextFormField(
                       onChanged: (value) {
-                        if (value.isNotEmpty || !isResendAgain1) {
-                          removeError(error: kOtpError);
-                        }
+                        // if (value.isNotEmpty || !isResendAgain1) {
+                        //   removeError(error: kOtpError);
+                        // }
                       },
                       validator: (value) {
-                        if (value!.isEmpty || isResendAgain1) {
-                          addError(error: kOtpError);
-                          return "Try again in $_start seconds";
-                        }
-                        return null;
+                        // if (value!.isEmpty || isResendAgain1) {
+                        //   addError(error: kOtpError);
+                        //   return "Try again in $_start seconds";
+                        // }
+                        // return null;
                       },
                       controller: emailController,
                       style: const TextStyle(
@@ -277,12 +293,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         suffixIcon: InkWell(
                           onTap: isResendAgain1
                               ? null
-                              : () async {
+                              : () {
                                   resend();
                                   otpFormKey.currentState!.validate();
-                                  buttonName = isResendAgain1
-                                      ? "Try again in $_start seconds"
-                                      : "Send";
+
                                   // await authClass.verifyPhoneNumber(
                                   //     "+91 ${phoneController.text}",
                                   //     context,
@@ -305,6 +319,28 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       ),
                     ),
                   ),
+                  isResendAgain1 == true
+                      ? Padding(
+                          padding: EdgeInsets.only(
+                              right: getProportionateScreenWidth(20),
+                              top: getProportionateScreenHeight(8)),
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                             errorColor1 == true ? 'incorrect otp' : text,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                      color: errorColor1 == true
+                                          ? IdColors.failureColor
+                                          : IdColors.mainColor),
+                            ),
+                          ),
+                        )
+                      : const SizedBox.shrink(),
                   SizedBox(
                     height: getProportionateScreenHeight(24),
                   ),
@@ -314,8 +350,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       elevation: 0,
                       onPressed: () async {
                         if (otpFormKey.currentState!.validate()) {
-                          verify();
-                          pushTo(context, const PasswordInput());
+                          await verify();
+                          Future.delayed(const Duration(seconds: 1), () async {
+                            pushTo(context, const PasswordInput());
+                          });
                         }
                       },
                       color: IdColors.mainColor,

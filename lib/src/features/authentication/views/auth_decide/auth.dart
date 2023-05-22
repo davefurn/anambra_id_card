@@ -49,9 +49,7 @@ class Auth extends StatelessWidget {
             children: [
               CustomButton(
                 text: "Create account",
-                onpressed: () {
-                  pushTo(context, const CreateAccount());
-                },
+                onpressed: () => pushTo(context, const CreateAccount()),
                 thickLine: 1,
               ),
               SizedBox(
@@ -73,7 +71,10 @@ class Auth extends StatelessWidget {
                 ),
                 child: OnClickToNewPage(
                   text1: "Already have an account?",
-                  onTap: () => pushTo(context, const Login()),
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(CustomRoutes.fadeIn(const Login()));
+                  },
                   text2: "Log in",
                   textColor: IdColors.textColorGrey,
                   textColor2: IdColors.textColorYellow,

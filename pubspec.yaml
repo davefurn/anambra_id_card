@@ -42,9 +42,12 @@ dependencies:
   get_time_ago: ^1.2.2
   grouped_list: ^5.1.2
   intl: ^0.18.1
+  intl_phone_number_input: ^0.7.1
   keyboard_dismisser: ^3.0.0
+  lottie: ^2.3.2
   package_info_plus: ^4.0.0
   riverpod: ^2.3.4
+  shared_preferences: ^2.1.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -76,6 +79,7 @@ flutter:
   assets:
     - assets/images/
     - assets/svgs/
+    - assets/lottie/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
