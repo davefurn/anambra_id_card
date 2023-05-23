@@ -18,6 +18,7 @@ import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/home/views/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/features/statistics/view/view.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
@@ -30,13 +31,15 @@ import '../../search/qr_scanner/views/failed_screen.dart';
 import '../../search/qr_scanner/views/results.dart';
 
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  final AccessLevel? accessLevel;
+  const Home({Key? key, this.accessLevel}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  var accessLevel = AccessLevel.none;
   Future scanBarcode() async {
     String? scanResult;
     try {
@@ -58,6 +61,18 @@ class _HomeState extends State<Home> {
       pushTo(context, const FailedScan());
     }
     if (!mounted) {}
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.accessLevel == null) {
+        Future.delayed(const Duration(microseconds: 1),
+            () => setState(() => accessLevel = AccessLevel.demo));
+      }
+    });
   }
 
   @override
@@ -138,135 +153,128 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 4.h,
             ),
-            GridView.count(
-              crossAxisCount: 2,
-              shrinkWrap: true,
-              childAspectRatio: 160.h / 144.h,
-              crossAxisSpacing: 16.w,
-              padding: EdgeInsets.only(right: 20.w),
-              children: [
-                InkWell(
-                  onTap: () {
-                    pushTo(context, const SearchParameters());
-                  },
-                  child: const QueryContainer(
-                    colors: [
-                      Color(0xffF3CA39),
-                      Color(0xffE0523F),
-                    ],
-                    description: 'Manually search\ndatabase with inputs',
-                    svgAsset: 'assets/svgs/search.svg',
-                    svgAssetText: 'Search',
+            SizedBox(
+              height: 144.h,
+              child: GridView.count(
+                crossAxisCount: 2,
+                childAspectRatio: 160.h / 144.h,
+                crossAxisSpacing: 16.w,
+                padding: EdgeInsets.only(right: 20.w),
+                children: [
+                  InkWell(
+                    onTap: () {
+                      pushTo(context, const SearchParameters());
+                    },
+                    child: const QueryContainer(
+                      colors: [
+                        Color(0xffF3CA39),
+                        Color(0xffE0523F),
+                      ],
+                      description: 'Manually search\ndatabase with inputs',
+                      svgAsset: 'assets/svgs/search.svg',
+                      svgAssetText: 'Search',
+                    ),
                   ),
-                ),
-                InkWell(
-                  onTap: scanBarcode,
-                  child: const QueryContainer(
-                    colors: [
-                      Color(0xff63DBE2),
-                      Color(0xff2E7CC3),
-                    ],
-                    description: 'Use your camera to capture the QR code ',
-                    svgAsset: 'assets/svgs/scan_qr.svg',
-                    svgAssetText: 'Scan QR code',
+                  InkWell(
+                    onTap: scanBarcode,
+                    child: const QueryContainer(
+                      colors: [
+                        Color(0xff63DBE2),
+                        Color(0xff2E7CC3),
+                      ],
+                      description: 'Use your camera to capture the QR code ',
+                      svgAsset: 'assets/svgs/scan_qr.svg',
+                      svgAssetText: 'Scan QR code',
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(
               height: 26.h,
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Recently searched',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: IdColors.textColorGrey,
-                        ),
-                  ),
-                  SizedBox(
-                    width: 5.73.w,
-                  ),
-                  Row(
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(right: 20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'More',
+                        'Recently searched',
                         style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                               fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: IdColors.textColorGrey,
                             ),
                       ),
-                      8.sbW,
-                      const Icon(
-                        Icons.arrow_forward_ios,
-                        size: 10,
-                        color: IdColors.textColorYellow,
+                      SizedBox(
+                        width: 5.73.w,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'More',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  color: IdColors.textColorGrey,
+                                ),
+                          ),
+                          8.sbW,
+                          const Icon(
+                            Icons.arrow_forward_ios,
+                            size: 10,
+                            color: IdColors.textColorYellow,
+                          )
+                        ],
                       )
                     ],
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            SizedBox(
-              height: 90.h,
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: IdColors.mainGrey,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        margin: EdgeInsets.only(right: 8.w),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16.w,
-                          vertical: 8.h,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'James Nganhjsdhsfefd feer`',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                SizedBox(
+                  height: 90.h,
+                  child: MediaQuery.removePadding(
+                    context: context,
+                    removeTop: true,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 8,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: IdColors.mainGrey,
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            Text(
-                              'Jamesngannou@gmail.com.uk.`',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 14,
-                                      color: IdColors.textColorGrey),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            margin: EdgeInsets.only(right: 8.w),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 8.h,
                             ),
-                            Row(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'status: ',
+                                  'James Nganhjsdhsfefd feer`',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  'Jamesngannou@gmail.com.uk.`',
                                   style: Theme.of(context)
                                       .textTheme
                                       .bodyMedium!
@@ -277,49 +285,57 @@ class _HomeState extends State<Home> {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                Text(
-                                  'active',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14,
-                                          color: IdColors.failureColor),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
+                                Row(
+                                  children: [
+                                    Text(
+                                      'status: ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: IdColors.textColorGrey),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      'active',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: IdColors.failureColor),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
-                      );
-                    }),
-              ),
-            ),
-            SizedBox(
-              height: 26.h,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Statistics',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: IdColors.textColorGrey,
-                        ),
+                          );
+                        }),
                   ),
-                  InkWell(
-                    onTap: () => pushTo(context, const StatisticsView()),
+                ),
+                SizedBox(
+                  height: 26.h,
+                ),
+              ],
+            ),
+            /////////
+            if ([AccessLevel.admin, AccessLevel.auditor, AccessLevel.demo]
+                .contains(accessLevel))
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 20.w),
                     child: Row(
-                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'More',
+                          'Statistics',
                           style:
                               Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontWeight: FontWeight.w600,
@@ -327,86 +343,112 @@ class _HomeState extends State<Home> {
                                     color: IdColors.textColorGrey,
                                   ),
                         ),
-                        4.sbW,
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          size: 10,
-                          color: IdColors.textColorYellow,
+                        InkWell(
+                          onTap: () => pushTo(context, const StatisticsView()),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
+                                'More',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                      color: IdColors.textColorGrey,
+                                    ),
+                              ),
+                              4.sbW,
+                              const Icon(
+                                Icons.arrow_forward_ios,
+                                size: 10,
+                                color: IdColors.textColorYellow,
+                              )
+                            ],
+                          ),
                         )
                       ],
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  SizedBox(
+                    height: 60.h,
+                    child: MediaQuery.removePadding(
+                      context: context,
+                      removeTop: true,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 8,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                color: IdColors.mainGrey,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              margin: EdgeInsets.only(right: 4.w),
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 12.w,
+                                vertical: 6.h,
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Active',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14,
+                                        ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const Text('data'),
+                                ],
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40.5.h,
+                  ),
                 ],
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            SizedBox(
-              height: 60.h,
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: IdColors.mainGrey,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        margin: EdgeInsets.only(right: 4.w),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.w,
-                          vertical: 6.h,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Active',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14,
-                                  ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            const Text('data'),
-                          ],
-                        ),
-                      );
-                    }),
+            /////////
+            if ([AccessLevel.admin, AccessLevel.demo].contains(accessLevel))
+              Column(
+                children: [
+                  Center(
+                    child: InkWell(
+                      onTap: () => pushTo(
+                        context,
+                        const AllEmployee(),
+                      ),
+                      child: const SpecialButton2(
+                        text: 'View all employees',
+                      ),
+                    ),
+                  ),
+                  14.5.sbH,
+                ],
               ),
-            ),
-            SizedBox(
-              height: 40.5.h,
-            ),
-            Center(
-              child: InkWell(
-                onTap: () => pushTo(
-                  context,
-                  const AllEmployee(),
-                ),
-                child: const SpecialButton2(
-                  text: 'View all employees',
+            ////////
+            if ([AccessLevel.auditor, AccessLevel.demo].contains(accessLevel))
+              Center(
+                child: InkWell(
+                  onTap: () {},
+                  child: const SpecialButton2(
+                    text: 'Search MDAs',
+                  ),
                 ),
               ),
-            ),
-            14.5.sbH,
-            Center(
-              child: InkWell(
-                onTap: () {},
-                child: const SpecialButton2(
-                  text: 'Search MDAs',
-                ),
-              ),
-            ),
           ],
         ),
       ),

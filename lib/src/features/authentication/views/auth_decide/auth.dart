@@ -16,8 +16,9 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/auth_decide/widgets/click_to_new_page.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
-
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +58,8 @@ class Auth extends StatelessWidget {
               ),
               CustomButton(
                 text: 'Use as guest',
-                onpressed: () {},
+                onpressed: () => pushTo(
+                    context, const HomeScreen(accessLevel: AccessLevel.guest)),
                 thickLine: 1,
                 color: IdColors.backgroundColour,
                 borderColor: IdColors.subColor,
@@ -72,8 +74,7 @@ class Auth extends StatelessWidget {
                 child: OnClickToNewPage(
                   text1: "Already have an account?",
                   onTap: () {
-                    Navigator.of(context)
-                        .push(CustomRoutes.fadeIn(const Login()));
+                    pushTo(context, const Login());
                   },
                   text2: "Log in",
                   textColor: IdColors.textColorGrey,

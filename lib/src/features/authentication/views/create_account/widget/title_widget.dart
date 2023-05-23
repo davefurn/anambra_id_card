@@ -45,18 +45,14 @@ class TitleWidget extends StatelessWidget {
       ),
       child: Align(
         alignment: Alignment.topLeft,
-        child: SizedBox(
-          width: width ?? 181.w,
-          height: height ?? 36.h,
-          child: Text(
-            textAlign: textAlign ?? TextAlign.start,
-            text,
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(fontSize: fontSize ?? 28),
-            maxLines: 1,
-          ),
+        child: Text(
+          text,
+          textAlign: textAlign ?? TextAlign.start,
+          style: Theme.of(context)
+              .textTheme
+              .headlineLarge
+              ?.copyWith(fontSize: fontSize ?? 28),
+          maxLines: 1,
         ),
       ),
     );

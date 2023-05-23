@@ -185,13 +185,16 @@ class _SearchingState extends State<Searching> {
                                       ),
                                       Align(
                                         alignment: Alignment.centerRight,
-                                        child: InkWell(
-                                          onTap: () => pushTo(
-                                            context,
-                                            const SearchDetails(),
-                                          ),
-                                          child: const SpecialButton2(
-                                            text: 'View all details',
+                                        child: Hero(
+                                          tag: 1,
+                                          child: InkWell(
+                                            onTap: () => pushTo(
+                                              context,
+                                              const SearchDetails(),
+                                            ),
+                                            child: const SpecialButton2(
+                                              text: 'View all details',
+                                            ),
                                           ),
                                         ),
                                       )
