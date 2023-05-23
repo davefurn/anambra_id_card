@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 import '../../authentication/views/auth_decide/auth.dart';
@@ -25,7 +25,6 @@ class Onboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -40,7 +39,7 @@ class Onboard extends StatelessWidget {
             ),
           ),
         ),
-        padding: EdgeInsets.only(bottom:110.h),
+        padding: EdgeInsets.only(bottom: 110.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [

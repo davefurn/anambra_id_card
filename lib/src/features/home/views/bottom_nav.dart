@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
+
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
@@ -42,7 +42,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         currentIndex: currentIndex,

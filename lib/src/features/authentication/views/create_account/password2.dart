@@ -16,9 +16,10 @@ import 'package:acmc/src/features/authentication/views/create_account/success_pa
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../constants/colors.dart';
-import '../../../../extension/size_config.dart';
+
 import '../../../../router/app_routes.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 

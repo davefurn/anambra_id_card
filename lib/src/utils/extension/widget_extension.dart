@@ -1,12 +1,12 @@
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 extension WidgetExtensionss on num {
   Widget get sbH => SizedBox(
-        height: getProportionateScreenWidth(4)(toDouble()),
+        height: h,
       );
 
   Widget get sbW => SizedBox(
-        width: getProportionateScreenWidth(toDouble()),
+        width: w,
       );
 }

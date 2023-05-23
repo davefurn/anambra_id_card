@@ -14,9 +14,9 @@
 
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
-import '../extension/size_config.dart';
 
 class SpecialButton2 extends StatelessWidget {
   final String text;
@@ -45,9 +45,7 @@ class SpecialButton2 extends StatelessWidget {
           border: Border.all(color: borderColor ?? IdColors.subColor),
           color: backgroundColor ?? IdColors.backgroundColour,
           borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(
-          horizontal: 12.w,
-          vertical: 7.h ),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
       // alignment: Alignment.center,
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -64,9 +62,8 @@ class SpecialButton2 extends StatelessWidget {
             text,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 14,
-                  color: textColor ??
-                      selectedTextColor ??
-                      IdColors.textColorGrey,
+                  color:
+                      textColor ?? selectedTextColor ?? IdColors.textColorGrey,
                   fontWeight: FontWeight.w600,
                 ),
           ),

@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../extension/size_config.dart';
 import '../features/authentication/views/create_account/widget/title_widget.dart';
 import '../router/app_routes.dart';
 
@@ -31,9 +31,9 @@ class TitleWithBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: 20.w
-          top: 61.h,
-          right: 0),
+        left: 20.w,
+        top: 61.h,
+      ),
       child: Row(
         children: [
           Padding(

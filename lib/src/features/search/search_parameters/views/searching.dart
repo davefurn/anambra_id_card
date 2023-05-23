@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../constants/colors.dart';
 import '../../../../widgets/special_button.dart';
 
@@ -114,11 +114,8 @@ class _SearchingState extends State<Searching> {
                                         Hero(
                                           tag: 'abcde',
                                           child: Container(
-                                            height:
-                                              
-                                                    99.h,
-                                            width: 
-                                                117.w,
+                                            height: 99.h,
+                                            width: 117.w,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),
