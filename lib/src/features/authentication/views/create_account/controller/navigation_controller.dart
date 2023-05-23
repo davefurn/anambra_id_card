@@ -20,10 +20,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final loadingProvider = StateProvider<bool>((ref) => false);
 
 final timerProvidr = StreamProvider<int>((ref) async* {
-  late Timer _timer;
+  late Timer timer;
   int start = 60;
   const oneSec = Duration(seconds: 1);
-  _timer = Timer.periodic(oneSec, (timer) {
+  timer = Timer.periodic(oneSec, (timer) {
     if (start == 0) {
       start = 60;
       ref.read(isResendAgain.notifier).state = false;

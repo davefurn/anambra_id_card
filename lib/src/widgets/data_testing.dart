@@ -31,30 +31,27 @@ class DataTesting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            firstText,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  color: IdColors.textColorGrey,
-                ),
-          ),
-          Text(
-            secondText,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: fontWeight,
-                  fontSize: 16,
-                  color: color,
-                ),
-          ),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          firstText,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: IdColors.textColorGrey,
+              ),
+        ),
+        Text(
+          secondText,
+          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontWeight: fontWeight,
+                fontSize: 16,
+                color: color,
+              ),
+        ),
+      ],
     );
   }
 }

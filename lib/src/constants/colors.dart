@@ -24,6 +24,7 @@ class IdColors {
   static const subColor = Color(0xffDADEE5);
   static const hintTextColor = Color(0xffA5AAB2);
   static const brandBlue = Color(0xff165AD5);
+  static const blue = Color(0xff0383C3);
   static const otpGrey = Color(0xff718096);
   static const mainGrey = Color(0xffEBEBEB);
   static const anotherWhite = Color(0xffDFE5DF);

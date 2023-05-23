@@ -51,10 +51,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () => pushTo(context, const Profile()),
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:const [
+              children:[
                 Icon(
                   Icons.person_outline,
                   size: 26,
@@ -75,10 +75,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () {},
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:const [
+              children:[
                 Icon(
                   Icons.history,
                   size: 26,
@@ -99,10 +99,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () => pushTo(context, const SuggestImprovement()),
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.chat_outlined,
                   size: 26,
@@ -123,10 +123,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () {},
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:const [
+              children:[
                 Icon(
                   Icons.star_outline,
                   size: 26,
@@ -184,10 +184,10 @@ class SettingsView extends ConsumerWidget {
               });
             },
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.phone_android_outlined,
                   size: 26,
@@ -208,10 +208,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () {},
             horizontalTitleGap: 18,
-            leading:  Column(
+            leading:  const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(
                   Icons.logout_outlined,
                   size: 26,
