@@ -110,7 +110,7 @@ class _HistoryState extends ConsumerState<History> {
                 child: Text('Error'),
               ),
               loading: () => const Center(
-                child: CircularProgressIndicator.adaptive(),
+                child: CircularProgressIndicator.adaptive(backgroundColor: IdColors.mainGrey, ),
               ),
             ),
           )

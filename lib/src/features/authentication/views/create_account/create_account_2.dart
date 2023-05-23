@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
@@ -49,6 +52,19 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
     dateController = TextEditingController();
     staffIdController = TextEditingController();
   }
+  
+ 
+ Future<void>verify() async {
+    ref.read(isLoading.notifier).state = true;
+
+    const oneSec = Duration(milliseconds: 1000);
+    
+    Timer.periodic(oneSec, (timer) {
+      ref.read(isLoading.notifier).state = false;
+      ref.read(isVerified.notifier).state = true;
+    });
+  }
+
 
   @override
   void dispose() {
@@ -135,12 +151,12 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                 child: MaterialButton(
                   elevation: 0,
                   onPressed: () async {
-                    // if (_) {
-                    //   await verify();
-                    //   Future.delayed(const Duration(seconds: 1), () async {
-                    //     pushTo(context, const PasswordInput());
-                    //   });
-                    // }
+                    if (_formKey.currentState!.validate()) {
+                      await verify();
+                      Future.delayed(const Duration(seconds: 1), () async {
+                        pushTo(context, const OtpScreen());
+                      });
+                    }
                   },
                   color: IdColors.mainColor,
                   minWidth: MediaQuery.of(context).size.width * 0.9,
@@ -168,7 +184,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                                   .bodyMedium!
                                   .copyWith(
                                     fontSize: 16,
-                                    color: IdColors.backgroundColour,
+                                    color: IdColors.textColorBlack,
                                   ),
                             ),
                 ),
