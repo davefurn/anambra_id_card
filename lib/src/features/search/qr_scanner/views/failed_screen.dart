@@ -34,7 +34,6 @@ class FailedScan extends ConsumerWidget {
                 ?.copyWith(fontSize: 24),
             maxLines: 1,
           ),
-          
         ),
         body: Center(
             child: Column(
@@ -47,7 +46,7 @@ class FailedScan extends ConsumerWidget {
               size: 20,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(6),
+              height: 6.h,
             ),
             Text(
               "No result found",
@@ -57,7 +56,7 @@ class FailedScan extends ConsumerWidget {
                   ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(6),
+              height: 6.h,
             ),
             GestureDetector(
                 onTap: () => Navigator.pop(context),

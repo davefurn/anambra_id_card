@@ -1,22 +1,30 @@
+import 'package:acmc/src/features/authentication/views/auth_decide/auth.dart';
 import 'package:acmc/src/features/onboarding/view/onboard.dart';
+import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  runApp(const ProviderScope(
-    child: MyApp(),
+  var firstTime = await LocalStorage.instance.getFirstTime();
+  runApp(ProviderScope(
+    child: MyApp(
+      firstTime: firstTime,
+    ),
   ));
 }
 
 class MyApp extends StatefulWidget {
+  final bool firstTime;
   const MyApp({
     super.key,
+    required this.firstTime,
   });
 
   @override
@@ -24,7 +32,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // This widget is the root of your application.
   @override
   void initState() {
     FlutterNativeSplash.remove();
@@ -38,14 +45,19 @@ class _MyAppState extends State<MyApp> {
         GestureType.onTap,
         GestureType.onVerticalDragDown,
       ],
-      child: MaterialApp(
-        restorationScopeId: 'app',
-        title: 'Acmc',
-        debugShowCheckedModeBanner: false,
-        darkTheme: IdTheme.darkTheme,
-        themeMode: ThemeMode.light,
-        theme: IdTheme.lightTheme,
-        home: const Onboard(),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        builder: (context, _) {
+          return MaterialApp(
+            restorationScopeId: 'app',
+            title: 'Acmc',
+            debugShowCheckedModeBanner: false,
+            darkTheme: IdTheme.darkTheme,
+            themeMode: ThemeMode.light,
+            theme: IdTheme.lightTheme,
+            home: widget.firstTime ? const Onboard() : const Auth(),
+          );
+        },
       ),
     );
   }

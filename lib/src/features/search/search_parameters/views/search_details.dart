@@ -1,7 +1,7 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../widgets/data_testing.dart';
 
@@ -28,12 +28,12 @@ class SearchDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: getProportionateScreenHeight(32),
+              height: 32.h,
             ),
             Hero(
               tag: 'abcde',
               child: Container(
-                height: getProportionateScreenHeight(146),
+                height: 146.h,
                 width: getProportionateScreenWidth(178),
                 margin: EdgeInsets.only(
                     left: getProportionateScreenWidth(20),
@@ -48,7 +48,7 @@ class SearchDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             Padding(
               padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
@@ -61,7 +61,7 @@ class SearchDetails extends StatelessWidget {
                       return ScaffoldMessenger(
                         child: Builder(builder: (_) {
                           return Container(
-                            height: getProportionateScreenHeight(428),
+                            height: (428),
                             padding: EdgeInsets.symmetric(
                               horizontal: getProportionateScreenWidth(20),
                             ),
@@ -91,7 +91,7 @@ class SearchDetails extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  height: getProportionateScreenHeight(210),
+                                  height: (210),
                                   width: getProportionateScreenWidth(207),
                                   margin: EdgeInsets.symmetric(
                                       horizontal:
@@ -105,7 +105,7 @@ class SearchDetails extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: getProportionateScreenHeight(11),
+                                  height: (11),
                                 ),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -160,77 +160,77 @@ class SearchDetails extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'First Name',
               secondText: 'Chidinma',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Middle Name',
               secondText: 'Deborah',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Last Name',
               secondText: 'Maduka',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Email',
               secondText: 'debbiedinma44@gmail.com',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Phone Number',
               secondText: '08164684852',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Department',
               secondText: 'Human Resources',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Sub-department',
               secondText: 'Recruiting',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Role/grade level',
               secondText: 'Recruiting',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Verification ID',
               secondText: 'Recruiting',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'MDA',
               secondText: 'ICT Agency',
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16.h,
             ),
             const DataTesting(
               firstText: 'Status',
@@ -239,7 +239,7 @@ class SearchDetails extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(97),
+              height: (97),
             ),
           ],
         ),

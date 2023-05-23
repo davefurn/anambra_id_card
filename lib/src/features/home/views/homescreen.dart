@@ -65,9 +65,8 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding: EdgeInsets.only(
-            left: getProportionateScreenWidth(20),
-            top: getProportionateScreenHeight(80)),
+        padding:
+            EdgeInsets.only(left: getProportionateScreenWidth(20), top: 80.h),
         child: Column(
           children: [
             Align(
@@ -92,7 +91,7 @@ class _HomeState extends State<Home> {
                     textAlign: TextAlign.start,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(4),
+                    height: 4.h,
                   ),
                   Text(
                     'Ict Agency',
@@ -107,7 +106,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(32),
+              height: 32.h,
             ),
             Align(
               alignment: Alignment.topLeft,
@@ -135,13 +134,12 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(4),
+              height: 4.h,
             ),
             GridView.count(
               crossAxisCount: 2,
               shrinkWrap: true,
-              childAspectRatio: getProportionateScreenHeight(160) /
-                  getProportionateScreenHeight(144),
+              childAspectRatio: 160.h / 144.h,
               crossAxisSpacing: getProportionateScreenWidth(16),
               padding: EdgeInsets.only(
                 right: getProportionateScreenWidth(20),
@@ -176,7 +174,7 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(
-              height: getProportionateScreenHeight(26),
+              height: 26.h,
             ),
             Padding(
               padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
@@ -216,11 +214,10 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(10),
+              height: 10.h,
             ),
             SizedBox(
-               height: getProportionateScreenHeight(90),
-                
+              height: 90.h,
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
@@ -237,7 +234,7 @@ class _HomeState extends State<Home> {
                             right: getProportionateScreenWidth(8)),
                         padding: EdgeInsets.symmetric(
                           horizontal: getProportionateScreenWidth(16),
-                          vertical: getProportionateScreenHeight(8),
+                          vertical: 8.h,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -302,7 +299,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(26),
+              height: 26.h,
             ),
             Padding(
               padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
@@ -344,10 +341,10 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(10),
+              height: 10.h,
             ),
             SizedBox(
-               height: getProportionateScreenHeight(60),
+              height: 60.h,
               child: MediaQuery.removePadding(
                 context: context,
                 removeTop: true,
@@ -364,7 +361,7 @@ class _HomeState extends State<Home> {
                             right: getProportionateScreenWidth(4)),
                         padding: EdgeInsets.symmetric(
                           horizontal: getProportionateScreenWidth(12),
-                          vertical: getProportionateScreenHeight(6),
+                          vertical: 6.h,
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -389,9 +386,8 @@ class _HomeState extends State<Home> {
                     }),
               ),
             ),
-            
             SizedBox(
-              height: getProportionateScreenHeight(40.5),
+              height: 40.5.h,
             ),
             Center(
               child: InkWell(

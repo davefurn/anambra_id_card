@@ -75,7 +75,7 @@ class _SearchParametersState extends State<SearchParameters> {
           child: Column(
             children: [
               SizedBox(
-                height: getProportionateScreenHeight(32),
+                height: 32.h,
               ),
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
@@ -91,7 +91,7 @@ class _SearchParametersState extends State<SearchParameters> {
                 prefixIcon: Icons.email,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(16),
+                height: 16.h,
               ),
               Padding(
                 padding:
@@ -130,7 +130,7 @@ class _SearchParametersState extends State<SearchParameters> {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(24),
+                height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
@@ -148,7 +148,7 @@ class _SearchParametersState extends State<SearchParameters> {
   }
 
   Widget buildDatePicker() => SizedBox(
-        height: getProportionateScreenHeight(180),
+        height: 180.h,
         child: CupertinoDatePicker(
           minimumYear: 1900,
           maximumYear: DateTime.now().year,

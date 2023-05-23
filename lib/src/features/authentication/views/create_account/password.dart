@@ -104,7 +104,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                     size: 33,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(4),
+                    height: 4.h,
                   ),
                   Text(
                     'Is this you?',
@@ -121,35 +121,35 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: getProportionateScreenHeight(10),
+                          height: 10.h,
                         ),
                         const DataTesting(
                           firstText: 'First Name',
                           secondText: 'Chidinma',
                         ),
                         SizedBox(
-                          height: getProportionateScreenHeight(16),
+                          height: 16.h,
                         ),
                         const DataTesting(
                           firstText: 'Middle Name',
                           secondText: 'Deborah',
                         ),
                         SizedBox(
-                          height: getProportionateScreenHeight(16),
+                          height: 16.h,
                         ),
                         const DataTesting(
                           firstText: 'Last Name',
                           secondText: 'Madula',
                         ),
                         SizedBox(
-                          height: getProportionateScreenHeight(16),
+                          height: 16.h,
                         ),
                         const DataTesting(
                           firstText: 'Email',
                           secondText: 'debbiedinma44@gmail.com',
                         ),
                         SizedBox(
-                          height: getProportionateScreenHeight(16),
+                          height: 16.h,
                         ),
                         const DataTesting(
                           firstText: 'Phone number',
@@ -159,7 +159,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                     ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(24),
+                    height: 24.h,
                   ),
                   Row(
                     children: [
@@ -169,7 +169,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                               context, const CreateAccount()),
                           child: SpecialButton2(
                             text: 'Not me',
-                            height: getProportionateScreenHeight(40),
+                            height: 40.h,
                           ),
                         ),
                       ),
@@ -186,7 +186,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                           },
                           child: SpecialButton2(
                             text: 'Yes',
-                            height: getProportionateScreenHeight(40),
+                            height: 40.h,
                             backgroundColor: IdColors.mainColor,
                           ),
                         ),

@@ -27,7 +27,7 @@ class ToggleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionateScreenHeight(32),
+      height: 32.h,
       decoration: BoxDecoration(
           border: Border.all(color: IdColors.subColor),
           color: IdColors.backgroundColour,
