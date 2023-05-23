@@ -112,7 +112,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: IdColors.textColorBlack,
-                        ),
+                        ), 
                   ),
                   Align(
                     alignment: Alignment.centerLeft,
