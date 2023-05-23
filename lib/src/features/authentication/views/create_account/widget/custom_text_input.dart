@@ -127,6 +127,10 @@ class CustomTextInput extends StatelessWidget {
               //   vertical: 15.h,
               //   horizontal: prefix != null ? 15.w : 12.w,
               // ),
+              focusedBorder:  OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide: const BorderSide(color: IdColors.mainColor, width: 1),
+              ),
               prefixIcon: null,
               suffixIcon: suffixIcon,
               hintText: hintText,

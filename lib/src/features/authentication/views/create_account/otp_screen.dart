@@ -379,9 +379,12 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                   color: Colors.white,
                                   size: 30,
                                 )
-                              : const Text(
+                              :  Text(
                                   "Verify",
-                                  style: TextStyle(color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 16,
+                                    color: IdColors.backgroundColour,
+                                  ),
                                 ),
                     ),
                   ),
