@@ -1,8 +1,8 @@
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatisticsCard extends StatefulWidget {
   final String title;
@@ -30,10 +30,10 @@ class _StatisticsCardState extends State<StatisticsCard> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top:12.h,
+        top: 12.h,
         bottom: 12.h,
         left: 16.w,
-        right:50.w,
+        right: 50.w,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),

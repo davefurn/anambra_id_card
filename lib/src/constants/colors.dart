@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 class IdColors {
   static const backgroundColour = Colors.white;
   static const mainColor = Color(0xffFDB813);
+  static const fadedMainColor = Color(0xffFFF5DC);
   static const textColorBlack = Color(0xff010C20);
   static const textColorGrey = Color(0xff5E6166);
   static const textColorYellow = Color(0xffD69908);
@@ -29,4 +30,5 @@ class IdColors {
   static const mainGrey = Color(0xffEBEBEB);
   static const anotherWhite = Color(0xffDFE5DF);
   static const green = Color(0xff0C7110);
+  static const grey = Color(0xffBCC2CC);
 }

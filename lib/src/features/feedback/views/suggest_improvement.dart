@@ -13,10 +13,11 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
+
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class SuggestImprovement extends StatelessWidget {
@@ -61,7 +62,7 @@ class SuggestImprovement extends StatelessWidget {
           ),
           16.sbH,
           SizedBox(
-            height:225.h,
+            height: 225.h,
             child: TextFormField(
               minLines: null,
               expands: true,

@@ -34,11 +34,11 @@ class LocalStorage {
 
   Future<bool> getFirstTime() async {
     var pref = await instance.prefs;
-    var isFirstTime = pref.getBool(firstTime) ?? false;
-    if (isFirstTime) {
-      await setFirstTime();
-      return true;
+    var isNotFirstTime = pref.getBool(firstTime) ?? false;
+    if (isNotFirstTime) {
+      return false;
     }
-    return false;
+    await setFirstTime();
+    return true;
   }
 }

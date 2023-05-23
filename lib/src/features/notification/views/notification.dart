@@ -15,10 +15,10 @@
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants/colors.dart';
-import '../../../extension/size_config.dart';
 
 class NotificationP extends ConsumerStatefulWidget {
   const NotificationP({Key? key}) : super(key: key);
@@ -55,8 +55,8 @@ class _NotificationPState extends ConsumerState<NotificationP> {
       body: noData
           ? ListView.builder(
               padding: EdgeInsets.only(
-                left: 20.w
-                right: 20.w
+                left: 20.w,
+                right: 20.w,
                 bottom: 100.h,
               ),
               itemCount: 20,

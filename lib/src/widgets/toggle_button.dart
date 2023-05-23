@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
-import '../extension/size_config.dart';
 
 class ToggleButton extends StatelessWidget {
   final String text;
@@ -32,9 +32,7 @@ class ToggleButton extends StatelessWidget {
           border: Border.all(color: IdColors.subColor),
           color: IdColors.backgroundColour,
           borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(
-          horizontal: 12.w,
-          vertical:7.h),
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(

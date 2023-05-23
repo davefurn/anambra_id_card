@@ -20,9 +20,9 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/tit
 import 'package:acmc/src/features/authentication/views/login/login.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
-import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
 import '../../../onboarding/widgets/custom_button.dart';
@@ -62,7 +62,6 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -79,16 +78,14 @@ class _CreateAccountState extends State<CreateAccount> {
                 height: 32.h,
               ),
               Padding(
-                padding: EdgeInsets.only(
-                    left: 20.w,
-                    right: 20.w),
+                padding: EdgeInsets.only(left: 20.w, right: 20.w),
                 child: InternationalPhoneNumberInput(
                   spaceBetweenSelectorAndTextField: 0,
                   onInputChanged: (PhoneNumber number) {
-                    print(number.phoneNumber);
+                    // print(number.phoneNumber);
                   },
                   onInputValidated: (bool value) {
-                    print(value);
+                    // print(value);
                   },
                   textStyle: const TextStyle(
                     fontFamily: 'Inter',
@@ -122,7 +119,7 @@ class _CreateAccountState extends State<CreateAccount> {
                   keyboardType: const TextInputType.numberWithOptions(
                       signed: true, decimal: true),
                   onSaved: (PhoneNumber number) {
-                    print('On Saved: $number');
+                    // print('On Saved: $number');
                   },
                 ),
               ),

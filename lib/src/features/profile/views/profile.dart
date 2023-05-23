@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/extension/size_config.dart';
+
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class Profile extends StatelessWidget {
@@ -35,8 +36,8 @@ class Profile extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.only(
-          left: 20.w
-          right: 20.w
+          left: 20.w,
+          right: 20.w,
           top: 30.h,
         ),
         children: [

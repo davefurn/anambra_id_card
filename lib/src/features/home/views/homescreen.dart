@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
+
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/home/views/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
@@ -24,6 +24,7 @@ import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../search/qr_scanner/views/failed_screen.dart';
 import '../../search/qr_scanner/views/results.dart';
@@ -61,12 +62,13 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        padding:
-            EdgeInsets.only(left: 20.w top: 80.h),
+        padding: EdgeInsets.only(
+          left: 20.w,
+          top: 80.h,
+        ),
         child: Column(
           children: [
             Align(
@@ -141,9 +143,7 @@ class _HomeState extends State<Home> {
               shrinkWrap: true,
               childAspectRatio: 160.h / 144.h,
               crossAxisSpacing: 16.w,
-              padding: EdgeInsets.only(
-                right: 20.w
-              ),
+              padding: EdgeInsets.only(right: 20.w),
               children: [
                 InkWell(
                   onTap: () {
@@ -230,8 +230,7 @@ class _HomeState extends State<Home> {
                           color: IdColors.mainGrey,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        margin: EdgeInsets.only(
-                            right: 8.w),
+                        margin: EdgeInsets.only(right: 8.w),
                         padding: EdgeInsets.symmetric(
                           horizontal: 16.w,
                           vertical: 8.h,
@@ -302,7 +301,7 @@ class _HomeState extends State<Home> {
               height: 26.h,
             ),
             Padding(
-              padding: EdgeInsets.only(right:20.w),
+              padding: EdgeInsets.only(right: 20.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -357,8 +356,7 @@ class _HomeState extends State<Home> {
                           color: IdColors.mainGrey,
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        margin: EdgeInsets.only(
-                            right: 4.w),
+                        margin: EdgeInsets.only(right: 4.w),
                         padding: EdgeInsets.symmetric(
                           horizontal: 12.w,
                           vertical: 6.h,

@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../widgets/data_testing.dart';
 
@@ -23,21 +28,17 @@ class SearchDetails extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 32.h,
-            ),
+            32.sbH,
             Hero(
               tag: 'abcde',
               child: Container(
                 height: 146.h,
-                width:178.w,
-                margin: EdgeInsets.only(
-                    left: 20.w
-                    right:186.w),
+                width: 178.w,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: const DecorationImage(
@@ -47,13 +48,19 @@ class SearchDetails extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
-              height: 16.h,
+            16.sbH,
+            Text(
+              'Employee ID: 7348953',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 16.sp,
+              ),
             ),
-            Padding(
-              padding: EdgeInsets.only(left:20.w),
-              child: GestureDetector(
-                onTap: () => showModalBottomSheet(
+            16.sbH,
+            Row(
+              children: [
+                InkWell(
+                  onTap: () => showModalBottomSheet(
                     backgroundColor: Colors.transparent,
                     barrierColor: Colors.black.withOpacity(0.61),
                     context: context,
@@ -62,9 +69,7 @@ class SearchDetails extends StatelessWidget {
                         child: Builder(builder: (_) {
                           return Container(
                             height: (428),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 20.w
-                            ),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             decoration: const BoxDecoration(
                                 color: IdColors.backgroundColour,
                                 borderRadius: BorderRadius.only(
@@ -76,9 +81,8 @@ class SearchDetails extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(
-                                      left: 318.w,
-                                      right: 21.w),
+                                  padding:
+                                      EdgeInsets.only(left: 318.w, right: 21.w),
                                   child: IconButton(
                                     onPressed: () {
                                       Navigator.pop(context);
@@ -92,10 +96,9 @@ class SearchDetails extends StatelessWidget {
                                 ),
                                 Container(
                                   height: (210),
-                                  width:207.w,
-                                  margin: EdgeInsets.symmetric(
-                                      horizontal:
-                                         64.w),
+                                  width: 207.w,
+                                  margin:
+                                      EdgeInsets.symmetric(horizontal: 64.w),
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -104,9 +107,7 @@ class SearchDetails extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  height: (11),
-                                ),
+                                12.sbH,
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -150,97 +151,86 @@ class SearchDetails extends StatelessWidget {
                           );
                         }),
                       );
-                    }),
-                child: const SpecialButton(
-                  icon: Icons.qr_code,
-                  text: 'View QR code',
-                  width: 132,
-                  height: 32,
+                    },
+                  ),
+                  child: const SpecialButton2(
+                    icon: Icon(Icons.qr_code),
+                    text: 'View QR code',
+                    // width: 132,
+                    // height: 32,
+                    backgroundColor: Colors.transparent,
+                    // borderColor: Colors.transparent,
+                  ),
                 ),
-              ),
+                8.sbW,
+                SpecialButton2(
+                  icon: SvgPicture.asset('assets/svgs/id_card.svg'),
+                  text: 'View ID card',
+                  // width: 132,
+                  // height: 32,
+                  backgroundColor: Colors.transparent,
+                  // borderColor: Colors.transparent,
+                )
+              ],
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'First Name',
               secondText: 'Chidinma',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Middle Name',
               secondText: 'Deborah',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Last Name',
               secondText: 'Maduka',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Email',
               secondText: 'debbiedinma44@gmail.com',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Phone Number',
               secondText: '08164684852',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Department',
               secondText: 'Human Resources',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Sub-department',
               secondText: 'Recruiting',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Role/grade level',
               secondText: 'Recruiting',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Verification ID',
               secondText: 'Recruiting',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'MDA',
               secondText: 'ICT Agency',
             ),
-            SizedBox(
-              height: 16.h,
-            ),
+            16.sbH,
             const DataTesting(
               firstText: 'Status',
               secondText: 'Active',
               color: IdColors.green,
               fontWeight: FontWeight.w700,
             ),
-            SizedBox(
-              height: (97),
-            ),
+            100.sbH,
           ],
         ),
       ),

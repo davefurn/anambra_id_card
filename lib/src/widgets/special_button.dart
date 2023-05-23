@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
-import '../extension/size_config.dart';
 
 class SpecialButton extends StatelessWidget {
   final IconData icon;

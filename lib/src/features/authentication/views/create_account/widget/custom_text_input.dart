@@ -14,8 +14,7 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../../extension/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextInput extends StatelessWidget {
   final bool validate;
@@ -45,6 +44,7 @@ class CustomTextInput extends StatelessWidget {
   final String titleText;
   final String? prefixPath;
   final Widget? suffixIcon;
+  final double? width;
   const CustomTextInput({
     Key? key,
     this.focusNode,
@@ -73,76 +73,78 @@ class CustomTextInput extends StatelessWidget {
     this.hpD,
     required this.validate,
     this.onSaved,
+    this.width,
     this.validator,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: hpD ?? 20.w,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(titleText,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  )),
-          SizedBox(
-            height: 8.h,
-          ),
-          TextFormField(
-            controller: controller,
-            cursorColor: Colors.black,
-            onSaved: onSaved,
-            validator: validator,
-            focusNode: focusNode,
-            keyboardType: keyboardType,
-            textInputAction: textInputAction,
-            readOnly: readOnly,
-            autofocus: autofocus,
-            obscuringCharacter: obscuringCharacter,
-            obscureText: obscureText,
-            enableSuggestions: enableSuggestions,
-            maxLength: maxLength,
-            maxLines: maxLines,
-            minLines: minLines,
-            expands: expands,
-            onChanged: onChanged,
-            onEditingComplete: onEditingComplete,
-            onTap: onTap,
-            enabled: enabled,
-            style: const TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              fontSize: 20,
-              height: 1,
-              color: Color(0xFF1F2937),
+    return SizedBox(
+      width: width,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: hpD?.w ?? 20.w,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(titleText,
+                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    )),
+            SizedBox(
+              height: 8.h,
             ),
-            decoration: InputDecoration(
-              // contentPadding: EdgeInsets.symmetric(
-              //   vertical: 15.h,
-              //   horizontal: prefix != null ? 15.w : 12.w,
-              // ),
-              focusedBorder:  OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: const BorderSide(color: IdColors.mainColor, width: 1),
+            TextFormField(
+              controller: controller,
+              cursorColor: Colors.black,
+              onSaved: onSaved,
+              validator: validator,
+              focusNode: focusNode,
+              keyboardType: keyboardType,
+              textInputAction: textInputAction,
+              readOnly: readOnly,
+              autofocus: autofocus,
+              obscuringCharacter: obscuringCharacter,
+              obscureText: obscureText,
+              enableSuggestions: enableSuggestions,
+              maxLength: maxLength,
+              maxLines: maxLines,
+              minLines: minLines,
+              expands: expands,
+              onChanged: onChanged,
+              onEditingComplete: onEditingComplete,
+              onTap: onTap,
+              enabled: enabled,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+                height: 1,
+                color: Color(0xFF1F2937),
               ),
-              prefixIcon: null,
-              suffixIcon: suffixIcon,
-              hintText: hintText,
-              hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 16,
-                    color: IdColors.hintTextColor,
+              decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                    color: IdColors.mainColor,
+                    width: 1,
                   ),
-              fillColor: IdColors.subColor,
-              filled: true,
+                ),
+                prefixIcon: null,
+                suffixIcon: suffixIcon,
+                hintText: hintText,
+                hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                      fontSize: 16,
+                      color: IdColors.hintTextColor,
+                    ),
+                fillColor: IdColors.subColor,
+                filled: true,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
