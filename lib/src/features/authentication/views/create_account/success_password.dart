@@ -34,7 +34,7 @@ class SuccessPassword extends StatelessWidget {
             Image.asset(
               'assets/images/success.png',
               width: getProportionateScreenWidth(33.33),
-              height: getProportionateScreenHeight(33.33),
+              height: 33.33.h,
             ),
             SizedBox(
               height: getProportionateScreenHeight(7.33),
@@ -48,14 +48,14 @@ class SuccessPassword extends StatelessWidget {
                   ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(10),
+              height: 10.h,
             ),
             InkWell(
-                onTap: () => pushToAndClearStack(context,const Login()),
-                child: const SpecialButton2(
-                  text: 'Go back to login',
-                ),
+              onTap: () => pushToAndClearStack(context, const Login()),
+              child: const SpecialButton2(
+                text: 'Go back to login',
               ),
+            ),
           ],
         ),
       ),

@@ -50,7 +50,7 @@ class _HistoryState extends ConsumerState<History> {
       body: Column(
         children: [
           SizedBox(
-            height: getProportionateScreenHeight(20),
+            height: 20.h,
           ),
           Padding(
             padding: EdgeInsets.only(
@@ -64,7 +64,7 @@ class _HistoryState extends ConsumerState<History> {
                 height: 32),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(10),
+            height: 10.h,
           ),
           Expanded(
             child: employee.when(
@@ -72,8 +72,8 @@ class _HistoryState extends ConsumerState<History> {
                 padding: EdgeInsets.only(
                   left: getProportionateScreenWidth(20),
                   right: getProportionateScreenWidth(20),
-                  bottom: getProportionateScreenHeight(100),
-                  top: getProportionateScreenHeight(21),
+                  bottom: 100.h,
+                  top: 21.h,
                 ),
                 elements: data,
                 groupBy: (element) => element.date,

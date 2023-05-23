@@ -34,14 +34,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   late TextEditingController passwordController;
-   bool isVisible = false;
+  bool isVisible = false;
   String? email;
   String? password;
   final _formKey = GlobalKey<FormState>();
 
   final bool _validate = false;
   late TextEditingController emailController;
-  
+
   @override
   void initState() {
     super.initState();
@@ -68,11 +68,11 @@ class _LoginState extends State<Login> {
               TitleWidget(
                 text: 'Log in',
                 pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
+                height: 36.h,
                 fontSize: 24,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(32),
+                height: 32.h,
               ),
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
@@ -88,37 +88,36 @@ class _LoginState extends State<Login> {
                 prefixIcon: Icons.email,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(16),
+                height: 16.h,
               ),
               CustomTextInput(
-              onSaved: (newValue) => password = newValue,
-              onChanged: (v) {},
-              validator: (v) {
-                return null;
-              },
-              validate: _validate,
-              hintText: 'Enter a minimum of 8 characters',
-              textInputAction: TextInputAction.done,
-              titleText: 'Password',
-               enableSuggestions: false,
-               obscureText: isVisible ? false : true,
-              keyboardType: TextInputType.visiblePassword,
-              controller: passwordController,
-              suffixIcon: IconButton(
-              icon: Icon(
-                isVisible ? Icons.visibility : Icons.visibility_off,
-                color: IdColors.textColorGrey,
-              ),
-              onPressed: () {
-                setState(() {
-                  isVisible = !isVisible;
-                });
-              },
-              ),
-              
+                onSaved: (newValue) => password = newValue,
+                onChanged: (v) {},
+                validator: (v) {
+                  return null;
+                },
+                validate: _validate,
+                hintText: 'Enter a minimum of 8 characters',
+                textInputAction: TextInputAction.done,
+                titleText: 'Password',
+                enableSuggestions: false,
+                obscureText: isVisible ? false : true,
+                keyboardType: TextInputType.visiblePassword,
+                controller: passwordController,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isVisible ? Icons.visibility : Icons.visibility_off,
+                    color: IdColors.textColorGrey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
+                ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(24),
+                height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
@@ -129,15 +128,15 @@ class _LoginState extends State<Login> {
                 textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               Image.asset(
                 "assets/images/icon2.png",
-                height: getProportionateScreenHeight(73),
+                height: 73.h,
                 width: getProportionateScreenWidth(73),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               OnClickToNewPage(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -149,7 +148,7 @@ class _LoginState extends State<Login> {
                 textColor2: IdColors.textColorYellow,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +156,7 @@ class _LoginState extends State<Login> {
                 children: [
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                   Text(
@@ -169,13 +168,13 @@ class _LoginState extends State<Login> {
                   ),
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                 ],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Padding(
                   padding: EdgeInsets.symmetric(

@@ -72,11 +72,11 @@ class _CreateAccountState extends State<CreateAccount> {
               TitleWidget(
                 text: 'Create Account 1/2',
                 pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
+                height: 36.h,
                 fontSize: 24,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(32),
+                height: 32.h,
               ),
               Padding(
                 padding: EdgeInsets.only(
@@ -127,7 +127,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(16),
+                height: 16.h,
               ),
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
@@ -143,27 +143,27 @@ class _CreateAccountState extends State<CreateAccount> {
                 prefixIcon: Icons.email,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(24),
+                height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
                 onpressed: () {
-                   Navigator.of(context)
+                  Navigator.of(context)
                       .push(CustomRoutes.slideIn(const CreateAccount2()));
                 },
                 text: 'Next',
                 textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               Image.asset(
                 "assets/images/icon2.png",
-                height: getProportionateScreenHeight(73),
+                height: 73.h,
                 width: getProportionateScreenWidth(73),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               OnClickToNewPage(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -178,7 +178,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 textColor2: IdColors.textColorYellow,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +186,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 children: [
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                   SizedBox(
@@ -204,13 +204,13 @@ class _CreateAccountState extends State<CreateAccount> {
                   ),
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                 ],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(

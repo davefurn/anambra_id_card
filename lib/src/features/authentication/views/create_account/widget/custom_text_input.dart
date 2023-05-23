@@ -92,7 +92,7 @@ class CustomTextInput extends StatelessWidget {
                     fontSize: 16,
                   )),
           SizedBox(
-            height: getProportionateScreenHeight(8),
+            height: 8.h,
           ),
           TextFormField(
             controller: controller,

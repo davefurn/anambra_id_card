@@ -70,11 +70,11 @@ class _CreateAccount2State extends State<CreateAccount2> {
               TitleWidget(
                 text: 'Create Account 2/2',
                 pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
+                height: 36.h,
                 fontSize: 24,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(32),
+                height: 32.h,
               ),
               CustomTextInput(
                 onSaved: (newValue) => email = newValue,
@@ -90,7 +90,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
                 prefixIcon: Icons.email,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(16),
+                height: 16.h,
               ),
               Padding(
                 padding:
@@ -129,7 +129,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(24),
+                height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
@@ -150,28 +150,25 @@ class _CreateAccount2State extends State<CreateAccount2> {
                   // Navigate to the new page.
 
                   await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context); 
+                    Navigator.pop(context);
                     pushReplacementTo(context, const OtpScreen());
                   });
-                  
 
                   // Hide the loading indicator.
-                
-                
                 },
                 text: 'Create Account',
                 textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               Image.asset(
                 "assets/images/icon2.png",
-                height: getProportionateScreenHeight(73),
+                height: 73.h,
                 width: getProportionateScreenWidth(73),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(58),
+                height: 58.h,
               ),
               OnClickToNewPage(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -183,7 +180,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
                 textColor2: IdColors.textColorYellow,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -191,7 +188,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
                 children: [
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                   SizedBox(
@@ -209,13 +206,13 @@ class _CreateAccount2State extends State<CreateAccount2> {
                   ),
                   Container(
                     width: getProportionateScreenWidth(49.5),
-                    height: getProportionateScreenHeight(1),
+                    height: 1.h,
                     color: IdColors.subColor,
                   ),
                 ],
               ),
               SizedBox(
-                height: getProportionateScreenHeight(17),
+                height: 17.h,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -233,7 +230,7 @@ class _CreateAccount2State extends State<CreateAccount2> {
   }
 
   Widget buildDatePicker() => SizedBox(
-        height: getProportionateScreenHeight(180),
+        height: 180.h,
         child: CupertinoDatePicker(
           minimumYear: 1900,
           maximumYear: DateTime.now().year,
