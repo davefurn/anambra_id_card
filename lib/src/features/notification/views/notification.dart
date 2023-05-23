@@ -57,7 +57,7 @@ class _NotificationPState extends ConsumerState<NotificationP> {
               padding: EdgeInsets.only(
                 left: getProportionateScreenWidth(20),
                 right: getProportionateScreenWidth(20),
-                bottom: getProportionateScreenHeight(100),
+                bottom: 100.h,
               ),
               itemCount: 20,
               itemBuilder: (context, index) => Material(
@@ -67,9 +67,9 @@ class _NotificationPState extends ConsumerState<NotificationP> {
                         width: 1, color: IdColors.backgroundColour),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  leading:  const Column(
+                  leading: const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children:[
+                    children: [
                       Icon(
                         Icons.info_outline,
                         color: IdColors.brandBlue,

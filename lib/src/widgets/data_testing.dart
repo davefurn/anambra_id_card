@@ -15,7 +15,6 @@
 import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
-import '../extension/size_config.dart';
 class DataTesting extends StatelessWidget {
   final String firstText;
   final String secondText;

@@ -85,12 +85,12 @@ class _SearchingState extends State<Searching> {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    top: getProportionateScreenHeight(16),
-                                    left: getProportionateScreenHeight(16),
-                                    right: getProportionateScreenHeight(16),
+                                    top: 16.h,
+                                    left: 16.h,
+                                    right: 16.h,
                                   ),
                                   child: SizedBox(
-                                    height: getProportionateScreenHeight(90),
+                                    height: 90.h,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -136,8 +136,8 @@ class _SearchingState extends State<Searching> {
                                 ),
                                 Padding(
                                   padding: EdgeInsets.only(
-                                    left: getProportionateScreenHeight(16),
-                                    right: getProportionateScreenHeight(16),
+                                    left: 16.h,
+                                    right: 16.h,
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -145,8 +145,7 @@ class _SearchingState extends State<Searching> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       SizedBox(
-                                        height:
-                                            getProportionateScreenHeight(10),
+                                        height: 10.h,
                                       ),
                                       const Text(
                                         'Chidinma Deborah Maduka',
@@ -250,7 +249,7 @@ class _SearchingState extends State<Searching> {
                     size: 20,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(6),
+                    height: 6.h,
                   ),
                   Text(
                     "No result found",
@@ -260,7 +259,7 @@ class _SearchingState extends State<Searching> {
                         ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(6),
+                    height: 6.h,
                   ),
                   GestureDetector(
                       onTap: () => Navigator.pop(context),

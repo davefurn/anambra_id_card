@@ -47,7 +47,7 @@ class TitleWidget extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: SizedBox(
           width: width ?? getProportionateScreenWidth(181),
-          height: height ?? getProportionateScreenHeight(36),
+          height: height ?? 36.h,
           child: Text(
             textAlign: textAlign ?? TextAlign.start,
             text,
@@ -55,7 +55,7 @@ class TitleWidget extends StatelessWidget {
                 .textTheme
                 .headlineLarge
                 ?.copyWith(fontSize: fontSize ?? 28),
-                maxLines: 1,
+            maxLines: 1,
           ),
         ),
       ),

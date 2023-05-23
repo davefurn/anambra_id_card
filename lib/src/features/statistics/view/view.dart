@@ -1,10 +1,10 @@
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/all_employees/widget/group_order.dart';
 import 'package:acmc/src/features/statistics/widget/statistics_card.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class StatisticsView extends StatefulWidget {
@@ -30,9 +30,9 @@ class _StatisticsViewState extends State<StatisticsView> {
       ),
       body: ListView(
         padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
-          right: getProportionateScreenWidth(20),
-          top: getProportionateScreenHeight(40),
+          left: 20.w,
+          right: 20.w,
+          top: 40.h,
         ),
         children: [
           DayOrdering(

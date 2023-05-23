@@ -1,11 +1,11 @@
 // Copyright 2023 Davefurn
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,12 +30,11 @@ class Password2 extends StatefulWidget {
 }
 
 class _Password2State extends State<Password2> {
-   bool isVisible = false;
+  bool isVisible = false;
 
-   String? password;
+  String? password;
   String? confirmPassword;
   final _formKey = GlobalKey<FormState>();
-
 
   final bool _validate = false;
   late TextEditingController passwordController;
@@ -53,10 +52,11 @@ class _Password2State extends State<Password2> {
     confirmPasswordController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Form(
           key: _formKey,
           child: Column(
@@ -64,42 +64,40 @@ class _Password2State extends State<Password2> {
               TitleWidget(
                 text: 'Create Password',
                 pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
+                height: 36.h,
                 fontSize: 24,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(32),
+                height: 32.h,
               ),
-               CustomTextInput(
+              CustomTextInput(
                 onSaved: (newValue) => password = newValue,
                 onChanged: (v) {},
                 validator: (v) {
                   return null;
                 },
                 validate: _validate,
-                 obscureText: isVisible ? false : true,
+                obscureText: isVisible ? false : true,
                 textInputAction: TextInputAction.next,
                 titleText: 'Password',
-                 enableSuggestions: false,
-                
+                enableSuggestions: false,
                 keyboardType: TextInputType.visiblePassword,
                 controller: passwordController,
                 hintText: 'Enter a minimum of 8 characters',
-                 suffixIcon: IconButton(
-                icon: Icon(
-                  isVisible ? Icons.visibility : Icons.visibility_off,
-                  color: IdColors.textColorGrey,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    isVisible ? Icons.visibility : Icons.visibility_off,
+                    color: IdColors.textColorGrey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    isVisible = !isVisible;
-                  });
-                },
-              ),
-                
               ),
               SizedBox(
-                height: getProportionateScreenHeight(16),
+                height: 16.h,
               ),
               CustomTextInput(
                 onSaved: (newValue) => confirmPassword = newValue,
@@ -111,33 +109,31 @@ class _Password2State extends State<Password2> {
                 hintText: 'Enter a minimum of 8 characters',
                 textInputAction: TextInputAction.done,
                 titleText: 'Confirm Password',
-                 enableSuggestions: false,
-                 obscureText: isVisible ? false : true,
+                enableSuggestions: false,
+                obscureText: isVisible ? false : true,
                 keyboardType: TextInputType.visiblePassword,
                 controller: confirmPasswordController,
                 suffixIcon: IconButton(
-                icon: Icon(
-                  isVisible ? Icons.visibility : Icons.visibility_off,
-                  color: IdColors.textColorGrey,
+                  icon: Icon(
+                    isVisible ? Icons.visibility : Icons.visibility_off,
+                    color: IdColors.textColorGrey,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      isVisible = !isVisible;
+                    });
+                  },
                 ),
-                onPressed: () {
-                  setState(() {
-                    isVisible = !isVisible;
-                  });
-                },
-              ),
-                
               ),
               SizedBox(
-                height: getProportionateScreenHeight(24),
+                height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () => pushTo(context,const SuccessPassword()),
+                onpressed: () => pushTo(context, const SuccessPassword()),
                 text: 'Create password',
                 textcolor: IdColors.textColorBlack,
               ),
-            
             ],
           ),
         ),

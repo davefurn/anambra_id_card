@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/authentication/views/auth_decide/widgets/click_to_new_page.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
@@ -21,6 +20,7 @@ import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Auth extends StatelessWidget {
   const Auth({Key? key}) : super(key: key);
@@ -32,18 +32,18 @@ class Auth extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(
-              left: getProportionateScreenWidth(97),
-              right: getProportionateScreenWidth(97),
-              top: getProportionateScreenHeight(167),
+              left: 97.w,
+              right: 97.w,
+              top: 167.h,
             ),
             child: Image.asset(
               'assets/images/splash.png',
-              height: getProportionateScreenHeight(242),
-              width: getProportionateScreenWidth(181),
+              height: 242.h,
+              width: 181.w,
             ),
           ),
           SizedBox(
-            height: getProportionateScreenHeight(70),
+            height: 70.h,
           ),
           Column(
             children: [
@@ -53,7 +53,7 @@ class Auth extends StatelessWidget {
                 thickLine: 1,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(8),
+                height: 8.h,
               ),
               CustomButton(
                 text: 'Use as guest',
@@ -63,11 +63,11 @@ class Auth extends StatelessWidget {
                 borderColor: IdColors.subColor,
               ),
               SizedBox(
-                height: getProportionateScreenHeight(35),
+                height: 35.h,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20),
+                  horizontal: 20.w,
                 ),
                 child: OnClickToNewPage(
                   text1: "Already have an account?",

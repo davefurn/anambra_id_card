@@ -43,8 +43,8 @@ class QueryContainer extends StatelessWidget {
         ),
       ),
       padding: EdgeInsets.only(
-        top: getProportionateScreenHeight(23),
-        bottom: getProportionateScreenHeight(23),
+        top: 23.h,
+        bottom: 23.h,
       ),
       child: Column(
         children: [
@@ -52,10 +52,10 @@ class QueryContainer extends StatelessWidget {
             svgAsset,
             color: IdColors.backgroundColour,
             width: getProportionateScreenWidth(40),
-            height: getProportionateScreenHeight(40),
+            height: 40.h,
           ),
           SizedBox(
-            height: getProportionateScreenHeight(4),
+            height: 4.h,
           ),
           Text(
             svgAssetText,
@@ -66,7 +66,7 @@ class QueryContainer extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(
-            height: getProportionateScreenHeight(4),
+            height: 4.h,
           ),
           Padding(
             padding: EdgeInsets.symmetric(

@@ -61,7 +61,7 @@ class Onboard extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(15),
+                    height: 15.h,
                   ),
                   Text(
                     "The Anambra ID Scanner allows you scan a QR code or search the states database for any employees information",
@@ -76,12 +76,13 @@ class Onboard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(29),
+              height: 29.h,
             ),
             CustomButton(
               text: 'Next',
               onpressed: () {
-                Navigator.of(context).pushReplacement(CustomRoutes.fadeIn(const Auth()));
+                Navigator.of(context)
+                    .pushReplacement(CustomRoutes.fadeIn(const Auth()));
               },
               thickLine: 1,
             ),

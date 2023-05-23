@@ -1,9 +1,9 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MainEmployeeOrder extends StatefulWidget {
   final Function(NameAgeStatusOrder) onSelected;
@@ -19,7 +19,7 @@ class _MainEmployeeOrderState extends State<MainEmployeeOrder> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getProportionateScreenWidth(8),
+      spacing: 8.w,
       children: [
         NameAgeStatusOrder.name,
         NameAgeStatusOrder.age,
@@ -58,7 +58,7 @@ class _NameOrderingState extends State<NameOrdering> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getProportionateScreenWidth(8),
+      spacing: 8.w,
       children: [NameOrder.aToZ, NameOrder.ztoA]
           .map((e) => InkWell(
                 onTap: () {
@@ -94,7 +94,7 @@ class _AgeOrderingState extends State<AgeOrdering> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getProportionateScreenWidth(8),
+      spacing: 8.w,
       children: [AgeOrder.oldest, AgeOrder.yougest]
           .map((e) => InkWell(
                 onTap: () {
@@ -130,7 +130,7 @@ class _StatusOrderingState extends State<StatusOrdering> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getProportionateScreenWidth(8),
+      spacing: 8.w,
       children: [StatusOrder.active, StatusOrder.inactive]
           .map((e) => InkWell(
                 onTap: () {
@@ -166,7 +166,7 @@ class _DayOrderingState extends State<DayOrdering> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: getProportionateScreenWidth(8),
+      spacing: 8.w,
       children:
           [DayOrder.today, DayOrder.thisWeek, DayOrder.thisMonth].map((e) {
         late String text;

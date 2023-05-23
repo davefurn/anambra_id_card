@@ -1,5 +1,4 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/all_employees/widget/employee_tile.dart';
 import 'package:acmc/src/features/all_employees/widget/group_order.dart';
 import 'package:acmc/src/model/enums.dart';
@@ -7,6 +6,7 @@ import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AllEmployee extends ConsumerStatefulWidget {
   const AllEmployee({super.key});
@@ -33,9 +33,9 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
       ),
       body: Padding(
         padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
-          right: getProportionateScreenWidth(20),
-          top: getProportionateScreenWidth(30),
+          left: 20.h,
+          right: 20.w,
+          top: 30.h,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

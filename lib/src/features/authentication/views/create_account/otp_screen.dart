@@ -123,7 +123,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
         child: Column(
           children: [
             SizedBox(
-              height: getProportionateScreenHeight(32),
+              height: 32.h,
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -151,7 +151,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(32),
+              height: 32.h,
             ),
             Form(
               key: otpFormKey,
@@ -170,7 +170,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(8),
+                    height: 8.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -183,7 +183,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       },
                       validator: (value) {
                         return null;
-                      
+
                         // if (value!.isEmpty || isResendAgain1) {
                         //   addError(error: kOtpError);
                         //   return "Try again in $_start seconds";
@@ -230,8 +230,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   isResendAgain1 == true
                       ? Padding(
                           padding: EdgeInsets.only(
-                              right: getProportionateScreenWidth(20),
-                              top: getProportionateScreenHeight(8)),
+                              right: getProportionateScreenWidth(20), top: 8.h),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
@@ -250,7 +249,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         )
                       : const SizedBox.shrink(),
                   SizedBox(
-                    height: getProportionateScreenHeight(16),
+                    height: 16.h,
                   ),
                   Padding(
                     padding:
@@ -264,7 +263,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(8),
+                    height: 8.h,
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
@@ -277,7 +276,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       },
                       validator: (value) {
                         return null;
-                      
+
                         // if (value!.isEmpty || isResendAgain1) {
                         //   addError(error: kOtpError);
                         //   return "Try again in $_start seconds";
@@ -326,12 +325,11 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   isResendAgain1 == true
                       ? Padding(
                           padding: EdgeInsets.only(
-                              right: getProportionateScreenWidth(20),
-                              top: getProportionateScreenHeight(8)),
+                              right: getProportionateScreenWidth(20), top: 8.h),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                             errorColor1 == true ? 'incorrect otp' : text,
+                              errorColor1 == true ? 'incorrect otp' : text,
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium!
@@ -346,7 +344,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         )
                       : const SizedBox.shrink(),
                   SizedBox(
-                    height: getProportionateScreenHeight(24),
+                    height: 24.h,
                   ),
                   Align(
                     alignment: Alignment.center,

@@ -23,7 +23,8 @@ class TitleWithBackButton extends StatelessWidget {
   final double width;
   const TitleWithBackButton({
     Key? key,
-    required this.text,  this.width = 181,
+    required this.text,
+    this.width = 181,
   }) : super(key: key);
 
   @override
@@ -36,7 +37,7 @@ class TitleWithBackButton extends StatelessWidget {
       child: Row(
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: getProportionateScreenHeight(6)),
+            padding: EdgeInsets.only(bottom: 6.h),
             child: backButton(context),
           ),
           SizedBox(
