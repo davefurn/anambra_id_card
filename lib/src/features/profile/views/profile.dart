@@ -35,9 +35,9 @@ class Profile extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
-          right: getProportionateScreenWidth(20),
-          top: getProportionateScreenWidth(30),
+          left: 20.w
+          right: 20.w
+          top: 30.h,
         ),
         children: [
           const Center(
@@ -51,8 +51,8 @@ class Profile extends StatelessWidget {
           ),
           12.sbH,
           SizedBox(
-            height: getProportionateScreenHeight(210),
-            width: getProportionateScreenHeight(207),
+            height: 210.h,
+            width: 207.h,
             child: Image.asset(
               'assets/images/qr_code_sample.png',
               fit: BoxFit.fitHeight,

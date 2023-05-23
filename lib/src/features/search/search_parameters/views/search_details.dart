@@ -34,10 +34,10 @@ class SearchDetails extends StatelessWidget {
               tag: 'abcde',
               child: Container(
                 height: 146.h,
-                width: getProportionateScreenWidth(178),
+                width:178.w,
                 margin: EdgeInsets.only(
-                    left: getProportionateScreenWidth(20),
-                    right: getProportionateScreenWidth(186)),
+                    left: 20.w
+                    right:186.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   image: const DecorationImage(
@@ -51,7 +51,7 @@ class SearchDetails extends StatelessWidget {
               height: 16.h,
             ),
             Padding(
-              padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+              padding: EdgeInsets.only(left:20.w),
               child: GestureDetector(
                 onTap: () => showModalBottomSheet(
                     backgroundColor: Colors.transparent,
@@ -63,7 +63,7 @@ class SearchDetails extends StatelessWidget {
                           return Container(
                             height: (428),
                             padding: EdgeInsets.symmetric(
-                              horizontal: getProportionateScreenWidth(20),
+                              horizontal: 20.w
                             ),
                             decoration: const BoxDecoration(
                                 color: IdColors.backgroundColour,
@@ -77,8 +77,8 @@ class SearchDetails extends StatelessWidget {
                               children: [
                                 Padding(
                                   padding: EdgeInsets.only(
-                                      left: getProportionateScreenWidth(318),
-                                      right: getProportionateScreenWidth(21)),
+                                      left: 318.w,
+                                      right: 21.w),
                                   child: IconButton(
                                     onPressed: () {
                                       Navigator.pop(context);
@@ -92,10 +92,10 @@ class SearchDetails extends StatelessWidget {
                                 ),
                                 Container(
                                   height: (210),
-                                  width: getProportionateScreenWidth(207),
+                                  width:207.w,
                                   margin: EdgeInsets.symmetric(
                                       horizontal:
-                                          getProportionateScreenWidth(64)),
+                                         64.w),
                                   decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage(
@@ -139,7 +139,7 @@ class SearchDetails extends StatelessWidget {
                                           width: 157,
                                         )),
                                     SizedBox(
-                                      width: getProportionateScreenWidth(4),
+                                      width: 4.w,
                                     ),
                                     const SpecialButton(
                                         icon: Icons.download, text: 'Download')

@@ -37,8 +37,8 @@ class SpecialButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: getProportionateScreenHeight(height),
-      width: getProportionateScreenWidth(width),
+      height: height.h ,
+      width: width.w,
       decoration: BoxDecoration(
           border: Border.all(color: borderColor),
           color: IdColors.backgroundColour,
@@ -53,7 +53,7 @@ class SpecialButton extends StatelessWidget {
             color: IdColors.textColorBlack,
           ),
           SizedBox(
-            width: getProportionateScreenWidth(4),
+            width: 4.w,
           ),
           Text(text,
               style: Theme.of(context).textTheme.bodySmall!.copyWith(

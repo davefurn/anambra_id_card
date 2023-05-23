@@ -31,8 +31,8 @@ class TitleWithBackButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
-          top: getProportionateScreenHeight(61),
+          left: 20.w
+          top: 61.h,
           right: 0),
       child: Row(
         children: [
@@ -41,7 +41,7 @@ class TitleWithBackButton extends StatelessWidget {
             child: backButton(context),
           ),
           SizedBox(
-            width: getProportionateScreenWidth(16),
+            width: 16.w,
           ),
           TitleWidget(
             width: width,

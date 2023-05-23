@@ -71,7 +71,7 @@ class _CreateAccountState extends State<CreateAccount> {
             children: [
               TitleWidget(
                 text: 'Create Account 1/2',
-                pDleft: getProportionateScreenWidth(20),
+                pDleft: 20.w,
                 height: 36.h,
                 fontSize: 24,
               ),
@@ -80,8 +80,8 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(20),
-                    right: getProportionateScreenWidth(20)),
+                    left: 20.w,
+                    right: 20.w),
                 child: InternationalPhoneNumberInput(
                   spaceBetweenSelectorAndTextField: 0,
                   onInputChanged: (PhoneNumber number) {
@@ -160,7 +160,7 @@ class _CreateAccountState extends State<CreateAccount> {
               Image.asset(
                 "assets/images/icon2.png",
                 height: 73.h,
-                width: getProportionateScreenWidth(73),
+                width: 73.w,
               ),
               SizedBox(
                 height: 58.h,
@@ -185,12 +185,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: getProportionateScreenWidth(49.5),
+                    width: 49.5.w,
                     height: 1.h,
                     color: IdColors.subColor,
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(2),
+                    width: 2.w,
                   ),
                   Text(
                     'or',
@@ -200,10 +200,10 @@ class _CreateAccountState extends State<CreateAccount> {
                         ),
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(2),
+                    width: 2.w,
                   ),
                   Container(
-                    width: getProportionateScreenWidth(49.5),
+                    width: 49.5.w,
                     height: 1.h,
                     color: IdColors.subColor,
                   ),
@@ -214,7 +214,7 @@ class _CreateAccountState extends State<CreateAccount> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(112),
+                  horizontal: 112.w,
                 ),
                 child: const SpecialButton2(
                   text: 'Use as guest',

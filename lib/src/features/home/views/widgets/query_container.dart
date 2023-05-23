@@ -51,7 +51,7 @@ class QueryContainer extends StatelessWidget {
           SvgPicture.asset(
             svgAsset,
             color: IdColors.backgroundColour,
-            width: getProportionateScreenWidth(40),
+            width: 40.w,
             height: 40.h,
           ),
           SizedBox(
@@ -70,7 +70,7 @@ class QueryContainer extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(16)),
+                horizontal: 16.w),
             child: Text(
               description,
               style: Theme.of(context).textTheme.headlineLarge!.copyWith(

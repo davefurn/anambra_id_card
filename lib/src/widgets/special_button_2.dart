@@ -46,8 +46,8 @@ class SpecialButton2 extends StatelessWidget {
           color: backgroundColor ?? IdColors.backgroundColour,
           borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(12),
-          vertical: getProportionateScreenHeight(7)),
+          horizontal: 12.w,
+          vertical: 7.h ),
       // alignment: Alignment.center,
       child: Row(
         mainAxisSize: MainAxisSize.min,
