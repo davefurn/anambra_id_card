@@ -16,8 +16,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final isResendAgain = StateProvider<bool>((ref) => false);
 
-final isLoading = StateProvider<bool>((ref) => false);
-final isVerified = StateProvider<bool>((ref) => false);
 final errors = StateProvider<List<String?>>(
   (ref) => [],
 );

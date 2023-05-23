@@ -48,7 +48,6 @@ dependencies:
   keyboard_dismisser: ^3.0.0
   lottie: ^2.3.2
   package_info_plus: ^4.0.0
-  riverpod: ^2.3.4
   shared_preferences: ^2.1.1
 
 dev_dependencies:

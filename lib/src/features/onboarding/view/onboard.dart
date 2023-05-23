@@ -80,8 +80,7 @@ class Onboard extends StatelessWidget {
             CustomButton(
               text: 'Next',
               onpressed: () {
-                Navigator.of(context)
-                    .pushReplacement(CustomRoutes.fadeIn(const Auth()));
+                pushReplacementTo(context, const Auth());
               },
               thickLine: 1,
             ),

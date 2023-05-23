@@ -17,6 +17,7 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,7 +25,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../settings/views/settings_view.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key});
+  final AccessLevel? accessLevel;
+  const HomeScreen({Key? key, this.accessLevel}) : super(key: key);
 
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
@@ -103,8 +105,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           case 0:
             return CupertinoTabView(
               navigatorKey: tabNavKeys[0],
-              builder: (context) => const CupertinoPageScaffold(
-                child: Home(),
+              builder: (context) => CupertinoPageScaffold(
+                child: Home(accessLevel: widget.accessLevel),
               ),
             );
           case 1:

@@ -12,11 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
+
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/utils/date_time_util.dart';
+import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +30,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
-import '../../services/services.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class CreateAccount2 extends ConsumerStatefulWidget {
@@ -43,6 +48,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
   final bool _validate = false;
   late TextEditingController staffIdController;
   late TextEditingController dateController;
+  LoadingState state = LoadingState.normal;
   @override
   void initState() {
     super.initState();
@@ -57,10 +63,19 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
     super.dispose();
   }
 
+  Future<void> verify() async {
+    setState(() {
+      state = LoadingState.loading;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      state = LoadingState.finished;
+    });
+    await Future.delayed(const Duration(milliseconds: 500));
+  }
+
   @override
   Widget build(BuildContext context) {
-    final isVerified1 = ref.watch(isVerified);
-    final isLoading1 = ref.watch(isLoading);
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(
@@ -115,12 +130,9 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                   textInputAction: TextInputAction.next,
                   titleText: 'Date of birth',
                   hintText: "dd/mm/yyyy",
-                  suffixIcon: IconButton(
-                    icon: const Icon(
-                      Icons.calendar_month,
-                      color: IdColors.hintTextColor,
-                    ),
-                    onPressed: () {},
+                  suffixIcon: const Icon(
+                    Icons.calendar_month,
+                    color: IdColors.hintTextColor,
                   ),
                   keyboardType: TextInputType.none,
                   controller: dateController,
@@ -132,50 +144,22 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
               ),
               Align(
                 alignment: Alignment.center,
-                child: MaterialButton(
-                  elevation: 0,
-                  onPressed: () async {
-                    // if (_) {
-                    //   await verify();
-                    //   Future.delayed(const Duration(seconds: 1), () async {
-                    //     pushTo(context, const PasswordInput());
-                    //   });
-                    // }
+                child: LoadingButton(
+                  state: state,
+                  onTap: () async {
+                    verify().then((value) {
+                      setState(() {
+                        state = LoadingState.normal;
+                      });
+                      return pushTo(
+                        context,
+                        const OtpScreen(),
+                      );
+                    });
                   },
-                  color: IdColors.mainColor,
-                  minWidth: MediaQuery.of(context).size.width * 0.9,
-                  height: 50,
-                  child: isLoading1
-                      ? const SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            backgroundColor: Colors.white,
-                            strokeWidth: 3,
-                            color: Colors.black,
-                          ),
-                        )
-                      : isVerified1
-                          ? const Icon(
-                              Icons.check_circle,
-                              color: Colors.white,
-                              size: 30,
-                            )
-                          : Text(
-                              "Create Account",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                    fontSize: 16,
-                                    color: IdColors.backgroundColour,
-                                  ),
-                            ),
+                  text: 'Create Account',
                 ),
               ),
-
-              // Navigate to the new page.
-
               SizedBox(
                 height: 58.h,
               ),
@@ -235,8 +219,12 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                 padding: EdgeInsets.symmetric(
                   horizontal: 112.w,
                 ),
-                child: const SpecialButton2(
-                  text: 'Use as guest',
+                child: GestureDetector(
+                  onTap: () => pushTo(context,
+                      const HomeScreen(accessLevel: AccessLevel.guest)),
+                  child: const SpecialButton2(
+                    text: 'Use as guest',
+                  ),
                 ),
               ),
             ],

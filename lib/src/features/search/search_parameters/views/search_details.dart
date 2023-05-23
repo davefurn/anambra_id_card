@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
@@ -153,8 +151,8 @@ class SearchDetails extends StatelessWidget {
                       );
                     },
                   ),
-                  child: const SpecialButton2(
-                    icon: Icon(Icons.qr_code),
+                  child: SpecialButton2(
+                    icon: SvgPicture.asset('assets/svgs/qrcode.svg'),
                     text: 'View QR code',
                     // width: 132,
                     // height: 32,

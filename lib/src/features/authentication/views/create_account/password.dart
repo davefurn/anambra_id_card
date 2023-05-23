@@ -93,107 +93,115 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             elevation: 10,
             shadowColor: Colors.black54,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: IdColors.brandBlue,
-                    size: 33,
-                  ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text(
-                    'Is this you?',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
-                          color: IdColors.textColorBlack,
-                        ),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: IdColors.brandBlue,
+                      size: 33,
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      'Is this you?',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: IdColors.textColorBlack,
+                          ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 10.h,
+                          ),
+                          const DataTesting(
+                            firstText: 'First Name',
+                            secondText: 'Chidinma',
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          const DataTesting(
+                            firstText: 'Middle Name',
+                            secondText: 'Deborah',
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          const DataTesting(
+                            firstText: 'Last Name',
+                            secondText: 'Madula',
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          const DataTesting(
+                            firstText: 'Email',
+                            secondText: 'debbiedinma44@gmail.com',
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          const DataTesting(
+                            firstText: 'Phone number',
+                            secondText: '08164684852',
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24.h,
+                    ),
+                    Row(
                       children: [
-                        SizedBox(
-                          height: 10.h,
-                        ),
-                        const DataTesting(
-                          firstText: 'First Name',
-                          secondText: 'Chidinma',
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        const DataTesting(
-                          firstText: 'Middle Name',
-                          secondText: 'Deborah',
+                        Expanded(
+                          child: InkWell(
+                            onTap: () => pushToAndClearStack(
+                                context, const CreateAccount()),
+                            child: SpecialButton2(
+                              text: 'Not me',
+                              height: 40.h,
+                              backgroundColor: Colors.transparent,
+                              borderColor: IdColors.grey,
+                            ),
+                          ),
                         ),
                         SizedBox(
-                          height: 16.h,
+                          width: 10.w,
                         ),
-                        const DataTesting(
-                          firstText: 'Last Name',
-                          secondText: 'Madula',
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        const DataTesting(
-                          firstText: 'Email',
-                          secondText: 'debbiedinma44@gmail.com',
-                        ),
-                        SizedBox(
-                          height: 16.h,
-                        ),
-                        const DataTesting(
-                          firstText: 'Phone number',
-                          secondText: '08164684852',
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.pushReplacement(
+                                context,
+                                CustomRoutes.slideIn(const Password2()),
+                              );
+                            },
+                            child: SpecialButton2(
+                              text: 'Yes',
+                              height: 40.h,
+                              backgroundColor: IdColors.mainColor,
+                            ),
+                          ),
                         ),
                       ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 24.h,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () => pushToAndClearStack(
-                              context, const CreateAccount()),
-                          child: SpecialButton2(
-                            text: 'Not me',
-                            height: 40.h,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.w,
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pushReplacement(
-                              context,
-                              CustomRoutes.slideIn(const Password2()),
-                            );
-                          },
-                          child: SpecialButton2(
-                            text: 'Yes',
-                            height: 40.h,
-                            backgroundColor: IdColors.mainColor,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
