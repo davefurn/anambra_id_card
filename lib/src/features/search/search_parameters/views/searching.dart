@@ -15,6 +15,8 @@
 import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/colors.dart';
 import '../../../../widgets/special_button.dart';
@@ -61,138 +63,177 @@ class _SearchingState extends State<Searching> {
                       context: context,
                       removeTop: true,
                       child: ListView.builder(
-                          itemCount: 1,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: getProportionateScreenWidth(335),
-                              height: getProportionateScreenHeight(245),
-                              decoration: BoxDecoration(
-                                color: IdColors.backgroundColour,
-                                border:
-                                    Border.all(color: const Color(0xffBCC2CC)),
-                                borderRadius: BorderRadius.circular(14),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color:
-                                        const Color(0xffBCC2CC).withOpacity(.1),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: const Offset(
-                                        0, 4), // changes position of shadow
+                        itemCount: 1,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            decoration: BoxDecoration(
+                              color: IdColors.backgroundColour,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  spreadRadius: 0,
+                                  blurRadius: 25,
+                                  offset: const Offset(0, 4),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    top: getProportionateScreenHeight(16),
+                                    left: getProportionateScreenHeight(16),
+                                    right: getProportionateScreenHeight(16),
                                   ),
-                                ],
-                              ),
-                              margin: EdgeInsets.symmetric(
-                                  vertical: getProportionateScreenHeight(4.5),
-                                  horizontal: getProportionateScreenWidth(20)),
-                              padding: EdgeInsets.symmetric(
-                                  vertical: getProportionateScreenHeight(16),
-                                  horizontal: getProportionateScreenWidth(16)),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Hero(
-                                      tag: 'abcde',
-                                      child: Container(
-                                        height:
-                                            getProportionateScreenHeight(99),
-                                        width: getProportionateScreenWidth(117),
-                                        margin: EdgeInsets.only(
-                                            right: getProportionateScreenWidth(
-                                                186)),
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                          image: const DecorationImage(
-                                            image: AssetImage(
-                                                'assets/images/test_image.png'),
-                                            fit: BoxFit.fill,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                  child: SizedBox(
+                                    height: getProportionateScreenHeight(90),
+                                    child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        SizedBox(
-                                          height:
-                                              getProportionateScreenHeight(10),
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/gov_logo.png',
+                                            ),
+                                            const Text(
+                                              'MDA: ICT Agency',
+                                            )
+                                          ],
                                         ),
-                                        Text(
-                                          'Chidinma Deborah Maduka',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                        ),
-                                        Text(
-                                          'debbiedinma44@gmail.com',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                        ),
-                                        Text(
-                                          '08084646545',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyMedium!
-                                              .copyWith(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => pushTo(
-                                              context, const SearchDetails()),
+                                        Hero(
+                                          tag: 'abcde',
                                           child: Container(
                                             height:
                                                 getProportionateScreenHeight(
-                                                    32),
+                                                    99),
                                             width: getProportionateScreenWidth(
-                                                132),
-                                            margin: EdgeInsets.only(
-                                                left:
-                                                    getProportionateScreenWidth(
-                                                        171)),
+                                                117),
                                             decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: const Color(
-                                                        0xffDFE5DF)),
-                                                color:
-                                                    IdColors.backgroundColour,
-                                                borderRadius:
-                                                    BorderRadius.circular(8)),
-                                            child: Center(
-                                              child: Text('View all details',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall!
-                                                      .copyWith(
-                                                        fontSize: 14,
-                                                        color: IdColors
-                                                            .textColorBlack,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      )),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              image: const DecorationImage(
+                                                image: AssetImage(
+                                                    'assets/images/test_image.png'),
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ]),
-                            );
-                          }),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                    left: getProportionateScreenHeight(16),
+                                    right: getProportionateScreenHeight(16),
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height:
+                                            getProportionateScreenHeight(10),
+                                      ),
+                                      const Text(
+                                        'Chidinma Deborah Maduka',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.black),
+                                      ),
+                                      4.sbH,
+                                      const Text(
+                                        'Commissioner',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      4.sbH,
+                                      const Text.rich(
+                                        TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'Status: ',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'Active',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.w700,
+                                                fontSize: 14,
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: InkWell(
+                                          onTap: () => pushTo(
+                                            context,
+                                            const SearchDetails(),
+                                          ),
+                                          child: const SpecialButton2(
+                                            text: 'View all details',
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                12.sbH,
+                                ClipRRect(
+                                  borderRadius: const BorderRadius.vertical(
+                                      bottom: Radius.circular(12)),
+                                  child: SizedBox(
+                                    height: 10,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            color: IdColors.mainColor,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            color: IdColors.blue,
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                            color: IdColors.mainColor,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
                 ],

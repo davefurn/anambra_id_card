@@ -20,7 +20,6 @@ import 'package:flutter/material.dart';
 import '../../../../constants/colors.dart';
 import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
-import '../../../../widgets/special_button_2.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 
 class Password2 extends StatefulWidget {

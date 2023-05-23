@@ -182,6 +182,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         // }
                       },
                       validator: (value) {
+                        return null;
+                      
                         // if (value!.isEmpty || isResendAgain1) {
                         //   addError(error: kOtpError);
                         //   return "Try again in $_start seconds";
@@ -274,6 +276,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                         // }
                       },
                       validator: (value) {
+                        return null;
+                      
                         // if (value!.isEmpty || isResendAgain1) {
                         //   addError(error: kOtpError);
                         //   return "Try again in $_start seconds";

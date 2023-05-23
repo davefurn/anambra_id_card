@@ -20,7 +20,6 @@ import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/utils/date_time_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../extension/size_config.dart';
@@ -28,7 +27,6 @@ import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
-import 'controller/navigation_controller.dart';
 
 class CreateAccount2 extends StatefulWidget {
   const CreateAccount2({super.key});

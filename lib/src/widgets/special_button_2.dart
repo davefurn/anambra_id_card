@@ -25,19 +25,22 @@ class SpecialButton2 extends StatelessWidget {
   final Color? textColor;
   final Color? selectedTextColor;
   final Widget? icon;
-  const SpecialButton2({
-    Key? key,
-    required this.text,
-    this.backgroundColor,
-    this.borderColor,
-    this.textColor,
-    this.selectedTextColor,
-    this.icon,
-  }) : super(key: key);
+  final double? height;
+  const SpecialButton2(
+      {Key? key,
+      required this.text,
+      this.backgroundColor,
+      this.borderColor,
+      this.textColor,
+      this.selectedTextColor,
+      this.icon,
+      this.height})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: height,
       decoration: BoxDecoration(
           border: Border.all(color: borderColor ?? IdColors.subColor),
           color: backgroundColor ?? IdColors.backgroundColour,
@@ -45,8 +48,10 @@ class SpecialButton2 extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: getProportionateScreenWidth(12),
           vertical: getProportionateScreenHeight(7)),
+      // alignment: Alignment.center,
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           if (icon != null)
             Row(
@@ -59,8 +64,9 @@ class SpecialButton2 extends StatelessWidget {
             text,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                   fontSize: 14,
-                  color:
-                      textColor ?? selectedTextColor ?? IdColors.textColorGrey,
+                  color: textColor ??
+                      selectedTextColor ??
+                      IdColors.textColorGrey,
                   fontWeight: FontWeight.w600,
                 ),
           ),

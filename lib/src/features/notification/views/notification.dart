@@ -67,9 +67,9 @@ class _NotificationPState extends ConsumerState<NotificationP> {
                         width: 1, color: IdColors.backgroundColour),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  leading:  Column(
+                  leading:  const Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children:const [
+                    children:[
                       Icon(
                         Icons.info_outline,
                         color: IdColors.brandBlue,
