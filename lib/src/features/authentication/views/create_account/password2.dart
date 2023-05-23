@@ -63,7 +63,7 @@ class _Password2State extends State<Password2> {
             children: [
               TitleWidget(
                 text: 'Create Password',
-                pDleft: getProportionateScreenWidth(20),
+                pDleft: 20.w,
                 height: 36.h,
                 fontSize: 24,
               ),

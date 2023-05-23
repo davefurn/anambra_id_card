@@ -40,13 +40,13 @@ class TitleWidget extends StatelessWidget {
     SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.only(
-        top: pDtop ?? getProportionateScreenHeight(61),
-        left: pDleft ?? getProportionateScreenWidth(102),
+        top: pDtop ?? 61.h,
+        left: pDleft ?? 102.w,
       ),
       child: Align(
         alignment: Alignment.topLeft,
         child: SizedBox(
-          width: width ?? getProportionateScreenWidth(181),
+          width: width ?? 181.w,
           height: height ?? 36.h,
           child: Text(
             textAlign: textAlign ?? TextAlign.start,

@@ -40,13 +40,13 @@ class Onboard extends StatelessWidget {
             ),
           ),
         ),
-        padding: EdgeInsets.only(bottom: getProportionateScreenHeight(110)),
+        padding: EdgeInsets.only(bottom:110.h),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(40),
+                horizontal: 40.w,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

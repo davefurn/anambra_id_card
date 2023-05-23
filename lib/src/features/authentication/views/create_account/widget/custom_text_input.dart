@@ -81,7 +81,7 @@ class CustomTextInput extends StatelessWidget {
     SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: hpD ?? getProportionateScreenWidth(20),
+        horizontal: hpD ?? 20.w,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -55,10 +55,10 @@ class _SearchingState extends State<Searching> {
                         ),
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(4.5),
+                    height: 4.5.h,
                   ),
                   SizedBox(
-                    height: getProportionateScreenHeight(646),
+                    height: 646.h,
                     child: MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
@@ -115,10 +115,10 @@ class _SearchingState extends State<Searching> {
                                           tag: 'abcde',
                                           child: Container(
                                             height:
-                                                getProportionateScreenHeight(
-                                                    99),
-                                            width: getProportionateScreenWidth(
-                                                117),
+                                              
+                                                    99.h,
+                                            width: 
+                                                117.w,
                                             decoration: BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(8),

@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         padding:
-            EdgeInsets.only(left: getProportionateScreenWidth(20), top: 80.h),
+            EdgeInsets.only(left: 20.w top: 80.h),
         child: Column(
           children: [
             Align(
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                     size: 13.33,
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(5.33),
+                    width: 5.33.w,
                   ),
                   Text(
                     'You can only search for those within your MDA',
@@ -140,9 +140,9 @@ class _HomeState extends State<Home> {
               crossAxisCount: 2,
               shrinkWrap: true,
               childAspectRatio: 160.h / 144.h,
-              crossAxisSpacing: getProportionateScreenWidth(16),
+              crossAxisSpacing: 16.w,
               padding: EdgeInsets.only(
-                right: getProportionateScreenWidth(20),
+                right: 20.w
               ),
               children: [
                 InkWell(
@@ -177,7 +177,7 @@ class _HomeState extends State<Home> {
               height: 26.h,
             ),
             Padding(
-              padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+              padding: EdgeInsets.only(right: 20.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -190,7 +190,7 @@ class _HomeState extends State<Home> {
                         ),
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(5.73),
+                    width: 5.73.w,
                   ),
                   Row(
                     children: [
@@ -231,9 +231,9 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         margin: EdgeInsets.only(
-                            right: getProportionateScreenWidth(8)),
+                            right: 8.w),
                         padding: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(16),
+                          horizontal: 16.w,
                           vertical: 8.h,
                         ),
                         child: Column(
@@ -302,7 +302,7 @@ class _HomeState extends State<Home> {
               height: 26.h,
             ),
             Padding(
-              padding: EdgeInsets.only(right: getProportionateScreenWidth(20)),
+              padding: EdgeInsets.only(right:20.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -358,9 +358,9 @@ class _HomeState extends State<Home> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         margin: EdgeInsets.only(
-                            right: getProportionateScreenWidth(4)),
+                            right: 4.w),
                         padding: EdgeInsets.symmetric(
-                          horizontal: getProportionateScreenWidth(12),
+                          horizontal: 12.w,
                           vertical: 6.h,
                         ),
                         child: Column(

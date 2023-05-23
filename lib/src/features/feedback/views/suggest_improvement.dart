@@ -36,9 +36,9 @@ class SuggestImprovement extends StatelessWidget {
       ),
       body: ListView(
         padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
-          right: getProportionateScreenWidth(20),
-          top: getProportionateScreenWidth(30),
+          left: 20.w,
+          right: 20.w,
+          top: 30.w,
         ),
         children: [
           TextFormField(
@@ -61,7 +61,7 @@ class SuggestImprovement extends StatelessWidget {
           ),
           16.sbH,
           SizedBox(
-            height: getProportionateScreenHeight(225),
+            height:225.h,
             child: TextFormField(
               minLines: null,
               expands: true,

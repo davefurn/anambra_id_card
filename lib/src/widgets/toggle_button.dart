@@ -33,8 +33,8 @@ class ToggleButton extends StatelessWidget {
           color: IdColors.backgroundColour,
           borderRadius: BorderRadius.circular(8)),
       padding: EdgeInsets.symmetric(
-          horizontal: getProportionateScreenWidth(12),
-          vertical: getProportionateScreenHeight(7)),
+          horizontal: 12.w,
+          vertical:7.h),
       child: Text(
         text,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(

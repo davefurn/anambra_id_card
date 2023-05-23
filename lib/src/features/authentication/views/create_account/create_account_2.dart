@@ -73,7 +73,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
             children: [
               TitleWidget(
                 text: 'Create Account 2/2',
-                pDleft: getProportionateScreenWidth(20),
+                pDleft: 20.w,
                 height: 36.h,
                 fontSize: 24,
               ),
@@ -98,7 +98,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(right: getProportionateScreenWidth(184)),
+                    EdgeInsets.only(right: 184.w),
                 child: CustomTextInput(
                   onTap: () => Utils.showSheet(context,
                       child: buildDatePicker(), onClicked: () {
@@ -194,7 +194,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
               Image.asset(
                 "assets/images/icon2.png",
                 height: 73.h,
-                width: getProportionateScreenWidth(73),
+                width: 73.w,
               ),
               SizedBox(
                 height: 58.h,
@@ -216,12 +216,12 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    width: getProportionateScreenWidth(49.5),
+                    width: 49.5.w,
                     height: 1.h,
                     color: IdColors.subColor,
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(2),
+                    width: 2.w,
                   ),
                   Text(
                     'or',
@@ -231,10 +231,10 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                         ),
                   ),
                   SizedBox(
-                    width: getProportionateScreenWidth(2),
+                    width: 2.w,
                   ),
                   Container(
-                    width: getProportionateScreenWidth(49.5),
+                    width: 49.5.w,
                     height: 1.h,
                     color: IdColors.subColor,
                   ),
@@ -245,7 +245,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(112),
+                  horizontal: 112.w,
                 ),
                 child: const SpecialButton2(
                   text: 'Use as guest',

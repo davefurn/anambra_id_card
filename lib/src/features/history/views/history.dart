@@ -54,8 +54,8 @@ class _HistoryState extends ConsumerState<History> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              left: getProportionateScreenWidth(20),
-              right: getProportionateScreenWidth(237),
+              left: 20.w
+              right: 237.w,
             ),
             child: const SpecialButton(
                 icon: Icons.calendar_month,
@@ -70,8 +70,8 @@ class _HistoryState extends ConsumerState<History> {
             child: employee.when(
               data: (data) => GroupedListView<EmployeeListModel, DateTime>(
                 padding: EdgeInsets.only(
-                  left: getProportionateScreenWidth(20),
-                  right: getProportionateScreenWidth(20),
+                  left: 20.w
+                  right: 20.w
                   bottom: 100.h,
                   top: 21.h,
                 ),

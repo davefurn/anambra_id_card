@@ -95,7 +95,7 @@ class _SearchParametersState extends State<SearchParameters> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(right: getProportionateScreenWidth(184)),
+                    EdgeInsets.only(right:184.w),
                 child: CustomTextInput(
                   onTap: () => Utils.showSheet(context,
                       child: buildDatePicker(), onClicked: () {

@@ -30,10 +30,10 @@ class _StatisticsCardState extends State<StatisticsCard> {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(
-        top: getProportionateScreenHeight(12),
-        bottom: getProportionateScreenHeight(12),
-        left: getProportionateScreenWidth(16),
-        right: getProportionateScreenWidth(50),
+        top:12.h,
+        bottom: 12.h,
+        left: 16.w,
+        right:50.w,
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),

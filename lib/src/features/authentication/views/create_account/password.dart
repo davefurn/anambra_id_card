@@ -174,7 +174,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                         ),
                       ),
                       SizedBox(
-                        width: getProportionateScreenWidth(10),
+                        width: 10.w,
                       ),
                       Expanded(
                         child: InkWell(

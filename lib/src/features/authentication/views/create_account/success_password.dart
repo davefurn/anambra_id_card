@@ -33,11 +33,11 @@ class SuccessPassword extends StatelessWidget {
           children: [
             Image.asset(
               'assets/images/success.png',
-              width: getProportionateScreenWidth(33.33),
+              width: 33.33.w,
               height: 33.33.h,
             ),
             SizedBox(
-              height: getProportionateScreenHeight(7.33),
+              height:7.33.h,
             ),
             Text(
               'Password created',

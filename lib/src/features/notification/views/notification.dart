@@ -55,8 +55,8 @@ class _NotificationPState extends ConsumerState<NotificationP> {
       body: noData
           ? ListView.builder(
               padding: EdgeInsets.only(
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(20),
+                left: 20.w
+                right: 20.w
                 bottom: 100.h,
               ),
               itemCount: 20,
@@ -98,8 +98,8 @@ class _NotificationPState extends ConsumerState<NotificationP> {
           : Center(
               child: Image.asset(
                 'assets/images/nothing_here.png',
-                width: getProportionateScreenWidth(200),
-                height: getProportionateScreenHeight(190),
+                width: 200.w,
+                height:190.h,
               ),
             ),
     );

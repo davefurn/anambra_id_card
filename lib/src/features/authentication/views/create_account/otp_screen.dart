@@ -127,8 +127,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(
-                left: getProportionateScreenWidth(20),
-                right: getProportionateScreenWidth(27),
+                left: 20.w,
+                right: 27.w,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -160,7 +160,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                        EdgeInsets.only(left: 20.w),
                     child: Text(
                       'Phone OTP',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -174,7 +174,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(20)),
+                        horizontal: 20.w),
                     child: TextFormField(
                       onChanged: (value) {
                         // if (value.isNotEmpty || !isResendAgain1) {
@@ -230,7 +230,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   isResendAgain1 == true
                       ? Padding(
                           padding: EdgeInsets.only(
-                              right: getProportionateScreenWidth(20), top: 8.h),
+                              right: 20.w, top: 8.h),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(
@@ -253,7 +253,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.only(left: getProportionateScreenWidth(20)),
+                        EdgeInsets.only(left: 20.w),
                     child: Text(
                       'Email OTP',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -267,7 +267,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.symmetric(
-                        horizontal: getProportionateScreenWidth(20)),
+                        horizontal: 20.w),
                     child: TextFormField(
                       onChanged: (value) {
                         // if (value.isNotEmpty || !isResendAgain1) {
@@ -325,7 +325,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   isResendAgain1 == true
                       ? Padding(
                           padding: EdgeInsets.only(
-                              right: getProportionateScreenWidth(20), top: 8.h),
+                              right: 20.w, top: 8.h),
                           child: Align(
                             alignment: Alignment.centerRight,
                             child: Text(

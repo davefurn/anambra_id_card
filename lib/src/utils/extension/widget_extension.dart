@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 extension WidgetExtensionss on num {
   Widget get sbH => SizedBox(
-        height: getProportionateScreenHeight(toDouble()),
+        height: getProportionateScreenWidth(4)(toDouble()),
       );
 
   Widget get sbW => SizedBox(
