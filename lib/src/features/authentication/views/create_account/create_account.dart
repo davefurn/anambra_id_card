@@ -18,6 +18,9 @@ import 'package:acmc/src/features/authentication/views/create_account/create_acc
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
+import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/widgets/loading_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,7 +28,6 @@ import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
-import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -42,6 +44,7 @@ class _CreateAccountState extends State<CreateAccount> {
   final _formKey = GlobalKey<FormState>();
   String initialCountry = 'NG';
   PhoneNumber number = PhoneNumber(isoCode: 'NG');
+  var state = LoadingState.normal;
 
   final bool _validate = false;
   late TextEditingController emailController;
@@ -58,6 +61,17 @@ class _CreateAccountState extends State<CreateAccount> {
     emailController.dispose();
     phoneNumberController.dispose();
     super.dispose();
+  }
+
+  Future<void> verify() async {
+    setState(() {
+      state = LoadingState.loading;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      state = LoadingState.finished;
+    });
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -130,6 +144,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
                 validator: (v) {
+                  if (v == null || v.isEmpty) return 'Put something';
                   return null;
                 },
                 validate: _validate,
@@ -142,14 +157,19 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: 24.h,
               ),
-              CustomButton(
-                thickLine: 1,
-                onpressed: () {
-                  Navigator.of(context)
-                      .push(CustomRoutes.slideIn(const CreateAccount2()));
+              LoadingButton(
+                state: state,
+                onTap: () {
+                  // if (_formKey.currentState!.validate()) {
+                  verify().then((value) {
+                    setState(() {
+                      state = LoadingState.normal;
+                    });
+                    return pushTo(context, const CreateAccount2());
+                  });
                 },
+                // },
                 text: 'Next',
-                textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
                 height: 58.h,
@@ -213,8 +233,12 @@ class _CreateAccountState extends State<CreateAccount> {
                 padding: EdgeInsets.symmetric(
                   horizontal: 112.w,
                 ),
-                child: const SpecialButton2(
-                  text: 'Use as guest',
+                child: GestureDetector(
+                  onTap: () => pushTo(context,
+                      const HomeScreen(accessLevel: AccessLevel.guest)),
+                  child: const SpecialButton2(
+                    text: 'Use as guest',
+                  ),
                 ),
               ),
             ],

@@ -19,7 +19,9 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/extension/string_extension.dart';
 import 'package:acmc/src/features/authentication/services/services.dart';
 import 'package:acmc/src/features/authentication/views/create_account/password.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -42,17 +44,19 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   // final List<String?> errors = [];
 
   String buttonName = "Resend code";
+  var state = LoadingState.normal;
 
-  late Timer _timer;
+  Timer? _timer;
 
-  verify() {
-    ref.read(isLoading.notifier).state = true;
-
-    const oneSec = Duration(milliseconds: 1000);
-    _timer = Timer.periodic(oneSec, (timer) {
-      ref.read(isLoading.notifier).state = false;
-      ref.read(isVerified.notifier).state = true;
+  Future<void> verify() async {
+    setState(() {
+      state = LoadingState.loading;
     });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      state = LoadingState.finished;
+    });
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -66,26 +70,16 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   void dispose() {
     phoneController.dispose();
     emailController.dispose();
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final isResendAgain1 = ref.watch(isResendAgain);
-    final isVerified1 = ref.watch(isVerified);
-    final isLoading1 = ref.watch(isLoading);
+
     final errors1 = ref.watch(errors);
     final errorColor1 = ref.watch(errorColor);
-
-    // void addError({String? error}) {
-    //   if (!errors1.contains(error)) {
-    //     ref.read(errors.notifier).state = [error];
-    //     // setState(() {
-    //     //   errors.add(error);
-    //     // });
-    //   }
-    // }
 
     void removeError({String? error}) async {
       if (errors1.contains(error) && _start == 0) {
@@ -343,45 +337,20 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   ),
                   Align(
                     alignment: Alignment.center,
-                    child: MaterialButton(
-                      elevation: 0,
-                      onPressed: () async {
-                        if (otpFormKey.currentState!.validate()) {
-                          await verify();
-                          Future.delayed(const Duration(seconds: 1), () async {
-                            pushTo(context, const PasswordInput());
+                    child: LoadingButton(
+                      state: state,
+                      onTap: () {
+                        verify().then((value) {
+                          setState(() {
+                            state = LoadingState.normal;
                           });
-                        }
+                          return pushTo(
+                            context,
+                            const VerifyDetails(),
+                          );
+                        });
                       },
-                      color: IdColors.mainColor,
-                      minWidth: MediaQuery.of(context).size.width * 0.9,
-                      height: 50,
-                      child: isLoading1
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                                strokeWidth: 3,
-                                color: Colors.black,
-                              ),
-                            )
-                          : isVerified1
-                              ? const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              : Text(
-                                  "Verify",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontSize: 16,
-                                        color: IdColors.backgroundColour,
-                                      ),
-                                ),
+                      text: 'Verify',
                     ),
                   ),
                 ],

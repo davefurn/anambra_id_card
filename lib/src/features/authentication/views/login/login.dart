@@ -17,12 +17,13 @@ import 'package:acmc/src/features/authentication/views/create_account/create_acc
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
+import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../router/app_routes.dart';
-import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class Login extends StatefulWidget {
@@ -41,6 +42,7 @@ class _LoginState extends State<Login> {
 
   final bool _validate = false;
   late TextEditingController emailController;
+  var state = LoadingState.normal;
 
   @override
   void initState() {
@@ -54,6 +56,17 @@ class _LoginState extends State<Login> {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> verify() async {
+    setState(() {
+      state = LoadingState.loading;
+    });
+    await Future.delayed(const Duration(seconds: 2));
+    setState(() {
+      state = LoadingState.finished;
+    });
+    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -118,13 +131,17 @@ class _LoginState extends State<Login> {
               SizedBox(
                 height: 24.h,
               ),
-              CustomButton(
-                thickLine: 1,
-                onpressed: () {
-                  pushToAndClearStack(context, const HomeScreen());
+              LoadingButton(
+                state: state,
+                onTap: () {
+                  verify().then((value) {
+                    setState(() {
+                      state = LoadingState.normal;
+                    });
+                    return pushToAndClearStack(context, const HomeScreen());
+                  });
                 },
                 text: 'Log in',
-                textcolor: IdColors.textColorBlack,
               ),
               SizedBox(
                 height: 58.h,
@@ -176,12 +193,17 @@ class _LoginState extends State<Login> {
                 height: 17.h,
               ),
               Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 112.w,
-                  ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 112.w,
+                ),
+                child: GestureDetector(
+                  onTap: () => pushTo(context,
+                      const HomeScreen(accessLevel: AccessLevel.guest)),
                   child: const SpecialButton2(
                     text: 'Use as guest',
-                  )),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

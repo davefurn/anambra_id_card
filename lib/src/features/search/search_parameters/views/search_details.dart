@@ -153,8 +153,8 @@ class SearchDetails extends StatelessWidget {
                       );
                     },
                   ),
-                  child: const SpecialButton2(
-                    icon: Icon(Icons.qr_code),
+                  child: SpecialButton2(
+                    icon: SvgPicture.asset('assets/svgs/qrcode.svg'),
                     text: 'View QR code',
                     // width: 132,
                     // height: 32,
