@@ -1,10 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../widgets/data_testing.dart';
 
@@ -66,7 +68,7 @@ class SearchDetails extends StatelessWidget {
                       return ScaffoldMessenger(
                         child: Builder(builder: (_) {
                           return Container(
-                            height: (428),
+                            height: 428.h,
                             padding: EdgeInsets.symmetric(horizontal: 20.w),
                             decoration: const BoxDecoration(
                                 color: IdColors.backgroundColour,
@@ -172,66 +174,240 @@ class SearchDetails extends StatelessWidget {
               ],
             ),
             16.sbH,
-            const DataTesting(
-              firstText: 'First Name',
-              secondText: 'Chidinma',
+            Expansion1(
+              icon: Icons.contact_phone,
+              mainText: 'CONTACT DETAILS',
+              widgets: [
+                const DataTesting(
+                  firstText: 'First Name',
+                  secondText: 'Chidinma',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Middle Name',
+                  secondText: 'Deborah',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Last Name',
+                  secondText: 'Maduka',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Email',
+                  secondText: 'debbiedinma44@gmail.com',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Phone Number',
+                  secondText: '08164684852',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Social Links',
+                  secondText: 'linkedin.com/in/chiazaokoli',
+                ),
+                16.sbH,
+              ],
             ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Middle Name',
-              secondText: 'Deborah',
+            8.sbH,
+            Expansion1(
+              icon: Icons.location_on,
+              mainText: 'LOCATION DETAILS',
+              widgets: [
+                const DataTesting(
+                  firstText: 'First Name',
+                  secondText: 'Chidinma',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Middle Name',
+                  secondText: 'Deborah',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Last Name',
+                  secondText: 'Maduka',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Email',
+                  secondText: 'debbiedinma44@gmail.com',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Phone Number',
+                  secondText: '08164684852',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Social Links',
+                  secondText: 'linkedin.com/in/chiazaokoli',
+                ),
+                16.sbH,
+              ],
             ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Last Name',
-              secondText: 'Maduka',
+            8.sbH,
+            Expansion1(
+              icon: Icons.location_on,
+              mainText: 'PERSONAL DETAILS',
+              widgets: [
+                const DataTesting(
+                  firstText: 'First Name',
+                  secondText: 'Chidinma',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Middle Name',
+                  secondText: 'Deborah',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Last Name',
+                  secondText: 'Maduka',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Email',
+                  secondText: 'debbiedinma44@gmail.com',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Phone Number',
+                  secondText: '08164684852',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Social Links',
+                  secondText: 'linkedin.com/in/chiazaokoli',
+                ),
+                16.sbH,
+              ],
             ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Email',
-              secondText: 'debbiedinma44@gmail.com',
+            8.sbH,
+            Expansion1(
+              icon: Icons.work,
+              mainText: 'WORK DETAILS',
+              widgets: [
+                const DataTesting(
+                  firstText: 'First Name',
+                  secondText: 'Chidinma',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Middle Name',
+                  secondText: 'Deborah',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Last Name',
+                  secondText: 'Maduka',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Email',
+                  secondText: 'debbiedinma44@gmail.com',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Phone Number',
+                  secondText: '08164684852',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Social Links',
+                  secondText: 'linkedin.com/in/chiazaokoli',
+                ),
+                16.sbH,
+              ],
             ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Phone Number',
-              secondText: '08164684852',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Department',
-              secondText: 'Human Resources',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Sub-department',
-              secondText: 'Recruiting',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Role/grade level',
-              secondText: 'Recruiting',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Verification ID',
-              secondText: 'Recruiting',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'MDA',
-              secondText: 'ICT Agency',
-            ),
-            16.sbH,
-            const DataTesting(
-              firstText: 'Status',
-              secondText: 'Active',
-              color: IdColors.green,
-              fontWeight: FontWeight.w700,
+            8.sbH,
+            Expansion1(
+              icon: Icons.more_horiz,
+              mainText: 'OTHER DETAILS',
+              widgets: [
+                const DataTesting(
+                  firstText: 'First Name',
+                  secondText: 'Chidinma',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Middle Name',
+                  secondText: 'Deborah',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Last Name',
+                  secondText: 'Maduka',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Email',
+                  secondText: 'debbiedinma44@gmail.com',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Phone Number',
+                  secondText: '08164684852',
+                ),
+                16.sbH,
+                const DataTesting(
+                  firstText: 'Social Links',
+                  secondText: 'linkedin.com/in/chiazaokoli',
+                ),
+                16.sbH,
+              ],
             ),
             100.sbH,
           ],
         ),
       ),
+    );
+  }
+}
+
+class Expansion1 extends StatelessWidget {
+  final String mainText;
+  final IconData icon;
+  final List<Widget> widgets;
+  const Expansion1({
+    Key? key,
+    required this.mainText,
+    required this.icon,
+    required this.widgets,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ExpansionTile(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: Color(0xffBCC2CC))),
+      collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+          side: const BorderSide(color: Color(0xffBCC2CC))),
+      childrenPadding: EdgeInsets.only(left: 20.w),
+      expandedAlignment: Alignment.topLeft,
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      title: Row(
+        children: [
+          Icon(
+            icon,
+            color: IdColors.mainColor,
+            size: 18,
+          ),
+          11.sbW,
+          Text(
+            mainText,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                  color: IdColors.textColorBlack,
+                ),
+          ),
+        ],
+      ),
+      children: widgets,
     );
   }
 }

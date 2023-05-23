@@ -46,6 +46,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
+        activeColor: IdColors.mainColor,
         currentIndex: currentIndex,
         onTap: (value) {
           bool? canpop = tabNavKeys[value].currentState?.canPop();
