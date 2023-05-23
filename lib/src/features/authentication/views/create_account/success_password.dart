@@ -13,10 +13,11 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/extension/size_config.dart';
+
 import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../widgets/special_button_2.dart';
 
@@ -37,7 +38,7 @@ class SuccessPassword extends StatelessWidget {
               height: 33.33.h,
             ),
             SizedBox(
-              height:7.33.h,
+              height: 7.33.h,
             ),
             Text(
               'Password created',

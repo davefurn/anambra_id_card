@@ -20,9 +20,9 @@ import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_time_ago/get_time_ago.dart';
 import 'package:grouped_list/grouped_list.dart';
-import '../../../extension/size_config.dart';
 
 class History extends ConsumerStatefulWidget {
   const History({Key? key}) : super(key: key);
@@ -54,7 +54,7 @@ class _HistoryState extends ConsumerState<History> {
           ),
           Padding(
             padding: EdgeInsets.only(
-              left: 20.w
+              left: 20.w,
               right: 237.w,
             ),
             child: const SpecialButton(
@@ -70,8 +70,8 @@ class _HistoryState extends ConsumerState<History> {
             child: employee.when(
               data: (data) => GroupedListView<EmployeeListModel, DateTime>(
                 padding: EdgeInsets.only(
-                  left: 20.w
-                  right: 20.w
+                  left: 20.w,
+                  right: 20.w,
                   bottom: 100.h,
                   top: 21.h,
                 ),

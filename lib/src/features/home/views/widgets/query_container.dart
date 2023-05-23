@@ -13,10 +13,10 @@
 // limitations under the License.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants/colors.dart';
-import '../../../../extension/size_config.dart';
 
 class QueryContainer extends StatelessWidget {
   final List<Color> colors;
@@ -69,8 +69,7 @@ class QueryContainer extends StatelessWidget {
             height: 4.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: 16.w),
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
             child: Text(
               description,
               style: Theme.of(context).textTheme.headlineLarge!.copyWith(

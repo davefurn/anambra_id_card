@@ -15,8 +15,7 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
-
-import '../../../extension/size_config.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButton extends StatelessWidget {
   final FontWeight fontWeight;
@@ -45,11 +44,8 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: hpD ?? 20.w
-      ),
+      padding: EdgeInsets.symmetric(horizontal: hpD ?? 20.w),
       child: ElevatedButton(
         onPressed: onpressed,
         style: ElevatedButton.styleFrom(

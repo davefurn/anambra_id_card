@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/extension/size_config.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/password2.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../constants/colors.dart';

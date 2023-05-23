@@ -19,8 +19,8 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/tit
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
@@ -58,7 +58,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Form(

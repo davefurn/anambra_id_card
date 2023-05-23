@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
@@ -21,12 +20,10 @@ import 'package:acmc/src/utils/date_time_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-
-import '../../../../extension/size_config.dart';
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
-import '../../../onboarding/widgets/custom_button.dart';
 import '../../services/services.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
@@ -62,8 +59,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
-        final isVerified1 = ref.watch(isVerified);
+    final isVerified1 = ref.watch(isVerified);
     final isLoading1 = ref.watch(isLoading);
     return Scaffold(
       body: SingleChildScrollView(
@@ -97,8 +93,7 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
                 height: 16.h,
               ),
               Padding(
-                padding:
-                    EdgeInsets.only(right: 184.w),
+                padding: EdgeInsets.only(right: 184.w),
                 child: CustomTextInput(
                   onTap: () => Utils.showSheet(context,
                       child: buildDatePicker(), onClicked: () {
@@ -135,59 +130,52 @@ class _CreateAccount2State extends ConsumerState<CreateAccount2> {
               SizedBox(
                 height: 24.h,
               ),
-               Align(
-                    alignment: Alignment.center,
-                    child: MaterialButton(
-                      elevation: 0,
-                      onPressed: () async {
-                        if (_) {
-                          await verify();
-                          Future.delayed(const Duration(seconds: 1), () async {
-                            pushTo(context, const PasswordInput());
-                          });
-                        }
-                      },
-                      color: IdColors.mainColor,
-                      minWidth: MediaQuery.of(context).size.width * 0.9,
-                      height: 50,
-                      child: isLoading1
-                          ? const SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                                strokeWidth: 3,
-                                color: Colors.black,
-                              ),
+              Align(
+                alignment: Alignment.center,
+                child: MaterialButton(
+                  elevation: 0,
+                  onPressed: () async {
+                    // if (_) {
+                    //   await verify();
+                    //   Future.delayed(const Duration(seconds: 1), () async {
+                    //     pushTo(context, const PasswordInput());
+                    //   });
+                    // }
+                  },
+                  color: IdColors.mainColor,
+                  minWidth: MediaQuery.of(context).size.width * 0.9,
+                  height: 50,
+                  child: isLoading1
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            backgroundColor: Colors.white,
+                            strokeWidth: 3,
+                            color: Colors.black,
+                          ),
+                        )
+                      : isVerified1
+                          ? const Icon(
+                              Icons.check_circle,
+                              color: Colors.white,
+                              size: 30,
                             )
-                          : isVerified1
-                              ? const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.white,
-                                  size: 30,
-                                )
-                              :  Text(
-                                  "Create Account",
-                                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          : Text(
+                              "Create Account",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium!
+                                  .copyWith(
                                     fontSize: 16,
                                     color: IdColors.backgroundColour,
                                   ),
-                                ),
-                    ),
-                  ),
-
-                  // Navigate to the new page.
-
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    Navigator.pop(context);
-                    pushReplacementTo(context, const OtpScreen());
-                  });
-
-                  // Hide the loading indicator.
-                },
-                text: 'Create Account',
-                textcolor: IdColors.textColorBlack,
+                            ),
+                ),
               ),
+
+              // Navigate to the new page.
+
               SizedBox(
                 height: 58.h,
               ),
