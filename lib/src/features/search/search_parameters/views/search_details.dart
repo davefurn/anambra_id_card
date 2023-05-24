@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
+import 'package:acmc/src/widgets/expansion_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +10,7 @@ import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 
+import '../../../../router/app_routes.dart';
 import '../../../../widgets/data_testing.dart';
 
 class SearchDetails extends StatelessWidget {
@@ -95,7 +98,7 @@ class SearchDetails extends StatelessWidget {
                                   ),
                                 ),
                                 Container(
-                                  height: (210),
+                                  height: 210.h,
                                   width: 207.w,
                                   margin:
                                       EdgeInsets.symmetric(horizontal: 64.w),
@@ -163,13 +166,18 @@ class SearchDetails extends StatelessWidget {
                   ),
                 ),
                 8.sbW,
-                SpecialButton2(
-                  icon: SvgPicture.asset('assets/svgs/id_card.svg'),
-                  text: 'View ID card',
-                  // width: 132,
-                  // height: 32,
-                  backgroundColor: Colors.transparent,
-                  // borderColor: Colors.transparent,
+                InkWell(
+                  onTap: () {
+                    pushTo(context, const VirtualIDCard());
+                  },
+                  child: SpecialButton2(
+                    icon: SvgPicture.asset('assets/svgs/id_card.svg'),
+                    text: 'View ID card',
+                    // width: 132,
+                    // height: 32,
+                    backgroundColor: Colors.transparent,
+                    // borderColor: Colors.transparent,
+                  ),
                 )
               ],
             ),
@@ -362,52 +370,6 @@ class SearchDetails extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Expansion1 extends StatelessWidget {
-  final String mainText;
-  final IconData icon;
-  final List<Widget> widgets;
-  const Expansion1({
-    Key? key,
-    required this.mainText,
-    required this.icon,
-    required this.widgets,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ExpansionTile(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Color(0xffBCC2CC))),
-      collapsedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-          side: const BorderSide(color: Color(0xffBCC2CC))),
-      childrenPadding: EdgeInsets.only(left: 20.w),
-      expandedAlignment: Alignment.topLeft,
-      expandedCrossAxisAlignment: CrossAxisAlignment.start,
-      title: Row(
-        children: [
-          Icon(
-            icon,
-            color: IdColors.mainColor,
-            size: 18,
-          ),
-          11.sbW,
-          Text(
-            mainText,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                  color: IdColors.textColorBlack,
-                ),
-          ),
-        ],
-      ),
-      children: widgets,
     );
   }
 }
