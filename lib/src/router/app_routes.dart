@@ -42,7 +42,7 @@ enum PushStyle { material, cupertino }
 class CustomRoutes {
   static Route fadeIn(Widget page) {
     return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 700),
+      transitionDuration: const Duration(milliseconds: 250),
       pageBuilder: (context, animation, secondaryAnimation) => page,
       transitionsBuilder: (context, animation, secondaryAnimation, page) {
         var begin = 0.0;
