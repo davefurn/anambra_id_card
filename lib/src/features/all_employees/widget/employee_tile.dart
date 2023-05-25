@@ -1,5 +1,7 @@
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -41,12 +43,15 @@ class EmployeeTile extends StatelessWidget {
                     color: IdColors.textColorGrey,
                   ),
             ),
-            Text(
-              'View details',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontSize: 14,
-                    color: IdColors.textColorYellow,
-                  ),
+            InkWell(
+              onTap: () => pushTo(context, const Searching()),
+              child: Text(
+                'View details',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontSize: 14,
+                      color: IdColors.textColorYellow,
+                    ),
+              ),
             ),
           ],
         ),

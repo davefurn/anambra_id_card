@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
 import 'package:acmc/src/widgets/expansion_tile.dart';
 import 'package:flutter/material.dart';
@@ -66,93 +67,86 @@ class SearchDetails extends StatelessWidget {
                   onTap: () => showModalBottomSheet(
                     backgroundColor: Colors.transparent,
                     barrierColor: Colors.black.withOpacity(0.61),
-                    context: context,
+                    context: globalContext,
                     builder: (_) {
-                      return ScaffoldMessenger(
-                        child: Builder(builder: (_) {
-                          return Container(
-                            height: 428.h,
-                            padding: EdgeInsets.symmetric(horizontal: 20.w),
-                            decoration: const BoxDecoration(
-                                color: IdColors.backgroundColour,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(20),
-                                  topLeft: Radius.circular(20),
-                                )),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        decoration: const BoxDecoration(
+                            color: IdColors.backgroundColour,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(20),
+                            )),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(
+                                  Icons.close,
+                                  size: 24,
+                                  color: IdColors.textColorBlack,
+                                ),
+                              ),
+                            ),
+                            Container(
+                              height: 210.h,
+                              width: 207.w,
+                              margin: EdgeInsets.symmetric(horizontal: 64.w),
+                              decoration: const BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      'assets/images/qr_code_sample.png'),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            12.sbH,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 318.w, right: 21.w),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(
-                                      Icons.close,
-                                      size: 24,
-                                      color: IdColors.textColorBlack,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: 210.h,
-                                  width: 207.w,
-                                  margin:
-                                      EdgeInsets.symmetric(horizontal: 64.w),
-                                  decoration: const BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/qr_code_sample.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                12.sbH,
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          const snackBar = SnackBar(
-                                              elevation: 0,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              content: SpecialButton(
-                                                icon: Icons.download_done,
-                                                iconColor: IdColors.green,
-                                                text: 'Action successful',
-                                                width: 180,
-                                                height: 40,
-                                                borderColor: IdColors.green,
-                                              ));
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(snackBar);
+                                GestureDetector(
+                                    onTap: () {
+                                      const snackBar = SnackBar(
+                                          elevation: 0,
+                                          backgroundColor: Colors.transparent,
+                                          behavior: SnackBarBehavior.floating,
+                                          content: SpecialButton(
+                                            icon: Icons.download_done,
+                                            iconColor: IdColors.green,
+                                            text: 'Action successful',
+                                            width: 180,
+                                            height: 40,
+                                            borderColor: IdColors.green,
+                                          ));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackBar);
 
-                                          // Find the ScaffoldMessenger in the widget tree
-                                          // and use it to show a SnackBar.
-                                        },
-                                        child: const SpecialButton(
-                                          icon: Icons.refresh,
-                                          text: 'Regenerate code',
-                                          width: 157,
-                                        )),
-                                    SizedBox(
-                                      width: 4.w,
-                                    ),
-                                    const SpecialButton(
-                                        icon: Icons.download, text: 'Download')
-                                  ],
-                                )
+                                      // Find the ScaffoldMessenger in the widget tree
+                                      // and use it to show a SnackBar.
+                                    },
+                                    child: const SpecialButton(
+                                      icon: Icons.refresh,
+                                      text: 'Regenerate code',
+                                      width: 157,
+                                    )),
+                                SizedBox(
+                                  width: 4.w,
+                                ),
+                                const SpecialButton(
+                                    icon: Icons.download, text: 'Download')
                               ],
                             ),
-                          );
-                        }),
+                            120.sbH,
+                          ],
+                        ),
                       );
                     },
                   ),

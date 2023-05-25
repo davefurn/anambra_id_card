@@ -54,7 +54,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     });
     await Future.delayed(const Duration(seconds: 2));
     setState(() {
-      state = LoadingState.finished;
+      state = LoadingState.normal;
     });
     await Future.delayed(const Duration(milliseconds: 500));
   }

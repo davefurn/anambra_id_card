@@ -38,10 +38,10 @@ class VirtualIDCard extends StatelessWidget {
         children: [
           37.sbH,
           Padding(
-             padding: EdgeInsets.only(right: 20.h),
-            child:const Align(
+            padding: EdgeInsets.only(right: 20.h),
+            child: const Align(
               alignment: Alignment.topRight,
-              child:  SpecialButton2(
+              child: SpecialButton2(
                 icon: Icon(
                   Icons.download,
                   size: 15,
@@ -61,13 +61,14 @@ class VirtualIDCard extends StatelessWidget {
             image: 'assets/images/test_image.png',
             name: 'Chidinma Deborah Maduka',
             department: 'Commissioner',
+            showDetails: false,
           ),
           37.sbH,
-         Padding(
-          padding: EdgeInsets.only(right: 20.h),
-           child: const Align(
+          Padding(
+            padding: EdgeInsets.only(right: 20.h),
+            child: const Align(
               alignment: Alignment.topRight,
-              child:  SpecialButton2(
+              child: SpecialButton2(
                 icon: Icon(
                   Icons.download,
                   size: 15,
@@ -79,10 +80,9 @@ class VirtualIDCard extends StatelessWidget {
                 // borderColor: Colors.transparent,
               ),
             ),
-         ),
-           12.sbH,
+          ),
+          12.sbH,
           Container(
-            
             margin: const EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
               color: IdColors.backgroundColour,
@@ -101,14 +101,14 @@ class VirtualIDCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding:  EdgeInsets.only(right: 15.w, top: 12.h),
+                  padding: EdgeInsets.only(right: 15.w, top: 12.h),
                   child: Align(
                       alignment: Alignment.topRight,
                       child: Image.asset('assets/images/gov_logo.png')),
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 30, bottom: 32),
+                    padding: const EdgeInsets.only(bottom: 32),
                     child: SizedBox(
                       width: 119.w,
                       height: 121.h,

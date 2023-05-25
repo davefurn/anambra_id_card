@@ -1,11 +1,10 @@
-
+import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/theme/textthem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/gen_swatch.dart';
 import 'elevated_button_theme.dart';
-
-
 
 class IdTheme {
   IdTheme._();
@@ -16,6 +15,31 @@ class IdTheme {
     brightness: Brightness.light,
     textTheme: TextsTheme.lightTheme,
     elevatedButtonTheme: ElevatedButtonThemes.lightTheme,
+    dropdownMenuTheme: DropdownMenuThemeData(
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(
+            8.r,
+          ),
+        ),
+        constraints: BoxConstraints(
+          maxHeight: 40.h,
+          maxWidth: double.maxFinite,
+        ),
+      ),
+      menuStyle: MenuStyle(
+        backgroundColor: MaterialStateProperty.resolveWith(
+          (states) => IdColors.backgroundColour,
+        ),
+        shape: MaterialStateProperty.resolveWith(
+          (states) => RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+              8.r,
+            ),
+          ),
+        ),
+      ),
+    ),
   );
   static ThemeData darkTheme = ThemeData(
     primaryColor: const Color(0xff272727),
