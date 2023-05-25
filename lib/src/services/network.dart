@@ -9,8 +9,11 @@ class NetworkService {
   Future<Response?> postRequestHandler(String path, Map<String, dynamic> data,
       {Options? options}) async {
     try {
-      final a = await _dio.postUri(Uri.parse('${AppEndpoints.baseUrl}/$path'),
-          data: data, options: options);
+      final a = await _dio.postUri(
+        Uri.parse('${AppEndpoints.baseUrl}/$path'),
+        data: data,
+        options: options,
+      );
       log(a.data.toString());
       return a;
     } on DioError catch (e) {

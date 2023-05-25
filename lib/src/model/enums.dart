@@ -12,4 +12,4 @@ enum SearchParameter { email, phoneNumber, staffId }
 
 enum AccessLevel { guest, basic, admin, auditor, security, demo, none }
 
-enum LoadingState { normal, loading, finished }
+enum LoadingState { normal, loading }
