@@ -16,11 +16,9 @@ import 'dart:async';
 
 import 'package:acmc/src/constants/colors.dart';
 
-import 'package:acmc/src/extension/string_extension.dart';
-import 'package:acmc/src/features/authentication/services/services.dart';
-import 'package:acmc/src/features/authentication/views/create_account/password.dart';
 import 'package:acmc/src/model/enums.dart';
-import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/services/post_requests.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,26 +33,27 @@ class OtpScreen extends ConsumerStatefulWidget {
 
 class _OtpScreenState extends ConsumerState<OtpScreen> {
   final otpFormKey = GlobalKey<FormState>();
-  int _start = 60;
-
-  late String text = "Sending code in $_start seconds";
 
   late TextEditingController phoneController;
   late TextEditingController emailController;
   // final List<String?> errors = [];
+  bool submitted = false;
 
-  String buttonName = "Resend code";
   var state = LoadingState.normal;
 
   Timer? _timer;
+  Duration timeLapse = const Duration(seconds: 60);
 
   Future<void> verify() async {
     setState(() {
       state = LoadingState.loading;
     });
-    await Future.delayed(const Duration(seconds: 2));
+    await PostRequest.verifyOtp({
+      'email_otp': emailController.text,
+      'mobile_otp': phoneController.text,
+    }, context);
     setState(() {
-      state = LoadingState.finished;
+      state = LoadingState.normal;
     });
     await Future.delayed(const Duration(milliseconds: 500));
   }
@@ -74,36 +73,20 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     super.dispose();
   }
 
+  void resend() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      timeLapse -= const Duration(seconds: 1);
+      if (timeLapse == Duration.zero) {
+        _timer?.cancel();
+        _timer = null;
+        if (mounted) setState(() {});
+      }
+      if (mounted) setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final isResendAgain1 = ref.watch(isResendAgain);
-
-    final errors1 = ref.watch(errors);
-    final errorColor1 = ref.watch(errorColor);
-
-    void removeError({String? error}) async {
-      if (errors1.contains(error) && _start == 0) {
-        ref.read(errors.notifier).state = [];
-      }
-    }
-
-    void resend() {
-      ref.read(isResendAgain.notifier).state = true;
-
-      const oneSec = Duration(seconds: 1);
-      _timer = Timer.periodic(oneSec, (timer) {
-        if (_start == 0) {
-          _start = 60;
-          ref.read(isResendAgain.notifier).state = false;
-
-          removeError(error: kOtpError);
-          timer.cancel();
-        } else {
-          _start--;
-        }
-      });
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -169,77 +152,31 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: TextFormField(
-                      onChanged: (value) {
-                        // if (value.isNotEmpty || !isResendAgain1) {
-                        //   removeError(error: kOtpError);
-                        // }
-                      },
                       validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter the recieved phone token";
+                        } else if (value.length != 6) {
+                          return "The token length is not correct";
+                        }
                         return null;
-
-                        // if (value!.isEmpty || isResendAgain1) {
-                        //   addError(error: kOtpError);
-                        //   return "Try again in $_start seconds";
-                        // }
-                        // return null;
                       },
                       controller: phoneController,
                       style: const TextStyle(
                           color: IdColors.textColorBlack, fontSize: 17),
+                      autovalidateMode: submitted
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         fillColor: IdColors.subColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 19, horizontal: 8),
-                        suffixIcon: InkWell(
-                          onTap: isResendAgain1
-                              ? null
-                              : () {
-                                  resend();
-
-                                  // await authClass.verifyPhoneNumber(
-                                  //     "+91 ${phoneController.text}",
-                                  //     context,
-                                  //     setData);
-                                },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 15),
-                            child: Text(
-                              buttonName,
-                              style: TextStyle(
-                                color:
-                                    isResendAgain1 ? Colors.grey : Colors.black,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 19,
+                          horizontal: 8,
                         ),
                       ),
                     ),
                   ),
-                  isResendAgain1 == true
-                      ? Padding(
-                          padding: EdgeInsets.only(right: 20.w, top: 8.h),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              text,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: errorColor1 == true
-                                          ? IdColors.failureColor
-                                          : IdColors.mainColor),
-                            ),
-                          ),
-                        )
-                      : const SizedBox.shrink(),
                   SizedBox(
                     height: 16.h,
                   ),
@@ -259,96 +196,64 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: TextFormField(
-                      onChanged: (value) {
-                        // if (value.isNotEmpty || !isResendAgain1) {
-                        //   removeError(error: kOtpError);
-                        // }
-                      },
                       validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Please enter the recieved email token";
+                        } else if (value.length != 6) {
+                          return "The token length is not correct";
+                        }
                         return null;
-
-                        // if (value!.isEmpty || isResendAgain1) {
-                        //   addError(error: kOtpError);
-                        //   return "Try again in $_start seconds";
-                        // }
-                        // return null;
                       },
                       controller: emailController,
                       style: const TextStyle(
                           color: IdColors.textColorBlack, fontSize: 17),
+                      autovalidateMode: submitted
+                          ? AutovalidateMode.onUserInteraction
+                          : AutovalidateMode.disabled,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        prefixIcon: null,
+                      decoration: const InputDecoration(
                         fillColor: IdColors.subColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                            vertical: 19, horizontal: 8),
-                        suffixIcon: InkWell(
-                          onTap: isResendAgain1
-                              ? null
-                              : () {
-                                  resend();
-                                  otpFormKey.currentState!.validate();
-
-                                  // await authClass.verifyPhoneNumber(
-                                  //     "+91 ${phoneController.text}",
-                                  //     context,
-                                  //     setData);
-                                },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 20, horizontal: 15),
-                            child: Text(
-                              buttonName,
-                              style: TextStyle(
-                                color:
-                                    isResendAgain1 ? Colors.grey : Colors.black,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 19, horizontal: 8),
+                      ),
+                    ),
+                  ),
+                  2.sbH,
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 10.w),
+                      child: TextButton(
+                        onPressed: () {
+                          if (_timer == null) {
+                            timeLapse = const Duration(seconds: 60);
+                            resend();
+                          }
+                        },
+                        child: Text(
+                          _timer != null
+                              ? "${timeLapse.inMinutes}:${'${timeLapse.inSeconds}'.padLeft(2, '0')}"
+                              : 'Resend Code',
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
                   ),
-                  isResendAgain1 == true
-                      ? Padding(
-                          padding: EdgeInsets.only(right: 20.w, top: 8.h),
-                          child: Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              errorColor1 == true ? 'incorrect otp' : text,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                      color: errorColor1 == true
-                                          ? IdColors.failureColor
-                                          : IdColors.mainColor),
-                            ),
-                          ),
-                        )
-                      : const SizedBox.shrink(),
-                  SizedBox(
-                    height: 24.h,
-                  ),
+                  8.sbH,
                   Align(
                     alignment: Alignment.center,
                     child: LoadingButton(
                       state: state,
                       onTap: () {
-                        verify().then((value) {
-                          setState(() {
-                            state = LoadingState.normal;
-                          });
-                          return pushTo(
-                            context,
-                            const VerifyDetails(),
-                          );
-                        });
+                        setState(() => submitted = true);
+                        if (otpFormKey.currentState!.validate()) {
+                          verify();
+                        }
                       },
                       text: 'Verify',
                     ),

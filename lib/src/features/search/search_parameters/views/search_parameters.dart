@@ -92,12 +92,12 @@ class _SearchParametersState extends State<SearchParameters> {
               ),
               16.sbH,
               SizedBox(
-                height: 82.h,
+                height: 90.h,
                 child: GridView.count(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   crossAxisCount: 3,
                   crossAxisSpacing: 13.w,
-                  childAspectRatio: 103.w / 82.h,
+                  childAspectRatio: 103.w / 90.h,
                   children: [
                     InkWell(
                       onTap: () =>

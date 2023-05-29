@@ -24,6 +24,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../settings/views/settings_view.dart';
 
+late BuildContext globalContext;
+
 class HomeScreen extends ConsumerStatefulWidget {
   final AccessLevel? accessLevel;
   const HomeScreen({Key? key, this.accessLevel}) : super(key: key);
@@ -41,6 +43,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ];
 
   int currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    globalContext = context;
+  }
 
   @override
   Widget build(BuildContext context) {

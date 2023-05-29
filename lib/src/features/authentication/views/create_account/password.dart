@@ -13,66 +13,18 @@
 // limitations under the License.
 
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
-import 'package:acmc/src/features/authentication/views/create_account/password2.dart';
+import 'package:acmc/src/model/auth_model.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/widgets/animation_screen.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
-
 import '../../../../constants/colors.dart';
 import '../../../../widgets/data_testing.dart';
 
-class PasswordInput extends StatefulWidget {
-  const PasswordInput({Key? key}) : super(key: key);
-
-  @override
-  State<PasswordInput> createState() => _PasswordInputState();
-}
-
-class _PasswordInputState extends State<PasswordInput>
-    with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-      reverseDuration: const Duration(seconds: 5),
-    );
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-    _controller.repeat();
-    goToVerify();
-  }
-
-  Future<void> goToVerify() async {
-    Future.delayed(const Duration(seconds: 5), () {})
-        .whenComplete(() => pushReplacementTo(context, const VerifyDetails()));
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Lottie.asset(
-          'assets/lottie/searching e-id card.json',
-          controller: _animation,
-        ),
-      ),
-    );
-  }
-}
-
 class VerifyDetails extends StatefulWidget {
-  const VerifyDetails({super.key});
+  final VerifiedUserData data;
+  const VerifyDetails({super.key, required this.data});
 
   @override
   State<VerifyDetails> createState() => _VerifyDetailsState();
@@ -119,6 +71,17 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                             color: IdColors.textColorBlack,
                           ),
                     ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      'If YES, your phone number is ',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w700,
+                            color: IdColors.textColorBlack,
+                          ),
+                    ),
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Column(
@@ -128,37 +91,37 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                           SizedBox(
                             height: 10.h,
                           ),
-                          const DataTesting(
+                          DataTesting(
+                            firstText: 'Staff Id',
+                            secondText: widget.data.staffId,
+                          ),
+                          SizedBox(
+                            height: 16.h,
+                          ),
+                          DataTesting(
                             firstText: 'First Name',
-                            secondText: 'Chidinma',
+                            secondText: widget.data.firstName,
                           ),
                           SizedBox(
                             height: 16.h,
                           ),
-                          const DataTesting(
-                            firstText: 'Middle Name',
-                            secondText: 'Deborah',
-                          ),
-                          SizedBox(
-                            height: 16.h,
-                          ),
-                          const DataTesting(
+                          DataTesting(
                             firstText: 'Last Name',
-                            secondText: 'Madula',
+                            secondText: widget.data.lastName,
                           ),
                           SizedBox(
                             height: 16.h,
                           ),
-                          const DataTesting(
+                          DataTesting(
                             firstText: 'Email',
-                            secondText: 'debbiedinma44@gmail.com',
+                            secondText: widget.data.email,
                           ),
                           SizedBox(
                             height: 16.h,
                           ),
-                          const DataTesting(
+                          DataTesting(
                             firstText: 'Phone number',
-                            secondText: '08164684852',
+                            secondText: widget.data.mobile,
                           ),
                         ],
                       ),
@@ -188,7 +151,8 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
-                                CustomRoutes.slideIn(const Password2()),
+                                CustomRoutes.slideIn(
+                                    const AnimationScreen(isLogin: true)),
                               );
                             },
                             child: SpecialButton2(

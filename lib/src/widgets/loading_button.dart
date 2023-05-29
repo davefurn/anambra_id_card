@@ -39,18 +39,12 @@ class _LoadingButtonState extends State<LoadingButton> {
                 color: Colors.black,
               ),
             )
-          : widget.state == LoadingState.finished
-              ? const Icon(
-                  Icons.check_circle,
-                  color: Colors.white,
-                  size: 30,
-                )
-              : Text(
-                  widget.text,
-                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 16,
-                      ),
+          : Text(
+            widget.text,
+            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                  fontSize: 16,
                 ),
+          ),
     );
   }
 }

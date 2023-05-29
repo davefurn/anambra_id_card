@@ -1,10 +1,13 @@
 // Copyright 2023 Davefurn
 //
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
+//
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -27,6 +30,7 @@ class Cards extends StatelessWidget {
   final String image;
   final String name;
   final String department;
+  final bool showDetails;
   const Cards({
     super.key,
     required this.text,
@@ -34,6 +38,7 @@ class Cards extends StatelessWidget {
     required this.image,
     required this.name,
     required this.department,
+    this.showDetails = true,
   });
 
   @override
@@ -149,21 +154,24 @@ class Cards extends StatelessWidget {
                     ],
                   ),
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Hero(
-                    tag: 1,
-                    child: InkWell(
-                      onTap: () => pushTo(
-                        context,
-                        const SearchDetails(),
-                      ),
-                      child: const SpecialButton2(
-                        text: 'View all details',
+                if (showDetails)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Hero(
+                      tag: 1,
+                      child: InkWell(
+                        onTap: () => pushTo(
+                          context,
+                          const SearchDetails(),
+                        ),
+                        child: const SpecialButton2(
+                          text: 'View all details',
+                        ),
                       ),
                     ),
-                  ),
-                )
+                  )
+                else
+                  30.sbH
               ],
             ),
           ),

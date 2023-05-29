@@ -18,6 +18,7 @@ import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
+import 'package:acmc/src/features/search_mda/view/view.dart';
 import 'package:acmc/src/features/statistics/view/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
@@ -112,7 +113,7 @@ class _HomeState extends State<Home> {
                     height: 4.h,
                   ),
                   Text(
-                    'Ict Agency',
+                    'ICT Agency',
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: IdColors.textColorBlack,
                           fontSize: 14,
@@ -155,7 +156,7 @@ class _HomeState extends State<Home> {
               height: 4.h,
             ),
             SizedBox(
-              height: 144.h,
+              height: 155.h,
               child: GridView.count(
                 crossAxisCount: 2,
                 childAspectRatio: 160.h / 144.h,
@@ -246,84 +247,81 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(
                   height: 90.h,
-                  child: MediaQuery.removePadding(
-                    context: context,
-                    removeTop: true,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 8,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: IdColors.mainGrey,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            margin: EdgeInsets.only(right: 8.w),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 16.w,
-                              vertical: 8.h,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'James Nganhjsdhsfefd feer`',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                        fontWeight: FontWeight.w600,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 8,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          width: 153.w,
+                          decoration: BoxDecoration(
+                            color: IdColors.mainGrey,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          margin: EdgeInsets.only(right: 8.w),
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 8.h,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'James Nganhjsdhsfefd feer`',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14,
+                                    ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Text(
+                                'Jamesngannou@gmail.com.uk.`',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.w500,
                                         fontSize: 14,
-                                      ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Text(
-                                  'Jamesngannou@gmail.com.uk.`',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium!
-                                      .copyWith(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 14,
-                                          color: IdColors.textColorGrey),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      'status: ',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: IdColors.textColorGrey),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      'active',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14,
-                                              color: IdColors.failureColor),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                  ),
+                                        color: IdColors.textColorGrey),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    'status: ',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                            color: IdColors.textColorGrey),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  Text(
+                                    'active',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium!
+                                        .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                            color: IdColors.failureColor),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }),
                 ),
                 SizedBox(
                   height: 26.h,
@@ -449,7 +447,10 @@ class _HomeState extends State<Home> {
             if ([AccessLevel.auditor, AccessLevel.demo].contains(accessLevel))
               Center(
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => pushTo(
+                    context,
+                    const SearchMDAScreen(),
+                  ),
                   child: const SpecialButton2(
                     text: 'Search MDAs',
                   ),

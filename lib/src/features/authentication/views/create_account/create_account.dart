@@ -13,19 +13,17 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/create_account_2.dart';
 
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
-
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/special_button_2.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
@@ -38,13 +36,10 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccountState extends State<CreateAccount> {
-  DateTime dateTime = DateTime.now();
-  String? email;
-  String? phoneNumber;
   final _formKey = GlobalKey<FormState>();
   String initialCountry = 'NG';
-  PhoneNumber number = PhoneNumber(isoCode: 'NG');
   var state = LoadingState.normal;
+  bool submitted = false;
 
   final bool _validate = false;
   late TextEditingController emailController;
@@ -63,15 +58,17 @@ class _CreateAccountState extends State<CreateAccount> {
     super.dispose();
   }
 
-  Future<void> verify() async {
+  Future<void> register() async {
     setState(() {
       state = LoadingState.loading;
     });
-    await Future.delayed(const Duration(seconds: 2));
+    await PostRequest.register({
+      'email': emailController.text,
+      'mobile_number': phoneNumberController.text,
+    }, context);
     setState(() {
-      state = LoadingState.finished;
+      state = LoadingState.normal;
     });
-    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -83,7 +80,7 @@ class _CreateAccountState extends State<CreateAccount> {
           child: Column(
             children: [
               TitleWidget(
-                text: 'Create Account 1/2',
+                text: 'Create Account',
                 pDleft: 20.w,
                 height: 36.h,
                 fontSize: 24,
@@ -91,60 +88,14 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: 32.h,
               ),
-              Padding(
-                padding: EdgeInsets.only(left: 20.w, right: 20.w),
-                child: InternationalPhoneNumberInput(
-                  spaceBetweenSelectorAndTextField: 0,
-                  onInputChanged: (PhoneNumber number) {
-                    // print(number.phoneNumber);
-                  },
-                  onInputValidated: (bool value) {
-                    // print(value);
-                  },
-                  textStyle: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 20,
-                    height: 1,
-                    color: Color(0xFF1F2937),
-                  ),
-                  inputDecoration: InputDecoration(
-                    // contentPadding: EdgeInsets.symmetric(
-                    //   vertical: 15.h,
-                    //   horizontal: prefix != null ? 15.w : 12.w,
-                    // ),
-                    hintText: 'Phone Number',
-                    hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
-                          color: IdColors.hintTextColor,
-                        ),
-                    fillColor: IdColors.subColor,
-                    filled: true,
-                  ),
-                  selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  selectorTextStyle: const TextStyle(color: Colors.black),
-                  initialValue: number,
-                  textFieldController: phoneNumberController,
-                  formatInput: true,
-                  keyboardType: const TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                  onSaved: (PhoneNumber number) {
-                    // print('On Saved: $number');
-                  },
-                ),
-              ),
-              SizedBox(
-                height: 16.h,
-              ),
               CustomTextInput(
-                onSaved: (newValue) => email = newValue,
                 onChanged: (v) {},
-                validator: (v) {
-                  if (v == null || v.isEmpty) return 'Put something';
+                validator: (String? value) {
+                  if ((value == null || value.isEmpty) ||
+                      !RegExp(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+                          .hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
                   return null;
                 },
                 validate: _validate,
@@ -153,6 +104,34 @@ class _CreateAccountState extends State<CreateAccount> {
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
                 prefixIcon: Icons.email,
+                autovalidateMode: submitted
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
+              ),
+              SizedBox(
+                height: 16.h,
+              ),
+              CustomTextInput(
+                onChanged: (v) {},
+                validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Please enter a mobile number';
+                  } else if (!v.startsWith('0')) {
+                    return 'Please enter a valid mobile number';
+                  } else if (v.length > 11) {
+                    return 'The phone number is incorrect';
+                  }
+                  return null;
+                },
+                validate: _validate,
+                textInputAction: TextInputAction.done,
+                titleText: 'Phone number',
+                keyboardType: TextInputType.number,
+                controller: phoneNumberController,
+                prefixIcon: Icons.email,
+                autovalidateMode: submitted
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
               ),
               SizedBox(
                 height: 24.h,
@@ -160,15 +139,11 @@ class _CreateAccountState extends State<CreateAccount> {
               LoadingButton(
                 state: state,
                 onTap: () {
-                  // if (_formKey.currentState!.validate()) {
-                  verify().then((value) {
-                    setState(() {
-                      state = LoadingState.normal;
-                    });
-                    return pushTo(context, const CreateAccount2());
-                  });
+                  setState(() => submitted = true);
+                  if (_formKey.currentState!.validate()) {
+                    register();
+                  }
                 },
-                // },
                 text: 'Next',
               ),
               SizedBox(
