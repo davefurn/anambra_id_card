@@ -45,6 +45,7 @@ class CustomTextInput extends StatelessWidget {
   final String? prefixPath;
   final Widget? suffixIcon;
   final double? width;
+  final AutovalidateMode? autovalidateMode;
   const CustomTextInput({
     Key? key,
     this.focusNode,
@@ -75,6 +76,7 @@ class CustomTextInput extends StatelessWidget {
     this.onSaved,
     this.width,
     this.validator,
+    this.autovalidateMode,
   }) : super(key: key);
 
   @override
@@ -116,6 +118,7 @@ class CustomTextInput extends StatelessWidget {
               onChanged: onChanged,
               onEditingComplete: onEditingComplete,
               onTap: onTap,
+              autovalidateMode: autovalidateMode,
               enabled: enabled,
               style: const TextStyle(
                 fontFamily: 'Inter',

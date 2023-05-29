@@ -1,40 +1,25 @@
-class RegisterUser {
-  /*
-  "staff_id": "bnbnbnbn",
-  "first_name": "success",
-  "last_name": "onyegbanokwu",
-  "email": "successonyegbanokwu@gmail.com",
-  "mobile_number": "07012518127",
-  "role": "guest",
-  "id": 3
-  */
+class VerifiedUserData {
   final String staffId;
   final String firstName;
   final String lastName;
   final String email;
-  final String mobileNumber;
-  final String role;
-  final int id;
+  final String mobile;
 
-  RegisterUser({
+  VerifiedUserData({
     required this.email,
     required this.firstName,
-    required this.id,
     required this.lastName,
-    required this.mobileNumber,
-    required this.role,
     required this.staffId,
+    required this.mobile,
   });
 
-  static RegisterUser fromMap(Map<String, dynamic> data) {
-    return RegisterUser(
+  static VerifiedUserData fromJson(Map<String, dynamic> data) {
+    return VerifiedUserData(
       email: data['email'],
       firstName: data['first_name'],
-      id: data['id'],
       lastName: data['last_name'],
-      mobileNumber: data['mobile_number'],
-      role: data['role'],
       staffId: data['staff_id'],
+      mobile: data['mobile_number'],
     );
   }
 }

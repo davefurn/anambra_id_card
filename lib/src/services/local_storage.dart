@@ -20,6 +20,9 @@ class LocalStorage {
   LocalStorage._init();
 
   final String firstTime = 'firstTime';
+  final String email = 'email';
+  final String phone = 'phone';
+  final String token = 'token';
 
   Future<SharedPreferences> get prefs async {
     if (_prefs != null) return _prefs!;
@@ -40,5 +43,33 @@ class LocalStorage {
     }
     await setFirstTime();
     return true;
+  }
+
+  Future<bool> setEmail(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(email, value);
+  }
+
+  Future<String?> getEmail() async {
+    var pref = await instance.prefs;
+    return pref.getString(email);
+  }
+  Future<bool> setPhone(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(phone, value);
+  }
+
+  Future<String?> getPhone() async {
+    var pref = await instance.prefs;
+    return pref.getString(phone);
+  }
+  Future<bool> setToken(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(token, value);
+  }
+
+  Future<String?> getToken() async {
+    var pref = await instance.prefs;
+    return pref.getString(token);
   }
 }

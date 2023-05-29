@@ -10,7 +10,7 @@ class NetworkService {
       {Options? options}) async {
     try {
       final a = await _dio.postUri(
-        Uri.parse('${AppEndpoints.baseUrl}/$path'),
+        Uri.parse('${AppEndpoints.baseUrl}$path'),
         data: data,
         options: options,
       );
@@ -27,7 +27,7 @@ class NetworkService {
   Future<Response?> patchRequestHandler(String path, Map<String, dynamic> data,
       {Options? options}) async {
     try {
-      final a = await _dio.patchUri(Uri.parse('${AppEndpoints.baseUrl}/$path'),
+      final a = await _dio.patchUri(Uri.parse('${AppEndpoints.baseUrl}$path'),
           data: data, options: options);
       log(a.data.toString());
       return a;
@@ -42,7 +42,7 @@ class NetworkService {
   Future<Response?> getRequestHandler(String path, Map<String, dynamic> data,
       {Options? options}) async {
     try {
-      final a = await _dio.getUri(Uri.parse('${AppEndpoints.baseUrl}/$path'),
+      final a = await _dio.getUri(Uri.parse('${AppEndpoints.baseUrl}$path'),
           data: data, options: options);
       log(a.data.toString());
       return a;
