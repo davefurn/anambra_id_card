@@ -23,7 +23,7 @@ Future<dynamic> pushTo(BuildContext context, Widget page,
 /// Pushes the given [page] to the navigator and clears the current [page] from the stack
 Future<dynamic> pushReplacementTo<T>(BuildContext context, Widget page,
     [PushStyle? pushStyle]) async {
-  return await Navigator.pushReplacement(context, CustomRoutes.fadeIn(page));
+  return await Navigator.of(context).pushReplacement(CustomRoutes.fadeIn(page));
 }
 
 /// Pushes the given [page] to the navigator and clears the stack
