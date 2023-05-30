@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -43,6 +44,7 @@ class _SearchingState extends State<Searching> {
           ? SingleChildScrollView(
               child: Column(
                 children: [
+                  45.sbH,
                   Text(
                     "Result found",
                     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
@@ -51,7 +53,7 @@ class _SearchingState extends State<Searching> {
                         ),
                   ),
                   SizedBox(
-                    height: 4.5.h,
+                    height: 12.h,
                   ),
                   SizedBox(
                     height: 646.h,
@@ -61,7 +63,13 @@ class _SearchingState extends State<Searching> {
                       child: ListView.builder(
                         itemCount: 1,
                         itemBuilder: (context, index) {
-                          return const Cards(text: 'MDA: ICT Agency', logo: 'assets/images/gov_logo.png', image: 'assets/images/test_image.png', name: 'Chidinma Deborah Maduka', department: 'Commissioner',);
+                          return const Cards(
+                            text: 'MDA: ICT Agency',
+                            logo: 'assets/images/gov_logo.png',
+                            image: 'assets/images/test_image.png',
+                            name: 'Chidinma Deborah Maduka',
+                            department: 'Commissioner',
+                          );
                         },
                       ),
                     ),
@@ -105,4 +113,3 @@ class _SearchingState extends State<Searching> {
     );
   }
 }
-

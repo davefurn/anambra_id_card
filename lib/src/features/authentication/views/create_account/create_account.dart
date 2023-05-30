@@ -17,7 +17,6 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
-import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
@@ -41,7 +40,6 @@ class _CreateAccountState extends State<CreateAccount> {
   var state = LoadingState.normal;
   bool submitted = false;
 
-  final bool _validate = false;
   late TextEditingController emailController;
   late TextEditingController phoneNumberController;
   @override
@@ -89,7 +87,6 @@ class _CreateAccountState extends State<CreateAccount> {
                 height: 32.h,
               ),
               CustomTextInput(
-                onChanged: (v) {},
                 validator: (String? value) {
                   if ((value == null || value.isEmpty) ||
                       !RegExp(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
@@ -98,7 +95,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   }
                   return null;
                 },
-                validate: _validate,
                 textInputAction: TextInputAction.done,
                 titleText: 'Email',
                 keyboardType: TextInputType.emailAddress,
@@ -123,7 +119,6 @@ class _CreateAccountState extends State<CreateAccount> {
                   }
                   return null;
                 },
-                validate: _validate,
                 textInputAction: TextInputAction.done,
                 titleText: 'Phone number',
                 keyboardType: TextInputType.number,
@@ -163,7 +158,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 text1: 'Already have an account?',
                 onTap: () {
                   Navigator.of(context)
-                      .pushReplacement(CustomRoutes.slideIn(const Login()));
+                      .pushReplacement(CustomRoutes.fadeIn(const Login()));
                 },
                 text2: 'Log in',
                 textColor: IdColors.textColorBlack,
@@ -209,10 +204,10 @@ class _CreateAccountState extends State<CreateAccount> {
                   horizontal: 112.w,
                 ),
                 child: GestureDetector(
-                  onTap: () => pushTo(context,
-                      const HomeScreen(accessLevel: AccessLevel.guest)),
+                  onTap: () {},
                   child: const SpecialButton2(
                     text: 'Use as guest',
+                    textColor: IdColors.textColorBlack,
                   ),
                 ),
               ),

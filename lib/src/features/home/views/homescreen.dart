@@ -22,6 +22,8 @@ import 'package:acmc/src/features/search_mda/view/view.dart';
 import 'package:acmc/src/features/statistics/view/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/services/local_storage.dart';
+import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
@@ -33,8 +35,7 @@ import '../../search/qr_scanner/views/failed_screen.dart';
 import '../../search/qr_scanner/views/results.dart';
 
 class Home extends StatefulWidget {
-  final AccessLevel? accessLevel;
-  const Home({Key? key, this.accessLevel}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   State<Home> createState() => _HomeState();
@@ -42,6 +43,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   var accessLevel = AccessLevel.none;
+  String name = '';
+  String department = '';
+  String designation = '';
+
   Future scanBarcode() async {
     String? scanResult;
     try {
@@ -70,10 +75,13 @@ class _HomeState extends State<Home> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (widget.accessLevel == null) {
-        Future.delayed(const Duration(microseconds: 1),
-            () => setState(() => accessLevel = AccessLevel.demo));
-      }
+      LocalStorage.instance.getUserData().then((value) {
+        name = '${value.userData.lastName} ${value.userData.firstName}';
+        department = value.department;
+        designation = value.designation;
+        accessLevel = value.userData.role.toAccessLevel();
+      });
+      setState(() {});
     });
   }
 
@@ -95,13 +103,13 @@ class _HomeState extends State<Home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Welcome',
+                    name,
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: IdColors.mainColor,
+                          color: IdColors.textColorBlack,
                         ),
                   ),
                   Text(
-                    'Managing Director',
+                    department,
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: IdColors.textColorBlack,
                           fontSize: 16,
@@ -113,7 +121,7 @@ class _HomeState extends State<Home> {
                     height: 4.h,
                   ),
                   Text(
-                    'ICT Agency',
+                    designation,
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
                           color: IdColors.textColorBlack,
                           fontSize: 14,
@@ -131,66 +139,69 @@ class _HomeState extends State<Home> {
               alignment: Alignment.topLeft,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Icon(
                     Icons.info_outline,
                     color: IdColors.otpGrey,
-                    size: 13.33,
+                    size: 16.33,
                   ),
                   SizedBox(
                     width: 5.33.w,
                   ),
-                  Text(
-                    'You can only search for those within your MDA',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: IdColors.otpGrey,
-                        ),
+                  Expanded(
+                    child: FittedBox(
+                      child: Text(
+                        'You can only search for those within your MDA',
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: IdColors.otpGrey,
+                            ),
+                      ),
+                    ),
                   ),
+                  20.sbW,
                 ],
               ),
             ),
             SizedBox(
               height: 4.h,
             ),
-            SizedBox(
-              height: 155.h,
-              child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: 160.h / 144.h,
-                crossAxisSpacing: 16.w,
-                padding: EdgeInsets.only(right: 20.w),
-                children: [
-                  InkWell(
-                    onTap: () {
-                      pushTo(context, const SearchParameters());
-                    },
-                    child: const QueryContainer(
-                      colors: [
-                        Color(0xffF3CA39),
-                        Color(0xffE0523F),
-                      ],
-                      description: 'Manually search\ndatabase with inputs',
-                      svgAsset: 'assets/svgs/search.svg',
-                      svgAssetText: 'Search',
-                    ),
+            GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 160.h / 150.h,
+              crossAxisSpacing: 16.w,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(right: 20.w),
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                InkWell(
+                  onTap: () {
+                    pushTo(context, const SearchParameters());
+                  },
+                  child: const QueryContainer(
+                    colors: [
+                      Color(0xffF3CA39),
+                      Color(0xffE0523F),
+                    ],
+                    description: 'Manually search\ndatabase with inputs',
+                    svgAsset: 'assets/svgs/search.svg',
+                    svgAssetText: 'Search',
                   ),
-                  InkWell(
-                    onTap: scanBarcode,
-                    child: const QueryContainer(
-                      colors: [
-                        Color(0xff63DBE2),
-                        Color(0xff2E7CC3),
-                      ],
-                      description: 'Use your camera to capture the QR code ',
-                      svgAsset: 'assets/svgs/scan_qr.svg',
-                      svgAssetText: 'Scan QR code',
-                    ),
+                ),
+                InkWell(
+                  onTap: scanBarcode,
+                  child: const QueryContainer(
+                    colors: [
+                      Color(0xff63DBE2),
+                      Color(0xff2E7CC3),
+                    ],
+                    description: 'Use your camera to capture the QR code ',
+                    svgAsset: 'assets/svgs/scan_qr.svg',
+                    svgAssetText: 'Scan QR code',
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             SizedBox(
               height: 26.h,
@@ -230,10 +241,10 @@ class _HomeState extends State<Home> {
                                     color: IdColors.textColorGrey,
                                   ),
                             ),
-                            8.sbW,
-                            const Icon(
+                            4.sbW,
+                            Icon(
                               Icons.arrow_forward_ios,
-                              size: 10,
+                              size: 14.r,
                               color: IdColors.textColorYellow,
                             )
                           ],
@@ -364,9 +375,9 @@ class _HomeState extends State<Home> {
                                     ),
                               ),
                               4.sbW,
-                              const Icon(
+                              Icon(
                                 Icons.arrow_forward_ios,
-                                size: 10,
+                                size: 14.r,
                                 color: IdColors.textColorYellow,
                               )
                             ],

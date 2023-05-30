@@ -87,31 +87,40 @@ class PostRequest {
   }
 
   static Future<void> fetchBearerToken(BuildContext context,
-      {required bool login}) async {
+      {required bool login, String? email, String? password}) async {
     const path = '/login';
 
-    var email = (await LocalStorage.instance.getEmail())!;
-    var phone = (await LocalStorage.instance.getPhone())!;
+    if (email == null) {
+      email = (await LocalStorage.instance.getEmail())!;
+      password = (await LocalStorage.instance.getPhone())!;
+    }
 
     // email = 'gentzycode@live.com'; //Remove later
     // phone = '08063712294'; //Remove later
 
     await network
-        .postRequestHandler(path, {'email': email, 'password': phone}).then(
+        .postRequestHandler(path, {'email': email, 'password': password}).then(
       (value) async {
         if (value != null) {
           if (value.data["status"] == "error") {
             ShowFlushBar.showError(
               error: '${value.data["message"]}',
               context: context,
-            ).whenComplete(
-                () => pushReplacementTo(context, const CreateAccount()));
+            ).whenComplete(() {
+              if (email == null) {
+                return pushReplacementTo(context, const CreateAccount());
+              }
+            });
           } else {
             LocalStorage.instance.setToken(value.data['data']['access_token']);
+            LocalStorage.instance.setLoggedIn(true);
             if (login) {
+              LoginData data = LoginData.fromJson(value.data['data']);
+              LocalStorage.instance.saveUserData(data);
               ShowFlushBar.showSuccess(
                 context: context,
-              ).whenComplete(() => pushReplacementTo(context, const HomeScreen()));
+              ).whenComplete(
+                  () => pushReplacementTo(context, const HomeScreen()));
             } else {
               ShowFlushBar.showSuccess(
                 context: context,
