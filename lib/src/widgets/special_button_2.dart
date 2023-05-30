@@ -60,12 +60,11 @@ class SpecialButton2 extends StatelessWidget {
             ),
           Text(
             text,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 14,
-                  color:
-                      textColor ?? selectedTextColor ?? IdColors.textColorGrey,
-                  fontWeight: FontWeight.w600,
-                ),
+            style: TextStyle(
+              fontSize: 14,
+              color: textColor ?? selectedTextColor ?? IdColors.textColorGrey,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ],
       ),

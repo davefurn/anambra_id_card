@@ -12,23 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:io';
+
 import 'package:acmc/src/constants/colors.dart';
 
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
-import 'package:acmc/src/model/enums.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../settings/views/settings_view.dart';
 
 late BuildContext globalContext;
 
 class HomeScreen extends ConsumerStatefulWidget {
-  final AccessLevel? accessLevel;
-  const HomeScreen({Key? key, this.accessLevel}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
@@ -63,49 +64,50 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           }
           currentIndex = value;
         },
-        items: [
+        height: Platform.isAndroid ? 70.h : 60.h,
+        items: const [
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svgs/home.svg',
-              color: IdColors.textColorBlack,
+            icon: Icon(
+              Icons.home_outlined,
+              color: IdColors.textColorGrey,
             ),
-            activeIcon: SvgPicture.asset(
-              'assets/svgs/home.svg',
+            activeIcon: Icon(
+              Icons.home_outlined,
               color: IdColors.mainColor,
             ),
-            label: 'Home',
+            label: 'Home\n',
           ),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svgs/history.svg',
-              color: IdColors.textColorBlack,
+            icon: Icon(
+              Icons.history,
+              color: IdColors.textColorGrey,
             ),
-            activeIcon: SvgPicture.asset(
-              'assets/svgs/history.svg',
+            activeIcon: Icon(
+              Icons.history,
               color: IdColors.mainColor,
             ),
-            label: 'History',
+            label: 'History\n',
           ),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/svgs/notification.svg',
-                color: IdColors.textColorBlack,
+              icon: Icon(
+                Icons.notifications_none,
+                color: IdColors.textColorGrey,
               ),
-              activeIcon: SvgPicture.asset(
-                'assets/svgs/notification.svg',
+              activeIcon: Icon(
+                Icons.notifications_none,
                 color: IdColors.mainColor,
               ),
-              label: 'Notifications'),
+              label: 'Notifications\n'),
           BottomNavigationBarItem(
-            icon: SvgPicture.asset(
-              'assets/svgs/settingsApp.svg',
-              color: IdColors.textColorBlack,
+            icon: Icon(
+              Icons.settings_outlined,
+              color: IdColors.textColorGrey,
             ),
-            activeIcon: SvgPicture.asset(
-              'assets/svgs/settingsApp.svg',
+            activeIcon: Icon(
+              Icons.settings_outlined,
               color: IdColors.mainColor,
             ),
-            label: 'Settings',
+            label: 'Settings\n',
           ),
         ],
       ),
@@ -114,8 +116,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           case 0:
             return CupertinoTabView(
               navigatorKey: tabNavKeys[0],
-              builder: (context) => CupertinoPageScaffold(
-                child: Home(accessLevel: widget.accessLevel),
+              builder: (context) => const CupertinoPageScaffold(
+                child: Home(),
               ),
             );
           case 1:

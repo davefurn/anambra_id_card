@@ -58,44 +58,6 @@ class CustomRoutes {
       },
     );
   }
-
-  static Route slideIn(Widget page) {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(seconds: 4),
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, page) {
-        var begin = const Offset(10, 0);
-        var end = Offset.zero;
-        var curve = Curves.easeInExpo;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: page,
-        );
-      },
-    );
-  }
-
-  static Route slideUp(Widget page) {
-    return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 300),
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, page) {
-        var begin = const Offset(0, 1);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: page,
-        );
-      },
-    );
-  }
 }
 
 GestureDetector backButton(BuildContext context) {

@@ -1,6 +1,7 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoadingButton extends StatefulWidget {
   final LoadingState state;
@@ -26,6 +27,11 @@ class _LoadingButtonState extends State<LoadingButton> {
           widget.onTap();
         }
       },
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(
+          6.r,
+        ),
+      ),
       color: IdColors.mainColor,
       minWidth: MediaQuery.of(context).size.width * 0.9,
       height: 50,
@@ -40,11 +46,11 @@ class _LoadingButtonState extends State<LoadingButton> {
               ),
             )
           : Text(
-            widget.text,
-            style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                  fontSize: 16,
-                ),
-          ),
+              widget.text,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    fontSize: 16,
+                  ),
+            ),
     );
   }
 }

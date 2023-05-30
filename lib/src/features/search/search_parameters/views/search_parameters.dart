@@ -17,14 +17,12 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/cus
 import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/search_parameter_widget.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
-
 import '../../../../router/app_routes.dart';
-import '../../../../utils/date_time_util.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 
 class SearchParameters extends StatefulWidget {
@@ -42,7 +40,6 @@ class _SearchParametersState extends State<SearchParameters> {
 
   var initialValue = SearchParameter.email;
 
-  final bool _validate = false;
   late TextEditingController staffIdController;
   late TextEditingController dateController;
   @override
@@ -99,110 +96,26 @@ class _SearchParametersState extends State<SearchParameters> {
                   crossAxisSpacing: 13.w,
                   childAspectRatio: 103.w / 90.h,
                   children: [
-                    InkWell(
-                      onTap: () =>
-                          setState(() => initialValue = SearchParameter.email),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: initialValue == SearchParameter.email
-                              ? IdColors.fadedMainColor
-                              : Colors.transparent,
-                          border: Border.all(
-                            color: initialValue == SearchParameter.email
-                                ? IdColors.mainColor
-                                : IdColors.grey,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10.r),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Icon(
-                              Icons.mail_outline,
-                            ),
-                            Text(
-                              'Email Address',
-                              maxLines: 2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.email,
+                      iconData: Icons.mail_outline,
+                      onTap: (p0) => setState(() => initialValue = p0),
+                      text: 'Email Address',
                     ),
-                    InkWell(
-                      onTap: () => setState(
-                          () => initialValue = SearchParameter.phoneNumber),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: initialValue == SearchParameter.phoneNumber
-                              ? IdColors.fadedMainColor
-                              : Colors.transparent,
-                          border: Border.all(
-                            color: initialValue == SearchParameter.phoneNumber
-                                ? IdColors.mainColor
-                                : IdColors.grey,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10.r),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Icon(
-                              Icons.phone,
-                            ),
-                            Text(
-                              'Phone Number',
-                              maxLines: 2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.phoneNumber,
+                      iconData: Icons.phone,
+                      onTap: (p0) => setState(() => initialValue = p0),
+                      text: 'Phone number',
                     ),
-                    InkWell(
-                      onTap: () => setState(
-                          () => initialValue = SearchParameter.staffId),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.r),
-                          color: initialValue == SearchParameter.staffId
-                              ? IdColors.fadedMainColor
-                              : Colors.transparent,
-                          border: Border.all(
-                            color: initialValue == SearchParameter.staffId
-                                ? IdColors.mainColor
-                                : IdColors.grey,
-                          ),
-                        ),
-                        padding: EdgeInsets.all(10.r),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            const Icon(
-                              Icons.person_outlined,
-                            ),
-                            Text(
-                              'Staff ID',
-                              maxLines: 2,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.staffId,
+                      iconData: Icons.person_outlined,
+                      onTap: (p0) => setState(() => initialValue = p0),
+                      text: 'Staff ID',
                     ),
                   ],
                 ),
@@ -214,7 +127,6 @@ class _SearchParametersState extends State<SearchParameters> {
                 validator: (v) {
                   return null;
                 },
-                validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: initialValue == SearchParameter.email
                     ? 'Email'
@@ -230,51 +142,11 @@ class _SearchParametersState extends State<SearchParameters> {
                 prefixIcon: Icons.email,
               ),
               SizedBox(
-                height: 16.h,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: CustomTextInput(
-                  readOnly: true,
-                  width: 210.w,
-                  onTap: () => Utils.showSheet(context,
-                      child: buildDatePicker(), onClicked: () {
-                    FocusScope.of(context).requestFocus(FocusNode());
-
-                    final value = DateFormat('yyyy/MM/dd').format(dateTime);
-                    dateController.text = value;
-
-                    Navigator.pop(context);
-                  }),
-                  onSaved: (newValue) => email = newValue,
-                  onChanged: (v) {},
-                  validator: (v) {
-                    if (v!.isEmpty || v.isEmpty) {
-                      return 'Choose Date';
-                    }
-                    return null;
-                  },
-                  validate: _validate,
-                  textInputAction: TextInputAction.next,
-                  titleText: 'Date of birth',
-                  hintText: "dd/mm/yyyy",
-                  suffixIcon: const Icon(
-                    Icons.calendar_month,
-                    color: IdColors.hintTextColor,
-                  ),
-                  keyboardType: TextInputType.none,
-                  controller: dateController,
-                  prefixIcon: Icons.email,
-                ),
-              ),
-              SizedBox(
                 height: 24.h,
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () {
-                  pushTo(context, const Searching());
-                },
+                onpressed: () => pushTo(context, const Searching()),
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),

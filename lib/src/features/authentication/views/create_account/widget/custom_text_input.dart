@@ -17,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextInput extends StatelessWidget {
-  final bool validate;
   final double? hpD;
   final IconData? prefixIcon;
   final TextEditingController? controller;
@@ -72,7 +71,6 @@ class CustomTextInput extends StatelessWidget {
     this.prefixPath,
     required this.titleText,
     this.hpD,
-    required this.validate,
     this.onSaved,
     this.width,
     this.validator,
@@ -123,7 +121,7 @@ class CustomTextInput extends StatelessWidget {
               style: const TextStyle(
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w500,
-                fontSize: 20,
+                fontSize: 18,
                 height: 1,
                 color: Color(0xFF1F2937),
               ),
@@ -132,6 +130,13 @@ class CustomTextInput extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   borderSide: const BorderSide(
                     color: IdColors.mainColor,
+                    width: 1,
+                  ),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: const BorderSide(
+                    color: IdColors.failureColor,
                     width: 1,
                   ),
                 ),
