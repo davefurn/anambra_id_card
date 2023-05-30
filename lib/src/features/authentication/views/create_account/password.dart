@@ -121,7 +121,8 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                           ),
                           DataTesting(
                             firstText: 'Phone number',
-                            secondText: widget.data.mobile,
+                            secondText:
+                                '${widget.data.mobile} (Default Password)',
                           ),
                         ],
                       ),
@@ -151,7 +152,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
-                                CustomRoutes.slideIn(
+                                CustomRoutes.fadeIn(
                                     const AnimationScreen(isLogin: true)),
                               );
                             },

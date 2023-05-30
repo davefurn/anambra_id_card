@@ -66,7 +66,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.textColorBlack,
               ),
             ),
@@ -90,7 +90,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.textColorBlack,
               ),
             ),
@@ -114,7 +114,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.textColorBlack,
               ),
             ),
@@ -138,7 +138,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.textColorBlack,
               ),
             ),
@@ -199,7 +199,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.textColorBlack,
               ),
             ),
@@ -224,7 +224,7 @@ class SettingsView extends ConsumerWidget {
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontSize: 16,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.w500,
                 color: IdColors.failureColor,
               ),
             ),

@@ -37,7 +37,6 @@ class _Password2State extends State<Password2> {
   String? confirmPassword;
   final _formKey = GlobalKey<FormState>();
 
-  final bool _validate = false;
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
   @override
@@ -77,7 +76,6 @@ class _Password2State extends State<Password2> {
                 validator: (v) {
                   return null;
                 },
-                validate: _validate,
                 obscureText: isVisible ? false : true,
                 textInputAction: TextInputAction.next,
                 titleText: 'Password',
@@ -106,7 +104,6 @@ class _Password2State extends State<Password2> {
                 validator: (v) {
                   return null;
                 },
-                validate: _validate,
                 hintText: 'Enter a minimum of 8 characters',
                 textInputAction: TextInputAction.done,
                 titleText: 'Confirm Password',

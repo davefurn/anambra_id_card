@@ -18,6 +18,7 @@ import 'package:acmc/src/features/authentication/views/create_account/widget/cus
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,8 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   late TextEditingController passwordController;
   bool isVisible = false;
-  String? email;
-  String? password;
   final _formKey = GlobalKey<FormState>();
 
-  final bool _validate = false;
   late TextEditingController emailController;
   var state = LoadingState.normal;
 
@@ -62,7 +60,12 @@ class _LoginState extends State<Login> {
     setState(() {
       state = LoadingState.loading;
     });
-    await Future.delayed(const Duration(seconds: 2));
+    await PostRequest.fetchBearerToken(
+      context,
+      login: true,
+      email: emailController.text,
+      password: passwordController.text,
+    );
     setState(() {
       state = LoadingState.normal;
     });
@@ -87,12 +90,14 @@ class _LoginState extends State<Login> {
                 height: 32.h,
               ),
               CustomTextInput(
-                onSaved: (newValue) => email = newValue,
-                onChanged: (v) {},
-                validator: (v) {
+                validator: (String? value) {
+                  if ((value == null || value.isEmpty) ||
+                      !RegExp(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+                          .hasMatch(value)) {
+                    return 'Please enter a valid email address';
+                  }
                   return null;
                 },
-                validate: _validate,
                 textInputAction: TextInputAction.next,
                 titleText: 'Email',
                 keyboardType: TextInputType.emailAddress,
@@ -103,13 +108,15 @@ class _LoginState extends State<Login> {
                 height: 16.h,
               ),
               CustomTextInput(
-                onSaved: (newValue) => password = newValue,
-                onChanged: (v) {},
                 validator: (v) {
+                  if (v == null || v.isEmpty) {
+                    return 'Please enter a password';
+                  } else if (v.length < 6) {
+                    return 'The password is too short';
+                  }
                   return null;
                 },
-                validate: _validate,
-                hintText: 'Enter a minimum of 8 characters',
+                hintText: 'Enter a minimum of 6 characters',
                 textInputAction: TextInputAction.done,
                 titleText: 'Password',
                 enableSuggestions: false,
@@ -133,14 +140,7 @@ class _LoginState extends State<Login> {
               ),
               LoadingButton(
                 state: state,
-                onTap: () {
-                  verify().then((value) {
-                    setState(() {
-                      state = LoadingState.normal;
-                    });
-                    return pushToAndClearStack(context, const HomeScreen());
-                  });
-                },
+                onTap: () => verify(),
                 text: 'Log in',
               ),
               SizedBox(
@@ -197,10 +197,10 @@ class _LoginState extends State<Login> {
                   horizontal: 112.w,
                 ),
                 child: GestureDetector(
-                  onTap: () => pushTo(context,
-                      const HomeScreen(accessLevel: AccessLevel.guest)),
+                  onTap: () => pushTo(context, const HomeScreen()),
                   child: const SpecialButton2(
                     text: 'Use as guest',
+                    textColor: IdColors.textColorBlack,
                   ),
                 ),
               ),
