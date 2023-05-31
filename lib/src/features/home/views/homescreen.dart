@@ -23,7 +23,6 @@ import 'package:acmc/src/features/statistics/view/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/local_storage.dart';
-import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +78,8 @@ class _HomeState extends State<Home> {
         name = '${value.userData.lastName} ${value.userData.firstName}';
         department = value.department;
         designation = value.designation;
-        accessLevel = value.userData.role.toAccessLevel();
+        // accessLevel = value.userData.role.toAccessLevel();
+        accessLevel = AccessLevel.demo;
       });
       setState(() {});
     });

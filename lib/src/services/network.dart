@@ -39,8 +39,8 @@ class NetworkService {
     }
   }
 
-  Future<Response?> getRequestHandler(String path, Map<String, dynamic> data,
-      {Options? options}) async {
+  Future<Response?> getRequestHandler(String path,
+      {Options? options, Map<String, dynamic>? data}) async {
     try {
       final a = await _dio.getUri(Uri.parse('${AppEndpoints.baseUrl}$path'),
           data: data, options: options);
