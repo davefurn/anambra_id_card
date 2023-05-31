@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,19 +24,11 @@ import '../features/search/search_parameters/views/search_details.dart';
 import '../router/app_routes.dart';
 
 class Cards extends StatelessWidget {
-  final String text;
-  final String logo;
-  final String image;
-  final String name;
-  final String department;
+  final SearchModel model;
   final bool showDetails;
   const Cards({
     super.key,
-    required this.text,
-    required this.logo,
-    required this.image,
-    required this.name,
-    required this.department,
+    required this.model,
     this.showDetails = true,
   });
 
@@ -70,29 +64,50 @@ class Cards extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        logo,
-                      ),
-                      Text(
-                        text,
-                      )
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          'assets/images/gov_logo.png',
+                        ),
+                        FittedBox(
+                          child: RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'MDA: ',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14.sp,
+                                    color: IdColors.textColorBlack,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: model.mdaLocation.locationName,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp,
+                                    color: IdColors.textColorBlack,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                  8.sbW,
                   Hero(
-                    tag: 'abcde',
-                    child: Container(
+                    tag: model.employeeId,
+                    child: SizedBox(
                       height: 99.h,
                       width: 117.w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: AssetImage(image),
-                          fit: BoxFit.fill,
-                        ),
+                      child: ImageLoader(
+                        image: model.profilePicture,
+                        boxFit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -112,27 +127,31 @@ class Cards extends StatelessWidget {
                 SizedBox(
                   height: 10.h,
                 ),
-                Text(
-                  name,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16,
-                      color: Colors.black),
-                ),
-                4.sbH,
-                Text(
-                  department,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: Colors.black,
+                FittedBox(
+                  child: Text(
+                    '${model.lastName} ${model.middleName} ${model.firstName}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        color: Colors.black),
                   ),
                 ),
                 4.sbH,
-                const Text.rich(
+                FittedBox(
+                  child: Text(
+                    model.departments.departmentName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                4.sbH,
+                Text.rich(
                   TextSpan(
                     children: [
-                      TextSpan(
+                      const TextSpan(
                         text: 'Status: ',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -141,11 +160,12 @@ class Cards extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: 'Active',
+                        text: model.isActive == 1 ? 'Active' : 'Inactive',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
-                          color: Colors.green,
+                          color:
+                              model.isActive == 1 ? Colors.green : Colors.red,
                         ),
                       ),
                     ],
@@ -154,16 +174,15 @@ class Cards extends StatelessWidget {
                 if (showDetails)
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Hero(
-                      tag: 1,
-                      child: InkWell(
-                        onTap: () => pushTo(
-                          context,
-                          const SearchDetails(),
+                    child: InkWell(
+                      onTap: () => pushTo(
+                        context,
+                        SearchDetails(
+                          model: model,
                         ),
-                        child: const SpecialButton2(
-                          text: 'View all details',
-                        ),
+                      ),
+                      child: const SpecialButton2(
+                        text: 'View all details',
                       ),
                     ),
                   )

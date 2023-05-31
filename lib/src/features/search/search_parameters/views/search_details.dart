@@ -1,7 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
+import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/widgets/expansion_tile.dart';
+import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +17,11 @@ import '../../../../router/app_routes.dart';
 import '../../../../widgets/data_testing.dart';
 
 class SearchDetails extends StatelessWidget {
-  const SearchDetails({Key? key}) : super(key: key);
+  final SearchModel model;
+  const SearchDetails({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +45,19 @@ class SearchDetails extends StatelessWidget {
           children: [
             32.sbH,
             Hero(
-              tag: 'abcde',
-              child: Container(
+              tag: model.employeeId,
+              child: SizedBox(
                 height: 146.h,
                 width: 178.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/test_image.png'),
-                    fit: BoxFit.fill,
-                  ),
+                child: ImageLoader(
+                  image: model.profilePicture,
+                  boxFit: BoxFit.cover,
                 ),
               ),
             ),
             16.sbH,
             Text(
-              'Employee ID: 7348953',
+              'Employee ID: ${model.employeeId}',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,

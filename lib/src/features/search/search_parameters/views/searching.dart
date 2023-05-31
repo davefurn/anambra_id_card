@@ -12,24 +12,50 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/features/pagination/model.dart';
+import 'package:acmc/src/features/pagination/provider.dart';
+import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../../../widgets/special_button.dart';
 
-class Searching extends StatefulWidget {
-  const Searching({Key? key}) : super(key: key);
+class Searching extends ConsumerStatefulWidget {
+  final String searchWord;
+  const Searching({
+    Key? key,
+    required this.searchWord,
+  }) : super(key: key);
 
   @override
-  State<Searching> createState() => _SearchingState();
+  ConsumerState<Searching> createState() => _SearchingState();
 }
 
-class _SearchingState extends State<Searching> {
+class _SearchingState extends ConsumerState<Searching> {
   bool data = true;
+
+  final PaginationModel paginationModel = PaginationModel();
+  late RefreshController refreshController;
+  List<SearchModel> value = [];
+
+  @override
+  void initState() {
+    super.initState();
+    refreshController = RefreshController();
+    paginationModel.word = widget.searchWord;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final searchList = ref.watch(
+      searchProvider(
+        paginationModel,
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -40,76 +66,115 @@ class _SearchingState extends State<Searching> {
           maxLines: 1,
         ),
       ),
-      body: data
-          ? SingleChildScrollView(
-              child: Column(
-                children: [
-                  45.sbH,
-                  Text(
-                    "Result found",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+      body: searchList.when(
+        data: (val) {
+          if (val != null &&
+              val.data['status'] == 'success' &&
+              val.data['code'] == 1) {
+            paginationModel.total = val.data!['data']['total'];
+            if (paginationModel.page == 1) {
+              value = (val.data!['data']['data'] as List)
+                  .map((e) => SearchModel.fromJson(e))
+                  .toList();
+            }
+            return value.isNotEmpty
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: SmartRefresher(
+                          controller: refreshController,
+                          enablePullUp: true,
+                          physics: const ClampingScrollPhysics(),
+                          onRefresh: () async {
+                            value.clear();
+                            setState(() {});
+                            paginationModel.page = 1;
+                            paginationModel.total = 100;
+                            var _ = await ref.refresh(
+                                searchProvider(paginationModel).future);
+                            refreshController.refreshCompleted();
+                          },
+                          onLoading: () async {
+                            if (value.length != paginationModel.total) {
+                              try {
+                                paginationModel.page += 1;
+                                final a =
+                                    await GetRequest.search(paginationModel);
+                                var b = (a!.data!['data']['data'] as List)
+                                    .map((e) => SearchModel.fromJson(e))
+                                    .toList();
+                                value.addAll(b);
+                                refreshController.loadComplete();
+                                setState(() {});
+                              } catch (_) {
+                                refreshController.refreshFailed();
+                              }
+                            } else {
+                              refreshController.loadNoData();
+                            }
+                          },
+                          child: ListView.separated(
+                            itemCount: value.length,
+                            itemBuilder: (context, index) {
+                              return Cards(
+                                model: value[index],
+                              );
+                            },
+                            separatorBuilder: (context, index) => 20.sbH,
+                          ),
                         ),
-                  ),
-                  SizedBox(
-                    height: 12.h,
-                  ),
-                  SizedBox(
-                    height: 646.h,
-                    child: MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
-                      child: ListView.builder(
-                        itemCount: 1,
-                        itemBuilder: (context, index) {
-                          return const Cards(
-                            text: 'MDA: ICT Agency',
-                            logo: 'assets/images/gov_logo.png',
-                            image: 'assets/images/test_image.png',
-                            name: 'Chidinma Deborah Maduka',
-                            department: 'Commissioner',
-                          );
-                        },
                       ),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: Color(0xffF97618),
-                    size: 20,
-                  ),
-                  SizedBox(
-                    height: 6.h,
-                  ),
-                  Text(
-                    "No result found",
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+                      90.sbH,
+                    ],
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.info_outline,
+                          color: Color(0xffF97618),
+                          size: 20,
                         ),
-                  ),
-                  SizedBox(
-                    height: 6.h,
-                  ),
-                  GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const SpecialButton(
-                        icon: Icons.search,
-                        text: 'Search again',
-                        width: 129,
-                      )),
-                ],
-              ),
-            ),
+                        SizedBox(
+                          height: 6.h,
+                        ),
+                        Text(
+                          "No result found",
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                        ),
+                        SizedBox(
+                          height: 6.h,
+                        ),
+                        GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: const SpecialButton(
+                            icon: Icons.search,
+                            text: 'Search again',
+                            width: 129,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+          } else {
+            return const Center(
+              child: Text('Error'),
+            );
+          }
+        },
+        error: (error, trace) => const Center(
+          child: Text('Error'),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
     );
   }
 }
