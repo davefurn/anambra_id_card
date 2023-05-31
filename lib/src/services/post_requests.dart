@@ -136,4 +136,12 @@ class PostRequest {
       },
     );
   }
+
+  static Future<Response<dynamic>?> generateQRCode(String employeeId) async {
+    var path = '/employee_data/generate_qr_code';
+    var token = (await LocalStorage.instance.getToken())!;
+    return await network.postRequestHandler(
+        path, {'identifier_type': "employee_id", "identifier": employeeId},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
 }

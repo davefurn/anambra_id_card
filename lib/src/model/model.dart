@@ -102,3 +102,20 @@ class SearchModel {
     );
   }
 }
+
+class NotificatinModel {
+  final String title;
+  final String message;
+
+  NotificatinModel({
+    required this.title,
+    required this.message,
+  });
+
+  static NotificatinModel fromJson(Map<String, dynamic> data) {
+    return NotificatinModel(
+      title: data['title'],
+      message: data['message'],
+    );
+  }
+}

@@ -16,12 +16,19 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
+import 'package:acmc/src/widgets/qrcode_widget.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VirtualIDCard extends StatelessWidget {
-  const VirtualIDCard({super.key});
+  final SearchModel model;
+  final String base64;
+  const VirtualIDCard({
+    super.key,
+    required this.base64,
+    required this.model,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,23 +64,7 @@ class VirtualIDCard extends StatelessWidget {
           ),
           12.sbH,
           Cards(
-            model: SearchModel(
-              id: 1,
-              employeeId: 'employeeId',
-              firstName: 'firstName',
-              lastName: 'firstName',
-              middleName: 'middleName',
-              profilePicture: 'profile_1612166864.jpg',
-              departments: Departments(
-                departmentId: 1,
-                departmentName: 'departmentName',
-              ),
-              isActive: 1,
-              mdaLocation: MdaLocation(
-                locationId: 1,
-                locationName: 'locationName',
-              ),
-            ),
+            model: model,
             showDetails: false,
           ),
           37.sbH,
@@ -122,13 +113,10 @@ class VirtualIDCard extends StatelessWidget {
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 32),
-                    child: SizedBox(
+                    child: QRCodeWidget(
+                      employeeId: model.employeeId,
                       width: 119.w,
                       height: 121.h,
-                      child: Image.asset(
-                        'assets/images/qr_code_sample.png',
-                        fit: BoxFit.cover,
-                      ),
                     ),
                   ),
                 ),
