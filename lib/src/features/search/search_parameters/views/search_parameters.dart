@@ -40,19 +40,16 @@ class _SearchParametersState extends State<SearchParameters> {
 
   var initialValue = SearchParameter.email;
 
-  late TextEditingController staffIdController;
-  late TextEditingController dateController;
+  late TextEditingController textController;
   @override
   void initState() {
     super.initState();
-    dateController = TextEditingController();
-    staffIdController = TextEditingController();
+    textController = TextEditingController();
   }
 
   @override
   void dispose() {
-    staffIdController.dispose();
-    dateController.dispose();
+    textController.dispose();
     super.dispose();
   }
 
@@ -138,7 +135,7 @@ class _SearchParametersState extends State<SearchParameters> {
                     : initialValue == SearchParameter.phoneNumber
                         ? TextInputType.number
                         : TextInputType.text,
-                controller: staffIdController,
+                controller: textController,
                 prefixIcon: Icons.email,
               ),
               SizedBox(
@@ -146,7 +143,12 @@ class _SearchParametersState extends State<SearchParameters> {
               ),
               CustomButton(
                 thickLine: 1,
-                onpressed: () => pushTo(context, const Searching()),
+                onpressed: () => pushTo(
+                  context,
+                  Searching(
+                    searchWord: textController.text,
+                  ),
+                ),
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),

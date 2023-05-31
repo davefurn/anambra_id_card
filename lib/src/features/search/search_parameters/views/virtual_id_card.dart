@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
@@ -55,12 +56,24 @@ class VirtualIDCard extends StatelessWidget {
             ),
           ),
           12.sbH,
-          const Cards(
-            text: 'MDA: ICT Agency',
-            logo: 'assets/images/gov_logo.png',
-            image: 'assets/images/test_image.png',
-            name: 'Chidinma Deborah Maduka',
-            department: 'Commissioner',
+          Cards(
+            model: SearchModel(
+              id: 1,
+              employeeId: 'employeeId',
+              firstName: 'firstName',
+              lastName: 'firstName',
+              middleName: 'middleName',
+              profilePicture: 'profile_1612166864.jpg',
+              departments: Departments(
+                departmentId: 1,
+                departmentName: 'departmentName',
+              ),
+              isActive: 1,
+              mdaLocation: MdaLocation(
+                locationId: 1,
+                locationName: 'locationName',
+              ),
+            ),
             showDetails: false,
           ),
           37.sbH,

@@ -1,5 +1,5 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
+import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
@@ -44,7 +44,30 @@ class EmployeeTile extends StatelessWidget {
                   ),
             ),
             InkWell(
-              onTap: () => pushTo(context, const Searching()),
+              onTap: () => {
+                pushTo(
+                  context,
+                  SearchDetails(
+                    model: SearchModel(
+                      id: 1,
+                      employeeId: 'employeeId',
+                      firstName: 'firstName',
+                      lastName: 'firstName',
+                      middleName: 'middleName',
+                      profilePicture: 'profile_1612166864.jpg',
+                      departments: Departments(
+                        departmentId: 1,
+                        departmentName: 'departmentName',
+                      ),
+                      isActive: 1,
+                      mdaLocation: MdaLocation(
+                        locationId: 1,
+                        locationName: 'locationName',
+                      ),
+                    ),
+                  ),
+                )
+              },
               child: Text(
                 'View details',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
