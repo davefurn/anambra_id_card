@@ -12,11 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/features/pagination/model.dart';
+import 'package:acmc/src/features/pagination/provider.dart';
+import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/services/get_requests.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants/colors.dart';
 
@@ -28,10 +34,23 @@ class NotificationP extends ConsumerStatefulWidget {
 }
 
 class _NotificationPState extends ConsumerState<NotificationP> {
-  bool noData = true;
+  final PaginationModel paginationModel = PaginationModel();
+  List<NotificatinModel>? value;
+  late RefreshController refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshController = RefreshController();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final notificationList = ref.watch(
+      notificationProvider(
+        paginationModel,
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -43,7 +62,7 @@ class _NotificationPState extends ConsumerState<NotificationP> {
         ),
         centerTitle: false,
       ),
-      floatingActionButton: noData == false
+      floatingActionButton: value != null
           ? null
           : Padding(
               padding: const EdgeInsets.only(bottom: 60),
@@ -52,56 +71,145 @@ class _NotificationPState extends ConsumerState<NotificationP> {
                 text: 'Clear all',
               ),
             ),
-      body: noData
-          ? ListView.builder(
-              padding: EdgeInsets.only(
-                left: 20.w,
-                right: 20.w,
-                bottom: 100.h,
-              ),
-              itemCount: 20,
-              itemBuilder: (context, index) => Material(
-                child: ListTile(
-                  shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                        width: 1, color: IdColors.backgroundColour),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  leading: const Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
+      body: notificationList.when(
+        data: (val) {
+          if (val != null &&
+              val.data['status'] == 'success' &&
+              val.data['code'] == 1) {
+            paginationModel.total = val.data!['data']['total'];
+            if (paginationModel.page == 1) {
+              value = (val.data!['data']['data'] as List)
+                  .map((e) => NotificatinModel.fromJson(e))
+                  .toList();
+            }
+            return value!.isNotEmpty
+                ? Column(
                     children: [
-                      Icon(
-                        Icons.info_outline,
-                        color: IdColors.brandBlue,
-                        size: 20,
+                      Expanded(
+                        child: SmartRefresher(
+                          controller: refreshController,
+                          enablePullUp: true,
+                          physics: const ClampingScrollPhysics(),
+                          onRefresh: () async {
+                            value!.clear();
+                            setState(() {});
+                            paginationModel.page = 1;
+                            paginationModel.total = 100;
+                            var _ = await ref.refresh(
+                                notificationProvider(paginationModel).future);
+                            refreshController.refreshCompleted();
+                          },
+                          onLoading: () async {
+                            if (value!.length != paginationModel.total) {
+                              try {
+                                paginationModel.page += 1;
+                                final a = await GetRequest.getNotification(
+                                    paginationModel);
+                                var b = (a!.data!['data']['data'] as List)
+                                    .map((e) => NotificatinModel.fromJson(e))
+                                    .toList();
+                                value!.addAll(b);
+                                refreshController.loadComplete();
+                                setState(() {});
+                              } catch (_) {
+                                refreshController.refreshFailed();
+                              }
+                            } else {
+                              refreshController.loadNoData();
+                            }
+                          },
+                          child: ListView.builder(
+                            padding: EdgeInsets.only(
+                              left: 20.w,
+                              right: 20.w,
+                              bottom: 100.h,
+                            ),
+                            itemCount: value!.length,
+                            itemBuilder: (context, index) => ListTile(
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                    width: 1, color: IdColors.backgroundColour),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              leading: const Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.info_outline,
+                                    color: IdColors.brandBlue,
+                                    size: 20,
+                                  ),
+                                ],
+                              ),
+                              contentPadding: EdgeInsets.zero,
+                              title: Text(
+                                value![index].message,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.black,
+                                    ),
+                              ),
+                              subtitle: Text(
+                                value![index].title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: IdColors.textColorBlack,
+                                    ),
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
+                      90.sbH,
                     ],
-                  ),
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    'Your data has been updated on national database. ',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.black),
-                  ),
-                  subtitle: Text(
-                    'Tap to view update',
-                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: IdColors.textColorBlack),
-                  ),
-                ),
-              ),
-            )
-          : Center(
-              child: Image.asset(
-                'assets/images/nothing_here.png',
-                width: 200.w,
-                height:190.h,
-              ),
-            ),
+                  )
+                : Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          'assets/images/nothing_here.png',
+                          width: 200.w,
+                          height: 190.h,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            value = [];
+                            paginationModel.page = 1;
+                            paginationModel.total = 100;
+                            return ref.refresh(
+                              notificationProvider(paginationModel),
+                            );
+                          },
+                          child: const SpecialButton2(
+                            icon: Icon(Icons.search),
+                            text: 'Search again',
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+          } else {
+            return const Center(
+              child: Text('Error'),
+            );
+          }
+        },
+        error: (error, trace) => const Center(
+          child: Text('Error'),
+        ),
+        loading: () => const Center(
+          child: CircularProgressIndicator.adaptive(),
+        ),
+      ),
     );
   }
 }

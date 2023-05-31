@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,7 +27,8 @@ class QrCode extends ConsumerStatefulWidget {
 class _QrCodeState extends ConsumerState<QrCode> {
   bool _isBusy = false;
 
-  TextEditingController controller = TextEditingController();
+  String resultText = '';
+
   @override
   void initState() {
     super.initState();
@@ -37,28 +39,25 @@ class _QrCodeState extends ConsumerState<QrCode> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          textAlign: TextAlign.start,
-          'Scan QR Code',
-          style:
-              Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
-          maxLines: 1,
-        ),
-      ),
+      appBar: _isBusy
+          ? AppBar(
+              title: Text(
+                textAlign: TextAlign.start,
+                'Scan QR Code',
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineLarge
+                    ?.copyWith(fontSize: 24),
+                maxLines: 1,
+              ),
+            )
+          : null,
       body: _isBusy == true
           ? const Center(
               child: CircularProgressIndicator(),
             )
-          : Container(
-              padding: const EdgeInsets.all(20),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.black),
-                maxLines: MediaQuery.of(context).size.height.toInt(),
-                controller: controller,
-                decoration:
-                    const InputDecoration(hintText: "Text goes here..."),
-              ),
+          : Searching(
+              searchWord: resultText,
             ),
     );
   }
@@ -67,7 +66,8 @@ class _QrCodeState extends ConsumerState<QrCode> {
     setState(() {
       _isBusy = true;
     });
-    controller.text = code!;
+    resultText = code!;
+    resultText = '22007491';
 
     setState(() {
       _isBusy = false;

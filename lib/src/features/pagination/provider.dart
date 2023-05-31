@@ -5,3 +5,6 @@ import 'model.dart';
 
 final searchProvider = FutureProvider.autoDispose
     .family((_, PaginationModel pagination) => GetRequest.search(pagination));
+
+final notificationProvider = FutureProvider.autoDispose.family(
+    (_, PaginationModel pagination) => GetRequest.getNotification(pagination));

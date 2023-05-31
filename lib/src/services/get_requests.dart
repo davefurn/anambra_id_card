@@ -33,10 +33,21 @@ class GetRequest {
   }
 
   static Future<Response<dynamic>?> search(PaginationModel pagination) async {
-    var path = '/employee_data/search/${pagination.word}?page=${pagination.page}';
+    var path =
+        '/employee_data/search/${pagination.word}?page=${pagination.page}';
     var token = (await LocalStorage.instance.getToken())!;
-    token =
-        '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2lkbS5hbmFtYnJhc3RhdGUuZ292Lm5nL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjg1NTM5MjQ2LCJleHAiOjE2ODU1NDI4NDYsIm5iZiI6MTY4NTUzOTI0NiwianRpIjoiaFF6ZmNCT2M5aVJneDl1ZiIsInN1YiI6IjIwMDYzNzI1IiwicHJ2IjoiZjY0ZDQ4YTZjZWM3YmRmYTdmYmY4OTk0NTRiNDg4YjNlNDYyNTIwYSJ9.rO8PW2vT-kYienuf9eszs0phcthRPLU60GdZa3N7X3c''';
+    // token =
+    //     '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2lkbS5hbmFtYnJhc3RhdGUuZ292Lm5nL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjg1NTUxNDg2LCJleHAiOjE2ODU1NTUwODYsIm5iZiI6MTY4NTU1MTQ4NiwianRpIjoiY3BoY3VTNE9xN1RhSVJnMyIsInN1YiI6IjIwMDYzNzI1IiwicHJ2IjoiZjY0ZDQ4YTZjZWM3YmRmYTdmYmY4OTk0NTRiNDg4YjNlNDYyNTIwYSJ9.fBwB3kVVuLpIaXOGcH3Nq8yw7Cko2bLwHjqZuPXCBkY''';
+    return await network.getRequestHandler(path,
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
+
+  static Future<Response<dynamic>?> getNotification(
+      PaginationModel pagination) async {
+    var path = '/user_notifications?page=${pagination.page}';
+    var token = (await LocalStorage.instance.getToken())!;
+    // token =
+    //     '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2lkbS5hbmFtYnJhc3RhdGUuZ292Lm5nL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjg1NTQ2NTc5LCJleHAiOjE2ODU1NTAxNzksIm5iZiI6MTY4NTU0NjU3OSwianRpIjoidzN2NDFGdFg1Z2tGb3NPNCIsInN1YiI6IjIwMDYzNzI1IiwicHJ2IjoiZjY0ZDQ4YTZjZWM3YmRmYTdmYmY4OTk0NTRiNDg4YjNlNDYyNTIwYSJ9.Wa5839g8kKv7Q-zEFbxUlLUowaWchjq_ozeFVCIouHk''';
     return await network.getRequestHandler(path,
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
