@@ -89,7 +89,7 @@ class Cards extends StatelessWidget {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: model.mdaLocation.locationName,
+                                  text: model.departments.departmentName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14.sp,
@@ -123,7 +123,9 @@ class Cards extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 16.h,
               right: 16.h,
-            ),
+              
+              
+                          ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,7 +145,7 @@ class Cards extends StatelessWidget {
                 4.sbH,
                 FittedBox(
                   child: Text(
-                    model.departments.departmentName,
+                    model.designation.designationName,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
