@@ -14,6 +14,7 @@ class IdTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     textTheme: TextsTheme.lightTheme,
+    appBarTheme: const AppBarTheme(centerTitle: false),
     elevatedButtonTheme: ElevatedButtonThemes.lightTheme,
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: InputDecorationTheme(
@@ -47,6 +48,7 @@ class IdTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
     textTheme: TextsTheme.darkTheme,
+    appBarTheme: const AppBarTheme(centerTitle: false),
     elevatedButtonTheme: ElevatedButtonThemes.darkTheme,
   );
 }

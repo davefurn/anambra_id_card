@@ -26,6 +26,7 @@ class SpecialButton2 extends StatelessWidget {
   final Color? selectedTextColor;
   final Widget? icon;
   final double? height;
+  final void Function()? onTap;
   const SpecialButton2(
       {Key? key,
       required this.text,
@@ -34,39 +35,44 @@ class SpecialButton2 extends StatelessWidget {
       this.textColor,
       this.selectedTextColor,
       this.icon,
+      this.onTap,
       this.height})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-          border: Border.all(color: borderColor ?? IdColors.subColor),
-          color: backgroundColor ?? IdColors.backgroundColour,
-          borderRadius: BorderRadius.circular(8)),
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
-      // alignment: Alignment.center,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (icon != null)
-            Row(
-              children: [
-                icon!,
-                6.sbW,
-              ],
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: Container(
+        height: height,
+        decoration: BoxDecoration(
+            border: Border.all(color: borderColor ?? IdColors.subColor),
+            color: backgroundColor ?? IdColors.backgroundColour,
+            borderRadius: BorderRadius.circular(8)),
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
+        // alignment: Alignment.center,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null)
+              Row(
+                children: [
+                  icon!,
+                  6.sbW,
+                ],
+              ),
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 16,
+                color: textColor ?? selectedTextColor ?? IdColors.textColorGrey,
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 14,
-              color: textColor ?? selectedTextColor ?? IdColors.textColorGrey,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

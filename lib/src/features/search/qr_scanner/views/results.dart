@@ -54,7 +54,7 @@ class _QrCodeState extends ConsumerState<QrCode> {
           : null,
       body: _isBusy == true
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator.adaptive(),
             )
           : Searching(
               searchWord: resultText,
@@ -67,7 +67,7 @@ class _QrCodeState extends ConsumerState<QrCode> {
       _isBusy = true;
     });
     resultText = code!;
-    resultText = '22007491';
+    // resultText = '22007491';
 
     setState(() {
       _isBusy = false;

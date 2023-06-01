@@ -120,12 +120,12 @@ class PostRequest {
               ShowFlushBar.showSuccess(
                 context: context,
               ).whenComplete(
-                  () => pushReplacementTo(context, const HomeScreen()));
+                  () => pushToAndClearStack(context, const HomeScreen()));
             } else {
               ShowFlushBar.showSuccess(
                 context: context,
               ).whenComplete(
-                  () => pushReplacementTo(context, const OtpScreen()));
+                  () => pushToAndClearStack(context, const OtpScreen()));
             }
           }
         } else {
@@ -142,6 +142,13 @@ class PostRequest {
     var token = (await LocalStorage.instance.getToken())!;
     return await network.postRequestHandler(
         path, {'identifier_type': "employee_id", "identifier": employeeId},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
+
+  static Future<Response<dynamic>?> logout() async {
+    var path = '/logout';
+    var token = (await LocalStorage.instance.getToken())!;
+    return await network.postRequestHandler(path, {},
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 }

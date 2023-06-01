@@ -3,7 +3,6 @@
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
 import 'package:acmc/src/model/model.dart';
-import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/expansion_tile.dart';
 import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/qrcode_widget.dart';
@@ -31,21 +30,6 @@ class SearchDetails extends StatefulWidget {
 }
 
 class _SearchDetailsState extends State<SearchDetails> {
-  String base64 = '';
-
-  @override
-  void initState() {
-    super.initState();
-
-    PostRequest.generateQRCode(widget.model.employeeId).then((value) {
-      if (value != null &&
-          value.data != null &&
-          value.data['status'] == 'success') {
-        base64 = (value.data['data']['qr_code_image'] as String).substring(22);
-      }
-    });
-  }
-
   void openQRCode() async {
     showModalBottomSheet(
         backgroundColor: Colors.transparent,
@@ -69,8 +53,9 @@ class _SearchDetailsState extends State<SearchDetails> {
                 Center(
                   child: QRCodeWidget(
                     employeeId: widget.model.employeeId,
-                    height: 100.h,
-                    width: 100.h,
+                    height: 150.h,
+                    width: 150.h,
+                    onLoad: (p0) {},
                   ),
                 ),
                 12.sbH,
@@ -81,19 +66,19 @@ class _SearchDetailsState extends State<SearchDetails> {
                     GestureDetector(
                         onTap: () {
                           const snackBar = SnackBar(
-                              elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              behavior: SnackBarBehavior.floating,
-                              content: SpecialButton(
-                                icon: Icons.download_done,
-                                iconColor: IdColors.green,
-                                text: 'Action successful',
-                                width: 180,
-                                height: 40,
-                                borderColor: IdColors.green,
-                              ));
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            behavior: SnackBarBehavior.floating,
+                            content: SpecialButton(
+                              icon: Icons.download_done,
+                              iconColor: IdColors.green,
+                              text: 'Action successful',
+                              width: 180,
+                              height: 40,
+                              borderColor: IdColors.green,
+                            ),
+                          );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
                           // Find the ScaffoldMessenger in the widget tree
                           // and use it to show a SnackBar.
                         },
@@ -178,7 +163,6 @@ class _SearchDetailsState extends State<SearchDetails> {
                     pushTo(
                       context,
                       VirtualIDCard(
-                        base64: base64,
                         model: widget.model,
                       ),
                     );
