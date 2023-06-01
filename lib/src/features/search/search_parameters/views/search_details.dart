@@ -183,34 +183,29 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.contact_phone,
               mainText: 'CONTACT DETAILS',
               widgets: [
-                const DataTesting(
+                 DataTesting(
                   firstText: 'First Name',
-                  secondText: 'Chidinma',
+                  secondText: widget.model.firstName,
                 ),
                 16.sbH,
-                const DataTesting(
+                 DataTesting(
                   firstText: 'Middle Name',
-                  secondText: 'Deborah',
+                  secondText: widget.model.middleName,
                 ),
                 16.sbH,
-                const DataTesting(
+                 DataTesting(
                   firstText: 'Last Name',
-                  secondText: 'Maduka',
+                  secondText: widget.model.lastName,
                 ),
                 16.sbH,
-                const DataTesting(
+                 DataTesting(
                   firstText: 'Email',
-                  secondText: 'debbiedinma44@gmail.com',
+                  secondText: widget.model.email,
                 ),
                 16.sbH,
-                const DataTesting(
+                 DataTesting(
                   firstText: 'Phone Number',
-                  secondText: '08164684852',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Social Links',
-                  secondText: 'linkedin.com/in/chiazaokoli',
+                  secondText: widget.model.contactNo,
                 ),
                 16.sbH,
               ],
@@ -220,36 +215,36 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.location_on,
               mainText: 'LOCATION DETAILS',
               widgets: [
-                const DataTesting(
-                  firstText: 'First Name',
-                  secondText: 'Chidinma',
+                 DataTesting(
+                  firstText: 'Address',
+                  secondText: widget.model.address,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Middle Name',
-                  secondText: 'Deborah',
+                 DataTesting(
+                  firstText: 'Town',
+                  secondText: widget.model.town,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Last Name',
-                  secondText: 'Maduka',
+                 DataTesting(
+                  firstText: 'City',
+                  secondText: widget.model.city,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Email',
-                  secondText: 'debbiedinma44@gmail.com',
+                 DataTesting(
+                  firstText: 'State',
+                  secondText: widget.model.state,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Phone Number',
-                  secondText: '08164684852',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Social Links',
-                  secondText: 'linkedin.com/in/chiazaokoli',
-                ),
-                16.sbH,
+                // const DataTesting(
+                //   firstText: 'Contact No:',
+                //   secondText: '08164684852',
+                // ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Social Links',
+                //   secondText: 'linkedin.com/in/chiazaokoli',
+                // ),
+                // 16.sbH,
               ],
             ),
             8.sbH,
@@ -257,34 +252,39 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.location_on,
               mainText: 'PERSONAL DETAILS',
               widgets: [
-                const DataTesting(
-                  firstText: 'First Name',
-                  secondText: 'Chidinma',
+                DataTesting(
+                  firstText: 'Marital Status',
+                  secondText: widget.model.maritalStatus,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Middle Name',
-                  secondText: 'Deborah',
+                 DataTesting(
+                  firstText: 'Date of Joining',
+                  secondText: widget.model.dateOfJoining,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Last Name',
-                  secondText: 'Maduka',
+                 DataTesting(
+                  firstText: 'Date of leaving',
+                  secondText: widget.model.dateOfLeaving,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Email',
-                  secondText: 'debbiedinma44@gmail.com',
+                 DataTesting(
+                  firstText: 'Date of birth',
+                  secondText: widget.model.dateOfBirth,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Phone Number',
-                  secondText: '08164684852',
+                 DataTesting(
+                  firstText: 'Data Status',
+                  secondText: widget.model.dataStatus,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Social Links',
-                  secondText: 'linkedin.com/in/chiazaokoli',
+                 DataTesting(
+                  firstText: 'Gender',
+                  secondText: widget.model.gender,
+                ),
+                16.sbH,
+                 DataTesting(
+                  firstText: 'State of Origin',
+                  secondText: widget.model.stateOfOrigin,
                 ),
                 16.sbH,
               ],
@@ -294,34 +294,39 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.work,
               mainText: 'WORK DETAILS',
               widgets: [
-                const DataTesting(
-                  firstText: 'First Name',
-                  secondText: 'Chidinma',
+                 DataTesting(
+                  firstText: 'Employee Type',
+                  secondText: widget.model.employeeType,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Middle Name',
-                  secondText: 'Deborah',
+                 DataTesting(
+                  firstText: 'Basic Salary',
+                  secondText:'N ${widget.model.basicSalary}',
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Last Name',
-                  secondText: 'Maduka',
+                 DataTesting(
+                  firstText: 'Grade',
+                  secondText: widget.model.grade,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Email',
-                  secondText: 'debbiedinma44@gmail.com',
+                 DataTesting(
+                  firstText: 'Department',
+                  secondText: widget.model.departments.departmentName,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Phone Number',
-                  secondText: '08164684852',
+                 DataTesting(
+                  firstText: 'Designation',
+                  secondText: widget.model.designation.designationName,
                 ),
                 16.sbH,
-                const DataTesting(
-                  firstText: 'Social Links',
-                  secondText: 'linkedin.com/in/chiazaokoli',
+                 DataTesting(
+                  firstText: 'MDA ',
+                  secondText: widget.model.mdaLocation.locationName,
+                ),
+                16.sbH,
+                 DataTesting(
+                  firstText: 'Government ',
+                  secondText: widget.model.government.governmentName,
                 ),
                 16.sbH,
               ],
@@ -331,9 +336,9 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.more_horiz,
               mainText: 'OTHER DETAILS',
               widgets: [
-                const DataTesting(
-                  firstText: 'First Name',
-                  secondText: 'Chidinma',
+                 DataTesting(
+                  firstText: 'Verification ID',
+                  secondText: widget.model.verificationId,
                 ),
                 16.sbH,
                 const DataTesting(

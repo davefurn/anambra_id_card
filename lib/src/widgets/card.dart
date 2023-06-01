@@ -1,10 +1,13 @@
 // Copyright 2023 Davefurn
 //
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
 //
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
+//
 //
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
@@ -86,7 +89,7 @@ class Cards extends StatelessWidget {
                                   ),
                                 ),
                                 TextSpan(
-                                  text: model.mdaLocation.locationName,
+                                  text: model.departments.departmentName,
                                   style: TextStyle(
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14.sp,
@@ -120,7 +123,9 @@ class Cards extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 16.h,
               right: 16.h,
-            ),
+              
+              
+                          ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,7 +145,7 @@ class Cards extends StatelessWidget {
                 4.sbH,
                 FittedBox(
                   child: Text(
-                    model.departments.departmentName,
+                    model.designation.designationName,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
