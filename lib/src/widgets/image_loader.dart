@@ -32,52 +32,52 @@ class _ImageLoaderState extends State<ImageLoader>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ExtendedImage.network(
-      widget.image,
-      fit: BoxFit.fill,
-      width: double.infinity,
-      cache: false,
-      borderRadius: BorderRadius.circular(8),
-      loadStateChanged: (ExtendedImageState state) {
-        switch (state.extendedImageLoadState) {
-          case LoadState.loading:
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(8.r),
-              child: Shimmer.fromColors(
-                baseColor: IdColors.mainColor,
-                highlightColor: IdColors.anotherWhite,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Image.asset(
-                    'assets/images/splash.png',
-                  ),
-                ),
-              ),
-            );
-          case LoadState.completed:
-            return ClipRRect(
-              borderRadius: BorderRadius.circular(widget.radius ?? 10.r),
-              child: ExtendedRawImage(
-                image: state.extendedImageInfo?.image,
-                fit: widget.boxFit,
-              ),
-            );
-          case LoadState.failed:
-            return GestureDetector(
-              child: const Center(
-                child: Icon(
-                  Icons.replay_outlined,
-                  color: IdColors.anotherWhite,
-                  size: 60,
-                ),
-              ),
-              onTap: () {
-                state.reLoadImage();
-              },
-            );
-        }
-      },
-    );
+    return widget.image.isEmpty
+        ? const Icon(Icons.person)
+        : ExtendedImage.network(
+            widget.image,
+            fit: BoxFit.fill,
+            borderRadius: BorderRadius.circular(8),
+            loadStateChanged: (ExtendedImageState state) {
+              switch (state.extendedImageLoadState) {
+                case LoadState.loading:
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: Shimmer.fromColors(
+                      baseColor: IdColors.mainColor,
+                      highlightColor: IdColors.anotherWhite,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Image.asset(
+                          'assets/images/splash.png',
+                        ),
+                      ),
+                    ),
+                  );
+                case LoadState.completed:
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(widget.radius ?? 10.r),
+                    child: ExtendedRawImage(
+                      image: state.extendedImageInfo?.image,
+                      fit: widget.boxFit,
+                    ),
+                  );
+                case LoadState.failed:
+                  return GestureDetector(
+                    child: const Center(
+                      child: Icon(
+                        Icons.replay_outlined,
+                        color: IdColors.anotherWhite,
+                        size: 60,
+                      ),
+                    ),
+                    onTap: () {
+                      state.reLoadImage();
+                    },
+                  );
+              }
+            },
+          );
   }
 
   @override

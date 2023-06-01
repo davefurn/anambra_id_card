@@ -24,19 +24,17 @@ class FailedScan extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            textAlign: TextAlign.start,
-            'Scan QR Code',
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(fontSize: 24),
-            maxLines: 1,
-          ),
+      appBar: AppBar(
+        title: Text(
+          textAlign: TextAlign.start,
+          'Scan QR Code',
+          style:
+              Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
+          maxLines: 1,
         ),
-        body: Center(
-            child: Column(
+      ),
+      body: Center(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -66,6 +64,8 @@ class FailedScan extends ConsumerWidget {
                   width: 129,
                 )),
           ],
-        )));
+        ),
+      ),
+    );
   }
 }

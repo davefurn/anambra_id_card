@@ -12,23 +12,64 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/constants/colors.dart';
+import 'dart:io';
+
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
-import 'package:acmc/src/widgets/qrcode_widget.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
+import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 
-class VirtualIDCard extends StatelessWidget {
+class VirtualIDCard extends StatefulWidget {
   final SearchModel model;
-  final String base64;
   const VirtualIDCard({
     super.key,
-    required this.base64,
     required this.model,
   });
+
+  @override
+  State<VirtualIDCard> createState() => _VirtualIDCardState();
+}
+
+class _VirtualIDCardState extends State<VirtualIDCard> {
+  bool showButton = false;
+
+  late ScreenshotController frontController;
+  late ScreenshotController backController;
+
+  void downLoadCard(int id) async {
+    late String path;
+    if (Platform.isAndroid) {
+      path = await ExternalPath.getExternalStoragePublicDirectory(
+          ExternalPath.DIRECTORY_DOWNLOADS);
+    } else {
+      path = (await getApplicationDocumentsDirectory()).path;
+    }
+
+    var fileName = '${widget.model.lastName}${widget.model.firstName}$id.png';
+    switch (id) {
+      case 1:
+        await frontController.captureAndSave(path, fileName: fileName);
+        break;
+      case 2:
+        await backController.captureAndSave(path, fileName: fileName);
+        break;
+    }
+    // ignore: use_build_context_synchronously
+    ShowFlushBar.showSuccess(context: context);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    frontController = ScreenshotController();
+    backController = ScreenshotController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,109 +86,55 @@ class VirtualIDCard extends StatelessWidget {
       body: Column(
         children: [
           37.sbH,
-          Padding(
-            padding: EdgeInsets.only(right: 20.h),
-            child: const Align(
-              alignment: Alignment.topRight,
-              child: SpecialButton2(
-                icon: Icon(
-                  Icons.download,
-                  size: 15,
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.h),
+              child: InkWell(
+                onTap: () => downLoadCard(1),
+                child: const SpecialButton2(
+                  icon: Icon(
+                    Icons.download,
+                    size: 15,
+                  ),
+                  text: 'Download Front',
+                  backgroundColor: Colors.transparent,
                 ),
-                text: 'Download Front',
-                // width: 132,
-                // height: 32,
-                backgroundColor: Colors.transparent,
-                // borderColor: Colors.transparent,
               ),
             ),
           ),
           12.sbH,
-          Cards(
-            model: model,
-            showDetails: false,
+          Screenshot(
+            controller: frontController,
+            child: Cards(
+              model: widget.model,
+              showDetails: false,
+            ),
           ),
           37.sbH,
-          Padding(
-            padding: EdgeInsets.only(right: 20.h),
-            child: const Align(
-              alignment: Alignment.topRight,
-              child: SpecialButton2(
-                icon: Icon(
-                  Icons.download,
-                  size: 15,
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 20.h),
+              child: InkWell(
+                onTap: () => downLoadCard(2),
+                child: const SpecialButton2(
+                  icon: Icon(
+                    Icons.download,
+                    size: 15,
+                  ),
+                  text: 'Download Back',
+                  backgroundColor: Colors.transparent,
                 ),
-                text: 'Download Back',
-                // width: 132,
-                // height: 32,
-                backgroundColor: Colors.transparent,
-                // borderColor: Colors.transparent,
               ),
             ),
           ),
           12.sbH,
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            decoration: BoxDecoration(
-              color: IdColors.backgroundColour,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  spreadRadius: 0,
-                  blurRadius: 25,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 15.w, top: 12.h),
-                  child: Align(
-                      alignment: Alignment.topRight,
-                      child: Image.asset('assets/images/gov_logo.png')),
-                ),
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 32),
-                    child: QRCodeWidget(
-                      employeeId: model.employeeId,
-                      width: 119.w,
-                      height: 121.h,
-                    ),
-                  ),
-                ),
-                12.sbH,
-                ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(bottom: Radius.circular(12)),
-                  child: SizedBox(
-                    height: 10,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Container(
-                            color: IdColors.mainColor,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            color: IdColors.blue,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            color: IdColors.mainColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+          Screenshot(
+            controller: backController,
+            child: CardBack(
+              employeeId: widget.model.employeeId,
+              onLoad: (p0) {},
             ),
           ),
         ],

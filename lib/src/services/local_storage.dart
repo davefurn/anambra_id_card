@@ -25,6 +25,16 @@ class LocalStorage {
   final String loggedIn = 'loggedIn';
   final String phone = 'phone';
   final String token = 'token';
+  String staffId = 'staffId';
+  String lastName = 'lastName';
+  String firstName = 'firstName';
+  String role = 'role';
+  String status = 'status';
+  String profilePicture = 'profilePicture';
+  String isActive = 'isActive';
+  String id = 'id';
+  String department = 'department';
+  String designation = 'designation';
 
   Future<SharedPreferences> get prefs async {
     if (_prefs != null) return _prefs!;
@@ -57,6 +67,11 @@ class LocalStorage {
     return pref.getString(email);
   }
 
+  Future<String> getStaffId() async {
+    var pref = await instance.prefs;
+    return pref.getString(staffId)!;
+  }
+
   Future<bool> setLoggedIn(bool value) async {
     var pref = await instance.prefs;
     return pref.setBool(loggedIn, value);
@@ -86,17 +101,6 @@ class LocalStorage {
     var pref = await instance.prefs;
     return pref.getString(token);
   }
-
-  String staffId = 'staffId';
-  String lastName = 'lastName';
-  String firstName = 'firstName';
-  String role = 'role';
-  String status = 'status';
-  String profilePicture = 'profilePicture';
-  String isActive = 'isActive';
-  String id = 'id';
-  String department = 'department';
-  String designation = 'designation';
 
   Future<void> saveUserData(LoginData data) async {
     var pref = await instance.prefs;
