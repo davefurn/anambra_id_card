@@ -18,11 +18,11 @@ import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../../../widgets/special_button.dart';
 
 class Searching extends ConsumerStatefulWidget {
   final String searchWord;
@@ -36,8 +36,6 @@ class Searching extends ConsumerStatefulWidget {
 }
 
 class _SearchingState extends ConsumerState<Searching> {
-  bool data = true;
-
   final PaginationModel paginationModel = PaginationModel();
   late RefreshController refreshController;
   List<SearchModel> value = [];
@@ -152,11 +150,15 @@ class _SearchingState extends ConsumerState<Searching> {
                           height: 6.h,
                         ),
                         GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: const SpecialButton(
-                            icon: Icons.search,
+                          onTap: () {
+                            value = [];
+                            paginationModel.page = 1;
+                            paginationModel.total = 100;
+                            return ref.refresh(searchProvider(paginationModel));
+                          },
+                          child: const SpecialButton2(
+                            icon: Icon(Icons.search),
                             text: 'Search again',
-                            width: 129,
                           ),
                         ),
                       ],

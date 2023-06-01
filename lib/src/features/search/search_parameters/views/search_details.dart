@@ -1,9 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/widgets/expansion_tile.dart';
 import 'package:acmc/src/widgets/image_loader.dart';
+import 'package:acmc/src/widgets/qrcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,12 +18,90 @@ import 'package:acmc/src/widgets/special_button_2.dart';
 import '../../../../router/app_routes.dart';
 import '../../../../widgets/data_testing.dart';
 
-class SearchDetails extends StatelessWidget {
+class SearchDetails extends StatefulWidget {
   final SearchModel model;
   const SearchDetails({
     Key? key,
     required this.model,
   }) : super(key: key);
+
+  @override
+  State<SearchDetails> createState() => _SearchDetailsState();
+}
+
+class _SearchDetailsState extends State<SearchDetails> {
+  void openQRCode() async {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        barrierColor: Colors.black.withOpacity(0.61),
+        context: globalContext,
+        builder: (_) {
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            decoration: const BoxDecoration(
+                color: IdColors.backgroundColour,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
+                )),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                25.sbH,
+                Center(
+                  child: QRCodeWidget(
+                    employeeId: widget.model.employeeId,
+                    height: 150.h,
+                    width: 150.h,
+                    onLoad: (p0) {},
+                  ),
+                ),
+                12.sbH,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          const snackBar = SnackBar(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
+                            behavior: SnackBarBehavior.floating,
+                            content: SpecialButton(
+                              icon: Icons.download_done,
+                              iconColor: IdColors.green,
+                              text: 'Action successful',
+                              width: 180,
+                              height: 40,
+                              borderColor: IdColors.green,
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          // Find the ScaffoldMessenger in the widget tree
+                          // and use it to show a SnackBar.
+                        },
+                        child: const SpecialButton(
+                          icon: Icons.refresh,
+                          text: 'Regenerate code',
+                          width: 157,
+                        )),
+                    SizedBox(
+                      width: 4.w,
+                    ),
+                    // const SpecialButton(
+                    //   icon: Icons.download,
+                    //   text: 'Download',
+                    // )
+                  ],
+                ),
+                120.sbH,
+              ],
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +125,19 @@ class SearchDetails extends StatelessWidget {
           children: [
             32.sbH,
             Hero(
-              tag: model.employeeId,
+              tag: widget.model.employeeId,
               child: SizedBox(
                 height: 146.h,
                 width: 178.w,
                 child: ImageLoader(
-                  image: model.profilePicture,
+                  image: widget.model.profilePicture,
                   boxFit: BoxFit.cover,
                 ),
               ),
             ),
             16.sbH,
             Text(
-              'Employee ID: ${model.employeeId}',
+              'Employee ID: ${widget.model.employeeId}',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 16.sp,
@@ -67,92 +147,7 @@ class SearchDetails extends StatelessWidget {
             Row(
               children: [
                 InkWell(
-                  onTap: () => showModalBottomSheet(
-                    backgroundColor: Colors.transparent,
-                    barrierColor: Colors.black.withOpacity(0.61),
-                    context: globalContext,
-                    builder: (_) {
-                      return Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        decoration: const BoxDecoration(
-                            color: IdColors.backgroundColour,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(20),
-                              topLeft: Radius.circular(20),
-                            )),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  Icons.close,
-                                  size: 24,
-                                  color: IdColors.textColorBlack,
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 210.h,
-                              width: 207.w,
-                              margin: EdgeInsets.symmetric(horizontal: 64.w),
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/qr_code_sample.png'),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            12.sbH,
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      const snackBar = SnackBar(
-                                          elevation: 0,
-                                          backgroundColor: Colors.transparent,
-                                          behavior: SnackBarBehavior.floating,
-                                          content: SpecialButton(
-                                            icon: Icons.download_done,
-                                            iconColor: IdColors.green,
-                                            text: 'Action successful',
-                                            width: 180,
-                                            height: 40,
-                                            borderColor: IdColors.green,
-                                          ));
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackBar);
-
-                                      // Find the ScaffoldMessenger in the widget tree
-                                      // and use it to show a SnackBar.
-                                    },
-                                    child: const SpecialButton(
-                                      icon: Icons.refresh,
-                                      text: 'Regenerate code',
-                                      width: 157,
-                                    )),
-                                SizedBox(
-                                  width: 4.w,
-                                ),
-                                const SpecialButton(
-                                    icon: Icons.download, text: 'Download')
-                              ],
-                            ),
-                            120.sbH,
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                  onTap: openQRCode,
                   child: SpecialButton2(
                     icon: SvgPicture.asset('assets/svgs/qrcode.svg'),
                     text: 'View QR code',
@@ -165,7 +160,12 @@ class SearchDetails extends StatelessWidget {
                 8.sbW,
                 InkWell(
                   onTap: () {
-                    pushTo(context, const VirtualIDCard());
+                    pushTo(
+                      context,
+                      VirtualIDCard(
+                        model: widget.model,
+                      ),
+                    );
                   },
                   child: SpecialButton2(
                     icon: SvgPicture.asset('assets/svgs/id_card.svg'),

@@ -29,8 +29,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../search/qr_scanner/views/failed_screen.dart';
 import '../../search/qr_scanner/views/results.dart';
 
 class Home extends StatefulWidget {
@@ -47,24 +45,24 @@ class _HomeState extends State<Home> {
   String designation = '';
 
   Future scanBarcode() async {
-    String? scanResult;
     try {
-      scanResult = await FlutterBarcodeScanner.scanBarcode(
+      FlutterBarcodeScanner.scanBarcode(
         "#FDB813",
         "Cancel",
         true,
         ScanMode.QR,
-      );
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => QrCode(code: scanResult!),
-        ),
-      );
+      ).then((value) {
+        if (value != '-1') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QrCode(code: value),
+            ),
+          );
+        }
+      });
     } on PlatformException {
-      scanResult = "Failed to get platform version";
-      pushTo(context, const FailedScan());
+      //
     }
     if (!mounted) {}
   }

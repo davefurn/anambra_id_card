@@ -25,6 +25,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../constants/colors.dart';
 import '../features/search/search_parameters/views/search_details.dart';
 import '../router/app_routes.dart';
+import 'qrcode_widget.dart';
 
 class Cards extends StatelessWidget {
   final SearchModel model;
@@ -192,6 +193,87 @@ class Cards extends StatelessWidget {
                 else
                   30.sbH
               ],
+            ),
+          ),
+          12.sbH,
+          ClipRRect(
+            borderRadius:
+                const BorderRadius.vertical(bottom: Radius.circular(12)),
+            child: SizedBox(
+              height: 10,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      color: IdColors.mainColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: IdColors.blue,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: IdColors.mainColor,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CardBack extends StatelessWidget {
+  final String employeeId;
+  final void Function(bool) onLoad;
+
+  const CardBack({
+    super.key,
+    required this.employeeId,
+    required this.onLoad,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: BoxDecoration(
+        color: IdColors.backgroundColour,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 0,
+            blurRadius: 25,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.only(right: 15.w, top: 12.h),
+              child: Image.asset('assets/images/gov_logo.png'),
+            ),
+          ),
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 32),
+              child: QRCodeWidget(
+                employeeId: employeeId,
+                width: 119.w,
+                height: 121.h,
+                onLoad: onLoad,
+              ),
             ),
           ),
           12.sbH,

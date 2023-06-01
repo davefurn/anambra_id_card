@@ -15,8 +15,14 @@
 import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/feedback/views/suggest_improvement.dart';
+import 'package:acmc/src/services/post_requests.dart';
+import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../../router/app_routes.dart';
 import '../../profile/views/profile.dart';
@@ -51,10 +57,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () => pushTo(context, const Profile()),
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
+              children: [
                 Icon(
                   Icons.person_outline,
                   size: 26,
@@ -75,10 +81,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () {},
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
+              children: [
                 Icon(
                   Icons.history,
                   size: 26,
@@ -99,7 +105,7 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () => pushTo(context, const SuggestImprovement()),
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -123,10 +129,10 @@ class SettingsView extends ConsumerWidget {
           ListTile(
             onTap: () {},
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:[
+              children: [
                 Icon(
                   Icons.star_outline,
                   size: 26,
@@ -184,7 +190,7 @@ class SettingsView extends ConsumerWidget {
               });
             },
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -206,9 +212,64 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => SimpleDialog(
+                  surfaceTintColor: Colors.white,
+                  contentPadding: EdgeInsets.all(20.r),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  title: SvgPicture.asset(
+                    'assets/svgs/info_big.svg',
+                    color: const Color(0xff0E5CE3),
+                    width: 34.r,
+                    height: 34.r,
+                  ),
+                  children: [
+                    Text(
+                      'Are you sure you want to logout',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.sp,
+                      ),
+                    ),
+                    24.sbH,
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SpecialButton2(
+                            text: 'No',
+                            height: 40.h,
+                            onTap: () => pop(context),
+                            backgroundColor: Colors.transparent,
+                            borderColor: IdColors.grey,
+                            textColor: Colors.black,
+                          ),
+                        ),
+                        10.sbW,
+                        Expanded(
+                          child: SpecialButton2(
+                            onTap: () {
+                              pushToAndClearStack(context, const Login());
+                              PostRequest.logout();
+                            },
+                            height: 40.h,
+                            text: 'Yes',
+                            backgroundColor: IdColors.mainColor,
+                            borderColor: Colors.transparent,
+                            textColor: Colors.black,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              );
+            },
             horizontalTitleGap: 18,
-            leading:  const Column(
+            leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

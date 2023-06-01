@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
+import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/qrcode_widget.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -32,7 +33,6 @@ class Profile extends StatelessWidget {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
           maxLines: 1,
         ),
-        
       ),
       body: ListView(
         padding: EdgeInsets.only(
@@ -41,25 +41,23 @@ class Profile extends StatelessWidget {
           top: 30.h,
         ),
         children: [
-          const Center(
-            child: Text(
-              'QR Code',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                fontSize: 16,
-              ),
-            ),
-          ),
           12.sbH,
-          SizedBox(
-            height: 210.h,
-            width: 207.h,
-            child: Image.asset(
-              'assets/images/qr_code_sample.png',
-              fit: BoxFit.fitHeight,
-            ),
+          FutureBuilder(
+            future: LocalStorage.instance.getStaffId(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const SizedBox.shrink();
+              } else {
+                return QRCodeWidget(
+                  employeeId: snapshot.data!,
+                  height: 210.h,
+                  width: 207.h,
+                  onLoad: (a) {},
+                );
+              }
+            },
           ),
-          // 8.sbH,
+          15.sbH,
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
