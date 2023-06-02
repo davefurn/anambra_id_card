@@ -1,4 +1,4 @@
-enum NameAgeStatusOrder { name, age, status }
+enum NameAgeStatusOrder { name, status }
 
 enum NameOrder { aToZ, ztoA }
 

@@ -12,17 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/services/flush.dart';
+import 'package:acmc/src/services/functions.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
-import 'package:external_path/external_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 
 class VirtualIDCard extends StatefulWidget {
@@ -43,14 +40,7 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
   late ScreenshotController backController;
 
   void downLoadCard(int id) async {
-    late String path;
-    if (Platform.isAndroid) {
-      path = await ExternalPath.getExternalStoragePublicDirectory(
-          ExternalPath.DIRECTORY_DOWNLOADS);
-    } else {
-      path = (await getApplicationDocumentsDirectory()).path;
-    }
-
+    var path = await GlobalFunctions.downloadPath();
     var fileName = '${widget.model.lastName}${widget.model.firstName}$id.png';
     switch (id) {
       case 1:

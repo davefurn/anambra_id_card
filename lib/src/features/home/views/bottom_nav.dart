@@ -12,18 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/features/authentication/views/login/login.dart';
 
 import 'package:acmc/src/features/history/views/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
+import 'package:acmc/src/services/post_requests.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../router/app_routes.dart';
 import '../../settings/views/settings_view.dart';
 
 late BuildContext globalContext;
@@ -35,7 +40,8 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen>
+    with WidgetsBindingObserver {
   final List<GlobalKey<NavigatorState>> tabNavKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -44,18 +50,95 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ];
 
   int currentIndex = 0;
+  late CupertinoTabController controller;
+
+  AppLifecycleState? _lastLifecycleState;
+  Timer? _timer;
+  int kTimeoutInSeconds = const Duration(minutes: 30).inSeconds;
 
   @override
   void initState() {
     super.initState();
     globalContext = context;
+    controller = CupertinoTabController();
+    WidgetsBinding.instance.addObserver(this);
+    _lastLifecycleState = WidgetsBinding.instance.lifecycleState;
+    _keepAlive(false);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+
+    if (_lastLifecycleState == AppLifecycleState.resumed &&
+        state == AppLifecycleState.paused) {
+      _keepAlive(true);
+    } else if (_lastLifecycleState == AppLifecycleState.paused &&
+        state == AppLifecycleState.resumed) {
+      _keepAlive(false);
+    }
+
+    _lastLifecycleState = state;
+  }
+
+  void _keepAlive(bool visible) {
+    if (visible) {
+      _timer?.cancel();
+    } else {
+      _timer = Timer(Duration(seconds: kTimeoutInSeconds), () {
+        pushToAndClearStack(context, const Login());
+        PostRequest.logout();
+        showDialog(
+          context: context,
+          builder: (context) => SimpleDialog(
+            surfaceTintColor: Colors.white,
+            contentPadding: EdgeInsets.all(20.r),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.r),
+            ),
+            title: SvgPicture.asset(
+              'assets/svgs/info_big.svg',
+              color: const Color(0xff0E5CE3),
+              width: 34.r,
+              height: 34.r,
+            ),
+            children: [
+              Center(
+                child: Text(
+                  'Logged out due to inactivity',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.sp,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        if (tabNavKeys[currentIndex].currentState!.canPop()) {
+          tabNavKeys[currentIndex].currentState!.pop();
+        } else {
+          controller.index = 0;
+        }
+        return false;
+      },
       child: CupertinoTabScaffold(
+        controller: controller,
         tabBar: CupertinoTabBar(
           activeColor: IdColors.mainColor,
           currentIndex: currentIndex,

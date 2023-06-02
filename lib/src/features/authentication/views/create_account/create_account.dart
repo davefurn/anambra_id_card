@@ -97,6 +97,7 @@ class _CreateAccountState extends State<CreateAccount> {
                 },
                 textInputAction: TextInputAction.done,
                 titleText: 'Email',
+                hintText: 'Enter your email',
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
                 prefixIcon: Icons.email,

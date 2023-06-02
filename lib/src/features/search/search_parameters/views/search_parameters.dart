@@ -34,9 +34,11 @@ class SearchParameters extends StatefulWidget {
 
 class _SearchParametersState extends State<SearchParameters> {
   DateTime dateTime = DateTime.now();
-  String? email;
-  String? password;
+  String email = '';
+  String phone = '';
+  String id = '';
   final _formKey = GlobalKey<FormState>();
+  var focus = FocusNode();
 
   var initialValue = SearchParameter.email;
 
@@ -97,21 +99,33 @@ class _SearchParametersState extends State<SearchParameters> {
                       family: initialValue,
                       parameter: SearchParameter.email,
                       iconData: Icons.mail_outline,
-                      onTap: (p0) => setState(() => initialValue = p0),
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        textController.text = email;
+                        // focus.requestFocus();
+                      }),
                       text: 'Email Address',
                     ),
                     SearchParameterWidget(
                       family: initialValue,
                       parameter: SearchParameter.phoneNumber,
                       iconData: Icons.phone,
-                      onTap: (p0) => setState(() => initialValue = p0),
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        textController.text = phone;
+                        // focus.requestFocus();
+                      }),
                       text: 'Phone number',
                     ),
                     SearchParameterWidget(
                       family: initialValue,
                       parameter: SearchParameter.staffId,
                       iconData: Icons.person_outlined,
-                      onTap: (p0) => setState(() => initialValue = p0),
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        textController.text = id;
+                        // focus.requestFocus();
+                      }),
                       text: 'Staff ID',
                     ),
                   ],
@@ -119,8 +133,16 @@ class _SearchParametersState extends State<SearchParameters> {
               ),
               20.sbH,
               CustomTextInput(
-                onSaved: (newValue) => email = newValue,
-                onChanged: (v) {},
+                focusNode: focus,
+                onChanged: (v) => setState(() {
+                  if (initialValue == SearchParameter.email) {
+                    email = v;
+                  } else if (initialValue == SearchParameter.phoneNumber) {
+                    phone = v;
+                  } else {
+                    id = v;
+                  }
+                }),
                 validator: (v) {
                   return null;
                 },
@@ -134,9 +156,14 @@ class _SearchParametersState extends State<SearchParameters> {
                     ? TextInputType.emailAddress
                     : initialValue == SearchParameter.phoneNumber
                         ? TextInputType.number
-                        : TextInputType.text,
+                        : TextInputType.number,
                 controller: textController,
-                prefixIcon: Icons.email,
+                suffixIcon: Visibility(
+                  visible: textController.text.isNotEmpty,
+                  child: IconButton(
+                      onPressed: () => textController.clear(),
+                      icon: const Icon(Icons.clear)),
+                ),
               ),
               SizedBox(
                 height: 24.h,

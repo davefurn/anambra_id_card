@@ -232,7 +232,7 @@ class Cards extends StatelessWidget {
 
 class CardBack extends StatelessWidget {
   final String employeeId;
-  final void Function(bool) onLoad;
+  final void Function(String) onLoad;
 
   const CardBack({
     super.key,

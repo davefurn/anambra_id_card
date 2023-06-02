@@ -3,7 +3,7 @@ import 'package:acmc/src/utils/theme/textthem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../constants/gen_swatch.dart';
+import 'gen_swatch.dart';
 import 'elevated_button_theme.dart';
 
 class IdTheme {

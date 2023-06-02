@@ -21,8 +21,8 @@ import 'package:acmc/src/widgets/special_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get_time_ago/get_time_ago.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:intl/intl.dart';
 
 class History extends ConsumerStatefulWidget {
   const History({Key? key}) : super(key: key);
@@ -83,7 +83,7 @@ class _HistoryState extends ConsumerState<History> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        GetTimeAgo.parse(groupByValue),
+                        DateFormat('dd MMM yyyy').format(groupByValue),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
@@ -110,7 +110,9 @@ class _HistoryState extends ConsumerState<History> {
                 child: Text('Error'),
               ),
               loading: () => const Center(
-                child: CircularProgressIndicator.adaptive(backgroundColor: IdColors.mainColor, ),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: IdColors.mainColor,
+                ),
               ),
             ),
           )

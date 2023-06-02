@@ -48,8 +48,6 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
               NameOrdering(
                 onSelected: (value) {},
               )
-            else if (order == NameAgeStatusOrder.age)
-              AgeOrdering(onSelected: (value) {})
             else
               StatusOrdering(
                 onSelected: (value) {},

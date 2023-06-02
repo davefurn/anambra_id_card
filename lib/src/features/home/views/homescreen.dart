@@ -13,17 +13,19 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/constants/end_points.dart';
 
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/history/views/history.dart';
-import 'package:acmc/src/features/home/views/widgets/query_container.dart';
+import 'package:acmc/src/features/home/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/features/search_mda/view/view.dart';
-import 'package:acmc/src/features/statistics/view/view.dart';
+import 'package:acmc/src/features/statistics/views/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -90,45 +92,73 @@ class _HomeState extends State<Home> {
         scrollDirection: Axis.vertical,
         padding: EdgeInsets.only(
           left: 20.w,
-          top: 80.h,
+          top: 60.h,
         ),
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: IdColors.textColorBlack,
-                        ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Flexible(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(color: IdColors.textColorBlack),
+                      ),
+                      Text(
+                        department,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineLarge!
+                            .copyWith(
+                                color: IdColors.textColorBlack,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.start,
+                      ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Text(
+                        designation,
+                        style:
+                            Theme.of(context).textTheme.headlineLarge!.copyWith(
+                                  color: IdColors.textColorBlack,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                        textAlign: TextAlign.start,
+                      ),
+                    ],
                   ),
-                  Text(
-                    department,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: IdColors.textColorBlack,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                    textAlign: TextAlign.start,
-                  ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text(
-                    designation,
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                          color: IdColors.textColorBlack,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                    textAlign: TextAlign.start,
-                  ),
-                ],
-              ),
+                ),
+                8.sbW,
+                FutureBuilder(
+                  future: LocalStorage.instance.getUserData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const SizedBox.shrink();
+                    } else {
+                      return ImageLoader(
+                        image: AppEndpoints.pictureUrl +
+                            snapshot.data!.employeeData.profilePicture,
+                        height: 60,
+                        width: 60,
+                        radius: 0,
+                        isCircle: true,
+                        boxFit: BoxFit.cover,
+                      );
+                    }
+                  },
+                ),
+                20.sbW,
+              ],
             ),
             SizedBox(
               height: 32.h,

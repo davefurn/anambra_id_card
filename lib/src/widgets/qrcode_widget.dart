@@ -10,7 +10,7 @@ class QRCodeWidget extends StatefulWidget {
   final String employeeId;
   final double? height;
   final double? width;
-  final void Function(bool) onLoad;
+  final void Function(String) onLoad;
   const QRCodeWidget({
     super.key,
     required this.employeeId,
@@ -51,11 +51,13 @@ class _QRCodeWidgetState extends State<QRCodeWidget> {
             ),
           );
         } else {
-          if (snapshot.hasData && snapshot.data != null) {
+          if (snapshot.hasData &&
+              snapshot.data != null &&
+              snapshot.data?.statusCode == 200) {
             var base64 =
                 (snapshot.data!.data['data']['qr_code_image'] as String)
                     .substring(22);
-                    widget.onLoad(true);
+            widget.onLoad(base64);
             return Container(
               height: widget.height ?? 210.h,
               width: widget.width ?? 207.w,

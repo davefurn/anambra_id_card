@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:acmc/src/constants/end_points.dart';
+import 'package:acmc/src/services/post_requests.dart';
 import 'package:dio/dio.dart';
 
 class NetworkService {
@@ -18,8 +19,26 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      return e.response;
+      if (e.response?.statusCode == 401 &&
+          e.response != null &&
+          e.response!.data.containsKey('message') &&
+          e.response!.data['message'] == 'Token has expired') {
+        await PostRequest.refreshToken();
+        try {
+          return await _dio.postUri(
+            Uri.parse('${AppEndpoints.baseUrl}$path'),
+            data: data,
+            options: options,
+          );
+        } catch (_) {
+          return null;
+        }
+      } else {
+        return e.response;
+      }
     } on SocketException catch (_) {
+      return null;
+    } catch (_) {
       return null;
     }
   }
@@ -33,8 +52,26 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      return e.response;
+      if (e.response?.statusCode == 401 &&
+          e.response != null &&
+          e.response!.data.containsKey('message') &&
+          e.response!.data['message'] == 'Token has expired') {
+        await PostRequest.refreshToken();
+        try {
+          return await _dio.postUri(
+            Uri.parse('${AppEndpoints.baseUrl}$path'),
+            data: data,
+            options: options,
+          );
+        } catch (_) {
+          return null;
+        }
+      } else {
+        return e.response;
+      }
     } on SocketException catch (_) {
+      return null;
+    } catch (_) {
       return null;
     }
   }
@@ -48,8 +85,26 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      return e.response;
+      if (e.response?.statusCode == 401 &&
+          e.response != null &&
+          e.response!.data.containsKey('message') &&
+          e.response!.data['message'] == 'Token has expired') {
+        await PostRequest.refreshToken();
+        try {
+          return await _dio.postUri(
+            Uri.parse('${AppEndpoints.baseUrl}$path'),
+            data: data,
+            options: options,
+          );
+        } catch (_) {
+          return null;
+        }
+      } else {
+        return e.response;
+      }
     } on SocketException catch (_) {
+      return null;
+    } catch (_) {
       return null;
     }
   }

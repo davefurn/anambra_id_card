@@ -15,6 +15,7 @@
 import 'package:acmc/src/features/pagination/model.dart';
 import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
@@ -66,7 +67,9 @@ class _SearchingState extends ConsumerState<Searching> {
       ),
       body: searchList.when(
         data: (val) {
-          if (val != null &&
+          if (val?.statusCode == 200 &&
+              val != null &&
+              val.data != null &&
               val.data['status'] == 'success' &&
               val.data['code'] == 1) {
             paginationModel.total = val.data!['data']['total'];
@@ -150,12 +153,7 @@ class _SearchingState extends ConsumerState<Searching> {
                           height: 6.h,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            value = [];
-                            paginationModel.page = 1;
-                            paginationModel.total = 100;
-                            return ref.refresh(searchProvider(paginationModel));
-                          },
+                          onTap: () => pop(context),
                           child: const SpecialButton2(
                             icon: Icon(Icons.search),
                             text: 'Search again',

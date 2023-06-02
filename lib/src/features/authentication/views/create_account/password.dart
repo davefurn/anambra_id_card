@@ -75,7 +75,7 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                       height: 4.h,
                     ),
                     Text(
-                      'If YES, your phone number is ',
+                      'Are these your details ',
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

@@ -73,7 +73,8 @@ class _NotificationPState extends ConsumerState<NotificationP> {
             ),
       body: notificationList.when(
         data: (val) {
-          if (val != null &&
+          if (val?.statusCode == 200 &&
+              val != null &&
               val.data['status'] == 'success' &&
               val.data['code'] == 1) {
             paginationModel.total = val.data!['data']['total'];
@@ -198,8 +199,21 @@ class _NotificationPState extends ConsumerState<NotificationP> {
                     ),
                   );
           } else {
-            return const Center(
-              child: Text('Error'),
+            return Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Error'),
+                  SpecialButton2(
+                    text: 'Retry',
+                    onTap: () => ref.refresh(
+                      notificationProvider(
+                        paginationModel,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             );
           }
         },

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/views/create_account/password.dart';
@@ -22,12 +24,7 @@ class PostRequest {
     await network.postRequestHandler(path, data).then(
       (value) async {
         if (value != null) {
-          if (value.data["status"] == "error") {
-            ShowFlushBar.showError(
-              error: '${value.data["message"]}',
-              context: context,
-            );
-          } else {
+          if (value.statusCode == 200 && value.data["status"] == "success") {
             LocalStorage.instance.setEmail(data['email']!);
             LocalStorage.instance.setPhone(data['mobile_number']!);
             ShowFlushBar.showSuccess(
@@ -35,6 +32,11 @@ class PostRequest {
               context: context,
               duration: const Duration(milliseconds: 700),
             ).then((value) => pushTo(context, const AnimationScreen()));
+          } else {
+            ShowFlushBar.showError(
+              error: '${value.data["message"]}',
+              context: context,
+            );
           }
         } else {
           ShowFlushBar.showError(
@@ -61,12 +63,7 @@ class PostRequest {
         .then(
       (value) async {
         if (value != null) {
-          if (value.data["status"] == "error") {
-            ShowFlushBar.showError(
-              error: '${value.data["message"]}',
-              context: context,
-            );
-          } else {
+          if (value.statusCode == 200 && value.data["status"] == "success") {
             ShowFlushBar.showSuccess(
               message: value.data["message"],
               context: context,
@@ -76,6 +73,11 @@ class PostRequest {
                 VerifyDetails(
                   data: VerifiedUserData.fromJson(value.data['user']),
                 )));
+          } else {
+            ShowFlushBar.showError(
+              error: value.data["message"],
+              context: context,
+            );
           }
         } else {
           ShowFlushBar.showError(
@@ -102,16 +104,7 @@ class PostRequest {
         .postRequestHandler(path, {'email': email, 'password': password}).then(
       (value) async {
         if (value != null) {
-          if (value.data["status"] == "error") {
-            ShowFlushBar.showError(
-              error: '${value.data["message"]}',
-              context: context,
-            ).whenComplete(() {
-              if (email == null) {
-                return pushReplacementTo(context, const CreateAccount());
-              }
-            });
-          } else {
+          if (value.statusCode == 200 && value.data["status"] == "success") {
             LocalStorage.instance.setToken(value.data['data']['access_token']);
             LocalStorage.instance.setLoggedIn(true);
             if (login) {
@@ -127,6 +120,19 @@ class PostRequest {
               ).whenComplete(
                   () => pushToAndClearStack(context, const OtpScreen()));
             }
+          } else {
+            ShowFlushBar.showError(
+              error: '${value.data["message"]}',
+              context: context,
+            ).whenComplete(() {
+              if (email == null) {
+                return pushReplacementTo(context, const CreateAccount());
+              } else {
+                if (!login) {
+                  pop(context);
+                }
+              }
+            });
           }
         } else {
           ShowFlushBar.showError(
@@ -140,6 +146,7 @@ class PostRequest {
   static Future<Response<dynamic>?> generateQRCode(String employeeId) async {
     var path = '/employee_data/generate_qr_code';
     var token = (await LocalStorage.instance.getToken())!;
+
     return await network.postRequestHandler(
         path, {'identifier_type': "employee_id", "identifier": employeeId},
         options: Options(headers: {'Authorization': 'Bearer $token'}));
@@ -149,6 +156,14 @@ class PostRequest {
     var path = '/logout';
     var token = (await LocalStorage.instance.getToken())!;
     return await network.postRequestHandler(path, {},
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
+
+  static Future<void> refreshToken() async {
+    var path = '/refresh';
+    log('HELLO WORLD');
+    var token = (await LocalStorage.instance.getToken())!;
+    network.postRequestHandler(path, {},
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 }
