@@ -74,7 +74,7 @@ class Cards extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Image.asset(
-                          'assets/images/gov_logo.png',
+                          'assets/images/anambra.png',
                         ),
                         FittedBox(
                           child: RichText(
@@ -123,9 +123,7 @@ class Cards extends StatelessWidget {
             padding: EdgeInsets.only(
               left: 16.h,
               right: 16.h,
-              
-              
-                          ),
+            ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -207,17 +205,17 @@ class Cards extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      color: IdColors.mainColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: IdColors.blue,
+                      color: IdColors.textColorBlack,
                     ),
                   ),
                   Expanded(
                     child: Container(
                       color: IdColors.mainColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: IdColors.textColorBlack,
                     ),
                   ),
                 ],
@@ -264,7 +262,7 @@ class CardBack extends StatelessWidget {
             alignment: Alignment.topRight,
             child: Padding(
               padding: EdgeInsets.only(right: 15.w, top: 12.h),
-              child: Image.asset('assets/images/gov_logo.png'),
+              child: Image.asset('assets/images/anambra.png'),
             ),
           ),
           Center(
@@ -288,17 +286,17 @@ class CardBack extends StatelessWidget {
                 children: [
                   Expanded(
                     child: Container(
-                      color: IdColors.mainColor,
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: IdColors.blue,
+                      color: IdColors.textColorBlack,
                     ),
                   ),
                   Expanded(
                     child: Container(
                       color: IdColors.mainColor,
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      color: IdColors.textColorBlack,
                     ),
                   ),
                 ],
