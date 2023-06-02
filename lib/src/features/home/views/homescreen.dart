@@ -17,10 +17,10 @@ import 'package:acmc/src/constants/end_points.dart';
 
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/history/views/history.dart';
-import 'package:acmc/src/features/home/views/widgets/query_container.dart';
+import 'package:acmc/src/features/home/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/features/search_mda/view/view.dart';
-import 'package:acmc/src/features/statistics/view/view.dart';
+import 'package:acmc/src/features/statistics/views/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/local_storage.dart';

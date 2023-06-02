@@ -50,16 +50,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   ];
 
   int currentIndex = 0;
+  late CupertinoTabController controller;
 
   AppLifecycleState? _lastLifecycleState;
   Timer? _timer;
-  int kTimeoutInSeconds = 10000;
+  int kTimeoutInSeconds = const Duration(minutes: 30).inSeconds;
 
   @override
   void initState() {
     super.initState();
     globalContext = context;
-
+    controller = CupertinoTabController();
     WidgetsBinding.instance.addObserver(this);
     _lastLifecycleState = WidgetsBinding.instance.lifecycleState;
     _keepAlive(false);
@@ -128,8 +129,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async => false,
+      onWillPop: () async {
+        if (tabNavKeys[currentIndex].currentState!.canPop()) {
+          tabNavKeys[currentIndex].currentState!.pop();
+        } else {
+          controller.index = 0;
+        }
+        return false;
+      },
       child: CupertinoTabScaffold(
+        controller: controller,
         tabBar: CupertinoTabBar(
           activeColor: IdColors.mainColor,
           currentIndex: currentIndex,

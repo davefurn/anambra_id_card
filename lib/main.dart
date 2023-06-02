@@ -1,5 +1,5 @@
 import 'package:acmc/src/features/authentication/views/auth_decide/auth.dart';
-import 'package:acmc/src/features/onboarding/view/onboard.dart';
+import 'package:acmc/src/features/onboarding/views/onboard.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
 
@@ -45,8 +45,7 @@ class _MyAppState extends State<MyApp> {
         designSize: const Size(375, 812),
         builder: (context, _) {
           return MaterialApp(
-            restorationScopeId: 'app',
-            title: 'Acmc',
+            title: 'ANSG IDM',
             debugShowCheckedModeBanner: false,
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,

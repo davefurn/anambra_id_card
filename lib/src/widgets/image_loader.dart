@@ -13,6 +13,7 @@ class ImageLoader extends StatefulWidget {
   final Function()? onTap;
   final bool isPlaceHolder;
   final bool isCircle;
+  final Object? heroTag;
   const ImageLoader({
     Key? key,
     required this.image,
@@ -23,6 +24,7 @@ class ImageLoader extends StatefulWidget {
     this.onTap,
     this.isPlaceHolder = false,
     this.isCircle = false,
+    this.heroTag,
   }) : super(key: key);
 
   @override
@@ -60,13 +62,34 @@ class _ImageLoaderState extends State<ImageLoader>
                     ),
                   );
                 case LoadState.completed:
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(widget.radius ?? 10.r),
-                    child: ExtendedRawImage(
-                      image: state.extendedImageInfo?.image,
-                      fit: widget.boxFit,
-                      width: widget.width,
-                      height: widget.height,
+                  return GestureDetector(
+                    onTap: () => showDialog(
+                      context: context,
+                      builder: (context) => SimpleDialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
+                        contentPadding: EdgeInsets.all(2.r),
+                        children: [
+                          Center(
+                            child: ImageLoader(
+                              image: widget.image,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius:
+                          BorderRadius.circular(widget.radius ?? 10.r),
+                      child: Builder(builder: (context) {
+                        return ExtendedRawImage(
+                          image: state.extendedImageInfo?.image,
+                          fit: widget.boxFit,
+                          width: widget.width,
+                          height: widget.height,
+                        );
+                      }),
                     ),
                   );
                 case LoadState.failed:
