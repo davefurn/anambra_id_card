@@ -22,8 +22,7 @@ class _MainEmployeeOrderState extends State<MainEmployeeOrder> {
       spacing: 8.w,
       children: [
         NameAgeStatusOrder.name,
-        NameAgeStatusOrder.age,
-        NameAgeStatusOrder.status
+        NameAgeStatusOrder.status,
       ]
           .map((e) => InkWell(
                 onTap: () {

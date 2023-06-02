@@ -12,6 +12,7 @@ class ImageLoader extends StatefulWidget {
   final BoxFit? boxFit;
   final Function()? onTap;
   final bool isPlaceHolder;
+  final bool isCircle;
   const ImageLoader({
     Key? key,
     required this.image,
@@ -21,6 +22,7 @@ class ImageLoader extends StatefulWidget {
     this.radius,
     this.onTap,
     this.isPlaceHolder = false,
+    this.isCircle = false,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,9 @@ class _ImageLoaderState extends State<ImageLoader>
         : ExtendedImage.network(
             widget.image,
             fit: BoxFit.fill,
+            width: widget.width,
+            height: widget.height,
+            shape: widget.isCircle ? BoxShape.circle : null,
             borderRadius: BorderRadius.circular(8),
             loadStateChanged: (ExtendedImageState state) {
               switch (state.extendedImageLoadState) {
@@ -60,6 +65,8 @@ class _ImageLoaderState extends State<ImageLoader>
                     child: ExtendedRawImage(
                       image: state.extendedImageInfo?.image,
                       fit: widget.boxFit,
+                      width: widget.width,
+                      height: widget.height,
                     ),
                   );
                 case LoadState.failed:

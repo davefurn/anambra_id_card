@@ -1,4 +1,5 @@
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/constants/end_points.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/router/app_routes.dart';
@@ -50,11 +51,12 @@ class EmployeeTile extends StatelessWidget {
                   SearchDetails(
                     model: SearchModel(
                       id: 1,
-                      employeeId: 'employeeId',
+                      employeeId: '13100014',
                       firstName: 'firstName',
                       lastName: 'firstName',
                       middleName: 'middleName',
-                      profilePicture: 'profile_1612166864.jpg',
+                      profilePicture:
+                          '${AppEndpoints.pictureUrl}profile_1591286690.jpg',
                       departments: Departments(
                         departmentId: 1,
                         departmentName: 'departmentName',

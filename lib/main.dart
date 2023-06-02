@@ -1,5 +1,4 @@
 import 'package:acmc/src/features/authentication/views/auth_decide/auth.dart';
-import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/onboarding/view/onboard.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
@@ -14,22 +13,14 @@ void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   var firstTime = await LocalStorage.instance.getFirstTime();
-  var loggedIn = await LocalStorage.instance.getLoggedIn();
-  runApp(ProviderScope(
-    child: MyApp(
-      firstTime: firstTime,
-      loggedIn: loggedIn,
-    ),
-  ));
+  runApp(ProviderScope(child: MyApp(firstTime: firstTime)));
 }
 
 class MyApp extends StatefulWidget {
   final bool firstTime;
-  final bool loggedIn;
   const MyApp({
     super.key,
     required this.firstTime,
-    required this.loggedIn,
   });
 
   @override
@@ -60,11 +51,7 @@ class _MyAppState extends State<MyApp> {
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,
             theme: IdTheme.lightTheme,
-            home: widget.firstTime
-                ? const Onboard()
-                : widget.loggedIn
-                    ? const HomeScreen()
-                    : const Auth(),
+            home: widget.firstTime ? const Onboard() : const Auth(),
           );
         },
       ),

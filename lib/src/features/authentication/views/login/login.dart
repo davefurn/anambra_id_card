@@ -100,6 +100,7 @@ class _LoginState extends State<Login> {
                 },
                 textInputAction: TextInputAction.next,
                 titleText: 'Email',
+                hintText: 'Enter your email',
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
                 prefixIcon: Icons.email,
