@@ -80,7 +80,10 @@ class _ProfileState extends State<Profile> {
         Share.shareXFiles([XFile(a!)]);
       }
     } else {
-      ShowFlushBar.showError(context: context, error: 'No code to download');
+      ShowFlushBar.showError(
+        context: context,
+        error: 'No qrcode to ${share ? 'share' : 'download'}',
+      );
     }
   }
 

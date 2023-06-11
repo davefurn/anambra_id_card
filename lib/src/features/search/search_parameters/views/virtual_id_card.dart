@@ -34,7 +34,7 @@ class VirtualIDCard extends StatefulWidget {
 }
 
 class _VirtualIDCardState extends State<VirtualIDCard> {
-  bool showButton = false;
+  String showButton = '';
 
   late ScreenshotController frontController;
   late ScreenshotController backController;
@@ -42,16 +42,22 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
   void downLoadCard(int id) async {
     var path = await GlobalFunctions.downloadPath();
     var fileName = '${widget.model.lastName}${widget.model.firstName}$id.png';
-    switch (id) {
-      case 1:
-        await frontController.captureAndSave(path, fileName: fileName);
-        break;
-      case 2:
-        await backController.captureAndSave(path, fileName: fileName);
-        break;
+
+    if (showButton.isNotEmpty) {
+      switch (id) {
+        case 1:
+          await frontController.captureAndSave(path, fileName: fileName);
+          break;
+        case 2:
+          await backController.captureAndSave(path, fileName: fileName);
+          break;
+      }
+      // ignore: use_build_context_synchronously
+      ShowFlushBar.showSuccess(context: context);
+    } else {
+      // ignore: use_build_context_synchronously
+      ShowFlushBar.showError(context: context, error: 'Cannot download card');
     }
-    // ignore: use_build_context_synchronously
-    ShowFlushBar.showSuccess(context: context);
   }
 
   @override
@@ -124,7 +130,9 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
             controller: backController,
             child: CardBack(
               employeeId: widget.model.employeeId,
-              onLoad: (p0) {},
+              onLoad: (p0) {
+                showButton = p0;
+              },
             ),
           ),
         ],
