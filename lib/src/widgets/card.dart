@@ -76,28 +76,26 @@ class Cards extends StatelessWidget {
                         Image.asset(
                           'assets/images/anambra.png',
                         ),
-                        FittedBox(
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'MDA: ',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 14.sp,
-                                    color: IdColors.textColorBlack,
-                                  ),
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'MDA: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                  color: IdColors.textColorBlack,
                                 ),
-                                TextSpan(
-                                  text: model.departments.departmentName,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    color: IdColors.textColorBlack,
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              TextSpan(
+                                text: model.departments.departmentName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  color: IdColors.textColorBlack,
+                                ),
+                              )
+                            ],
                           ),
                         )
                       ],

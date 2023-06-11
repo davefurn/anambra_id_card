@@ -45,6 +45,27 @@ class _HomeState extends State<Home> {
   String name = '';
   String department = '';
   String designation = '';
+   List<String> names = [
+    'ekene favour',
+    'chukwuemeka victor',
+    'Oragbene victory',
+    'Okoh Chinaza',
+    'Favour Godspower',
+    'Kenechukwu Isaac',
+    'Shedrack christian',
+    'Olamide Ireoluwa'
+  ];
+
+  List<String> email = [
+    'ekene.favour@anambrastate.gov.ng',
+    'chukwuemeka.victor@anambrastate.gov.ng',
+    'Oragbene.victory@anambrastate.gov.ng',
+    'Okoh.Chinaza@anambrastate.gov.ng',
+    'Favour.Godspower@anambrastate.gov.ng',
+    'Kenechukwu.Isaac@anambrastate.gov.ng',
+    'Shedrack.christian@anambrastate.gov.ng',
+    'Olamide.Ireoluwa@anambrastate.gov.ng'
+  ];
 
   Future scanBarcode() async {
     try {
@@ -288,7 +309,7 @@ class _HomeState extends State<Home> {
                   height: 90.h,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: 8,
+                      itemCount: names.length,
                       itemBuilder: (context, index) {
                         return Container(
                           width: 153.w,
@@ -306,7 +327,7 @@ class _HomeState extends State<Home> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'James Nganhjsdhsfefd feer`',
+                                names[index],
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -318,7 +339,7 @@ class _HomeState extends State<Home> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
-                                'Jamesngannou@gmail.com.uk.`',
+                                email[index],
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
@@ -351,7 +372,7 @@ class _HomeState extends State<Home> {
                                         .copyWith(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 14,
-                                            color: IdColors.failureColor),
+                                            color: IdColors.green),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -501,3 +522,4 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
