@@ -62,59 +62,56 @@ class Cards extends StatelessWidget {
               left: 16.h,
               right: 16.h,
             ),
-            child: SizedBox(
-              height: 90.h,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          'assets/images/anambra.png',
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'MDA: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14.sp,
-                                  color: IdColors.textColorBlack,
-                                ),
-                              ),
-                              TextSpan(
-                                text: model.departments.departmentName,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                  color: IdColors.textColorBlack,
-                                ),
-                              )
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  8.sbW,
-                  Hero(
-                    tag: model.employeeId,
-                    child: SizedBox(
-                      height: 99.h,
-                      width: 117.w,
-                      child: ImageLoader(
-                        image: model.profilePicture,
-                        boxFit: BoxFit.cover,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/images/anambra.png',
                       ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'MDA: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
+                                color: IdColors.textColorBlack,
+                              ),
+                            ),
+                            TextSpan(
+                              text: model.departments.departmentName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: IdColors.textColorBlack,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                8.sbW,
+                Hero(
+                  tag: model.employeeId,
+                  child: SizedBox(
+                    height: 99.h,
+                    width: 117.w,
+                    child: ImageLoader(
+                      image: model.profilePicture,
+                      boxFit: BoxFit.cover,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           Padding(
