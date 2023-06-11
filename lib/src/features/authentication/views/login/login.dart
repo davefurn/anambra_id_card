@@ -16,7 +16,7 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
-import 'package:acmc/src/features/home/views/bottom_nav.dart';
+
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
@@ -197,12 +197,9 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.symmetric(
                   horizontal: 112.w,
                 ),
-                child: GestureDetector(
-                  onTap: () => pushTo(context, const HomeScreen()),
-                  child: const SpecialButton2(
-                    text: 'Use as guest',
-                    textColor: IdColors.textColorBlack,
-                  ),
+                child: const SpecialButton2(
+                  text: 'Use as guest',
+                  textColor: IdColors.textColorBlack,
                 ),
               ),
             ],
