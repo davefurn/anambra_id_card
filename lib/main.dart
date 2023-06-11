@@ -4,6 +4,7 @@ import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,6 +13,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   var firstTime = await LocalStorage.instance.getFirstTime();
   runApp(ProviderScope(child: MyApp(firstTime: firstTime)));
 }
@@ -31,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     FlutterNativeSplash.remove();
+
     super.initState();
   }
 
