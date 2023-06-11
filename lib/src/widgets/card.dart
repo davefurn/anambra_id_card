@@ -164,7 +164,7 @@ class Cards extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: model.isActive == 1 ? 'Active' : 'Inactive',
+                        text: model.isActive == 1 ? 'Valid' : 'Invalid',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
