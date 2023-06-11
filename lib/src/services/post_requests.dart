@@ -24,7 +24,7 @@ class PostRequest {
     await network.postRequestHandler(path, data).then(
       (value) async {
         if (value != null) {
-          if (value.statusCode == 200 && value.data["status"] == "success") {
+          if (value.statusCode == 200) {
             LocalStorage.instance.setEmail(data['email']!);
             LocalStorage.instance.setPhone(data['mobile_number']!);
             ShowFlushBar.showSuccess(
@@ -104,7 +104,9 @@ class PostRequest {
         .postRequestHandler(path, {'email': email, 'password': password}).then(
       (value) async {
         if (value != null) {
-          if (value.statusCode == 200 && value.data["status"] == "success") {
+          print(value.statusCode);
+          print(value.data);
+          if (value.statusCode == 200) {
             LocalStorage.instance.setToken(value.data['data']['access_token']);
             LocalStorage.instance.setLoggedIn(true);
             if (login) {
