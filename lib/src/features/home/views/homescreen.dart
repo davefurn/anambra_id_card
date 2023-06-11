@@ -89,7 +89,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         padding: EdgeInsets.only(
           left: 20.w,
           top: 60.h,
@@ -472,7 +471,9 @@ class _HomeState extends State<Home> {
                     child: InkWell(
                       onTap: () => pushTo(
                         context,
-                        const AllEmployee(),
+                        const AllEmployee(
+                          hasAccess: false,
+                        ),
                       ),
                       child: const SpecialButton2(
                         text: 'View all employees',
@@ -488,13 +489,16 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   onTap: () => pushTo(
                     context,
-                    const SearchMDAScreen(),
+                    const SearchMDAScreen(
+                      hasAccess: false,
+                    ),
                   ),
                   child: const SpecialButton2(
                     text: 'Search MDAs',
                   ),
                 ),
               ),
+            100.sbH,
           ],
         ),
       ),
