@@ -13,12 +13,10 @@ import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-   await SystemChrome.setPreferredOrientations([
-        DeviceOrientation.portraitUp,
-         DeviceOrientation.portraitDown,
-        
-
-      ]);
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
   var firstTime = await LocalStorage.instance.getFirstTime();
   runApp(ProviderScope(child: MyApp(firstTime: firstTime)));
 }
@@ -37,10 +35,9 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-
     FlutterNativeSplash.remove();
-    
-        super.initState();
+
+    super.initState();
   }
 
   @override

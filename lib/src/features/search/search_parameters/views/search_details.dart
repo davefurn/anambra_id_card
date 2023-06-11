@@ -340,31 +340,31 @@ class _SearchDetailsState extends State<SearchDetails> {
                   firstText: 'Verification ID',
                   secondText: widget.model.verificationId,
                 ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Middle Name',
-                  secondText: 'Deborah',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Last Name',
-                  secondText: 'Maduka',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Email',
-                  secondText: 'debbiedinma44@gmail.com',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Phone Number',
-                  secondText: '08164684852',
-                ),
-                16.sbH,
-                const DataTesting(
-                  firstText: 'Social Links',
-                  secondText: 'linkedin.com/in/chiazaokoli',
-                ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Middle Name',
+                //   secondText: 'Deborah',
+                // ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Last Name',
+                //   secondText: 'Maduka',
+                // ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Email',
+                //   secondText: 'debbiedinma44@gmail.com',
+                // ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Phone Number',
+                //   secondText: '08164684852',
+                // ),
+                // 16.sbH,
+                // const DataTesting(
+                //   firstText: 'Social Links',
+                //   secondText: 'linkedin.com/in/chiazaokoli',
+                // ),
                 16.sbH,
               ],
             ),
