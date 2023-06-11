@@ -45,14 +45,14 @@ class _HomeState extends State<Home> {
   String name = '';
   String department = '';
   String designation = '';
-   List<String> names = [
-    'ekene favour',
-    'chukwuemeka victor',
-    'Oragbene victory',
+  List<String> names = [
+    'Ekene Favour',
+    'Chukwuemeka Victor',
+    'Oragbene Victory',
     'Okoh Chinaza',
     'Favour Godspower',
     'Kenechukwu Isaac',
-    'Shedrack christian',
+    'Shedrack Christian',
     'Olamide Ireoluwa'
   ];
 
@@ -65,6 +65,26 @@ class _HomeState extends State<Home> {
     'Kenechukwu.Isaac@anambrastate.gov.ng',
     'Shedrack.christian@anambrastate.gov.ng',
     'Olamide.Ireoluwa@anambrastate.gov.ng'
+  ];
+  List<int> number = [
+    23,
+    45,
+    100,
+    69,
+    52,
+    78,
+    67,
+    04,
+  ];
+  List<String> stats = [
+    'Active',
+    'Inactive',
+    'Logged In',
+    'Searches',
+    'Temporary',
+    'Paid',
+    'Quality',
+    'Successful'
   ];
 
   Future scanBarcode() async {
@@ -462,7 +482,7 @@ class _HomeState extends State<Home> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Active',
+                                    stats[index],
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyMedium!
@@ -473,7 +493,7 @@ class _HomeState extends State<Home> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  const Text('data'),
+                                   Text(number[index].toString()),
                                 ],
                               ),
                             );
@@ -522,4 +542,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
