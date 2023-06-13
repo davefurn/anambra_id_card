@@ -3,6 +3,7 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 class ImageLoader extends StatefulWidget {
   final String image;
@@ -14,6 +15,7 @@ class ImageLoader extends StatefulWidget {
   final bool isPlaceHolder;
   final bool isCircle;
   final Object? heroTag;
+  final bool tap;
   const ImageLoader({
     Key? key,
     required this.image,
@@ -25,6 +27,7 @@ class ImageLoader extends StatefulWidget {
     this.isPlaceHolder = false,
     this.isCircle = false,
     this.heroTag,
+    this.tap = true,
   }) : super(key: key);
 
   @override
@@ -63,22 +66,29 @@ class _ImageLoaderState extends State<ImageLoader>
                   );
                 case LoadState.completed:
                   return GestureDetector(
-                    onTap: () => showDialog(
-                      context: context,
-                      builder: (context) => SimpleDialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        contentPadding: EdgeInsets.all(2.r),
-                        children: [
-                          Center(
-                            child: ImageLoader(
-                              image: widget.image,
+                    onTap: () {
+                      if (widget.tap) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Scaffold(
+                              appBar: AppBar(),
+                              body: Center(
+                                child: Zoom(
+                                  initTotalZoomOut: true,
+                                  backgroundColor:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                  child: ImageLoader(
+                                    image: widget.image,
+                                    radius: 0,
+                                    tap: false,
+                                  ),
+                                ),
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
+                          ),
+                        );
+                      }
+                    },
                     child: ClipRRect(
                       borderRadius:
                           BorderRadius.circular(widget.radius ?? 10.r),

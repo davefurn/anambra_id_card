@@ -298,11 +298,11 @@ class _SearchDetailsState extends State<SearchDetails> {
                   firstText: 'Employee Type',
                   secondText: widget.model.employeeType,
                 ),
-                16.sbH,
-                 DataTesting(
-                  firstText: 'Basic Salary',
-                  secondText:'N ${widget.model.basicSalary}',
-                ),
+                // 16.sbH,
+                //  DataTesting(
+                //   firstText: 'Basic Salary',
+                //   secondText:'N ${widget.model.basicSalary}',
+                // ),
                 16.sbH,
                  DataTesting(
                   firstText: 'Grade',
@@ -318,11 +318,11 @@ class _SearchDetailsState extends State<SearchDetails> {
                   firstText: 'Designation',
                   secondText: widget.model.designation.designationName,
                 ),
-                16.sbH,
-                 DataTesting(
-                  firstText: 'MDA ',
-                  secondText: widget.model.mdaLocation.locationName,
-                ),
+                // 16.sbH,
+                //  DataTesting(
+                //   firstText: 'MDA ',
+                //   secondText: widget.model.mdaLocation.locationName,
+                // ),
                 16.sbH,
                  DataTesting(
                   firstText: 'Government ',

@@ -8,3 +8,5 @@ final searchProvider = FutureProvider.autoDispose
 
 final notificationProvider = FutureProvider.autoDispose.family(
     (_, PaginationModel pagination) => GetRequest.getNotification(pagination));
+final historyProvider = FutureProvider.autoDispose.family(
+    (_, PaginationModel pagination) => GetRequest.getHistory(pagination));

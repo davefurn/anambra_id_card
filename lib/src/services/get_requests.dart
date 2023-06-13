@@ -51,4 +51,12 @@ class GetRequest {
     return await network.getRequestHandler(path,
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
+
+  static Future<Response<dynamic>?> getHistory(
+      PaginationModel pagination) async {
+    var path = '/user_activity_logs?page=${pagination.page}';
+    var token = (await LocalStorage.instance.getToken())!;
+    return await network.getRequestHandler(path,
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
 }
