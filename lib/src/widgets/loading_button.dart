@@ -7,10 +7,12 @@ class LoadingButton extends StatefulWidget {
   final LoadingState state;
   final Function() onTap;
   final String text;
+  final double? width;
   const LoadingButton(
       {super.key,
       required this.state,
       required this.onTap,
+      this.width,
       required this.text});
 
   @override
@@ -33,7 +35,7 @@ class _LoadingButtonState extends State<LoadingButton> {
         ),
       ),
       color: IdColors.mainColor,
-      minWidth: MediaQuery.of(context).size.width * 0.9,
+      minWidth: widget.width ?? MediaQuery.of(context).size.width * 0.9,
       height: 50,
       child: widget.state == LoadingState.loading
           ? const SizedBox(

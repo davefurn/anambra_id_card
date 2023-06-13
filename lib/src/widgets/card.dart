@@ -30,10 +30,12 @@ import 'qrcode_widget.dart';
 class Cards extends StatelessWidget {
   final SearchModel model;
   final bool showDetails;
+  final VoidCallback? select;
   const Cards({
     super.key,
     required this.model,
     this.showDetails = true,
+    this.select,
   });
 
   @override
@@ -174,14 +176,20 @@ class Cards extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
-                      onTap: () => pushTo(
-                        context,
-                        SearchDetails(
-                          model: model,
-                        ),
-                      ),
-                      child: const SpecialButton2(
-                        text: 'View all details',
+                      onTap: () {
+                        if (select == null) {
+                          pushTo(
+                            context,
+                            SearchDetails(
+                              model: model,
+                            ),
+                          );
+                        } else {
+                          Navigator.of(context).pop(model);
+                        }
+                      },
+                      child: SpecialButton2(
+                        text: select == null ? 'View all details' : 'Select',
                       ),
                     ),
                   )

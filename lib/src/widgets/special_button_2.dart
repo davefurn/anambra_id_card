@@ -26,18 +26,20 @@ class SpecialButton2 extends StatelessWidget {
   final Color? selectedTextColor;
   final Widget? icon;
   final double? height;
+  final double? width;
   final void Function()? onTap;
-  const SpecialButton2(
-      {Key? key,
-      required this.text,
-      this.backgroundColor,
-      this.borderColor,
-      this.textColor,
-      this.selectedTextColor,
-      this.icon,
-      this.onTap,
-      this.height})
-      : super(key: key);
+  const SpecialButton2({
+    Key? key,
+    required this.text,
+    this.backgroundColor,
+    this.borderColor,
+    this.textColor,
+    this.selectedTextColor,
+    this.icon,
+    this.onTap,
+    this.height,
+    this.width,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,12 @@ class SpecialButton2 extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
       child: Container(
         height: height,
+        width: width,
         decoration: BoxDecoration(
-            border: Border.all(color: borderColor ?? IdColors.subColor),
-            color: backgroundColor ?? IdColors.backgroundColour,
-            borderRadius: BorderRadius.circular(8)),
+          border: Border.all(color: borderColor ?? IdColors.subColor),
+          color: backgroundColor ?? IdColors.backgroundColour,
+          borderRadius: BorderRadius.circular(8),
+        ),
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 7.h),
         // alignment: Alignment.center,
         child: Row(
