@@ -58,9 +58,7 @@ class _NotificationPState extends ConsumerState<NotificationP> {
           'Notifications',
           style:
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
-          maxLines: 1,
         ),
-        centerTitle: false,
       ),
       floatingActionButton: value != null
           ? null

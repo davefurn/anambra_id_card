@@ -28,6 +28,7 @@ class CustomButton extends StatelessWidget {
   final Color? borderColor;
   final double thickLine;
   final Widget? icon;
+  final bool disable;
   const CustomButton({
     super.key,
     this.hpD,
@@ -40,6 +41,7 @@ class CustomButton extends StatelessWidget {
     this.fontWeight = FontWeight.w600,
     this.fontSize = 16,
     this.icon,
+    this.disable = false,
   });
 
   @override
@@ -49,12 +51,12 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onpressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: color,
+          backgroundColor: disable ? Colors.grey : color,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
           ),
           side: BorderSide(
-            color: borderColor ?? IdColors.mainColor,
+            color: disable ? Colors.grey : borderColor ?? IdColors.mainColor,
           ),
         ),
         child: Row(

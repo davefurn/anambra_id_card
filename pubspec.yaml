@@ -52,6 +52,7 @@ dependencies:
   share_plus: ^7.0.2
   shared_preferences: ^2.1.1
   shimmer: ^3.0.0
+  syncfusion_flutter_calendar: ^21.2.3
   vcard_maintained: ^0.0.1+1
   zoom_widget: ^2.0.1
 

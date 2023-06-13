@@ -21,6 +21,7 @@ import 'package:acmc/src/features/home/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/features/search_mda/view/view.dart';
 import 'package:acmc/src/features/statistics/views/view.dart';
+import 'package:acmc/src/features/visitor_management/view.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/local_storage.dart';
@@ -203,41 +204,41 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 32.h,
             ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: IdColors.otpGrey,
-                    size: 16.33,
-                  ),
-                  SizedBox(
-                    width: 5.33.w,
-                  ),
-                  Expanded(
-                    child: FittedBox(
-                      child: Text(
-                        'You can only search for those within your MDA',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: IdColors.otpGrey,
-                            ),
-                      ),
-                    ),
-                  ),
-                  20.sbW,
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 4.h,
-            ),
+            // Align(
+            //   alignment: Alignment.topLeft,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [
+            //       const Icon(
+            //         Icons.info_outline,
+            //         color: IdColors.otpGrey,
+            //         size: 16.33,
+            //       ),
+            //       SizedBox(
+            //         width: 5.33.w,
+            //       ),
+            //       Expanded(
+            //         child: FittedBox(
+            //           child: Text(
+            //             'You can only search for those within your MDA',
+            //             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            //                   fontSize: 14,
+            //                   fontWeight: FontWeight.w500,
+            //                   color: IdColors.otpGrey,
+            //                 ),
+            //           ),
+            //         ),
+            //       ),
+            //       20.sbW,
+            //     ],
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 4.h,
+            // ),
             GridView.count(
               crossAxisCount: 2,
-              childAspectRatio: 160.h / 150.h,
+              childAspectRatio: 160.h / 144.h,
               crossAxisSpacing: 16.w,
               shrinkWrap: true,
               padding: EdgeInsets.only(right: 20.w),
@@ -271,9 +272,43 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 26.h,
+            42.sbH,
+            GridView.count(
+              crossAxisCount: 3,
+              childAspectRatio: 106.h / 108.h,
+              crossAxisSpacing: 8.w,
+              shrinkWrap: true,
+              padding: EdgeInsets.only(right: 20.w),
+              physics: const NeverScrollableScrollPhysics(),
+              children: [
+                const ActionContainer(
+                  colors: [
+                    Color(0xffE73BF6),
+                    Color(0xffA414BB),
+                  ],
+                  svg: 'special_scan',
+                  text: 'Special scan',
+                ),
+                ActionContainer(
+                  colors: const [
+                    Color(0xff02E56B),
+                    Color(0xff119D1F),
+                  ],
+                  svg: 'visitor',
+                  text: 'Visitor\nmanagement',
+                  onTap: () => pushTo(context, const VisitorManagement()),
+                ),
+                const ActionContainer(
+                  colors: [
+                    Color(0xffF68B7D),
+                    Color(0xffA51515),
+                  ],
+                  svg: 'clock',
+                  text: 'Clock-in',
+                ),
+              ],
             ),
+            26.sbH,
             Column(
               children: [
                 Padding(
@@ -492,7 +527,7 @@ class _HomeState extends State<Home> {
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                   Text(number[index].toString()),
+                                  Text(number[index].toString()),
                                 ],
                               ),
                             );

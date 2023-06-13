@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -23,17 +24,23 @@ class QueryContainer extends StatelessWidget {
   final String svgAsset;
   final String svgAssetText;
   final String description;
+  final double? width;
+  final double? height;
   const QueryContainer({
     Key? key,
     required this.colors,
     required this.svgAsset,
     required this.svgAssetText,
     required this.description,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         gradient: LinearGradient(
@@ -42,11 +49,8 @@ class QueryContainer extends StatelessWidget {
           colors: colors,
         ),
       ),
-      padding: EdgeInsets.only(
-        top: 23.h,
-        bottom: 23.h,
-      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
             svgAsset,
@@ -55,32 +59,104 @@ class QueryContainer extends StatelessWidget {
             height: 40.h,
           ),
           SizedBox(
-            height: 4.h,
+            height: 10.h,
           ),
           Text(
             svgAssetText,
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                  fontSize: 16,
-                  color: IdColors.backgroundColour,
-                ),
+            style: TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 16.sp,
+              color: IdColors.backgroundColour,
+            ),
             textAlign: TextAlign.center,
           ),
           SizedBox(
             height: 4.h,
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Text(
-              description,
-              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 12,
-                    color: IdColors.backgroundColour,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          // Padding(
+          //   padding: EdgeInsets.symmetric(horizontal: 16.w),
+          //   child: Text(
+          //     description,
+          //     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+          //           fontWeight: FontWeight.w500,
+          //           fontSize: 12,
+          //           color: IdColors.backgroundColour,
+          //         ),
+          //     textAlign: TextAlign.center,
+          //   ),
+          // ),
         ],
+      ),
+    );
+  }
+}
+
+class ActionContainer extends StatelessWidget {
+  final String svg;
+  final String text;
+  final List<Color> colors;
+  final void Function()? onTap;
+  const ActionContainer({
+    super.key,
+    required this.colors,
+    required this.svg,
+    required this.text,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 16.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8.r),
+          color: Colors.white,
+          border: Border.all(
+            color: const Color(0xffE2E6EB),
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: const Offset(0, 4),
+              blurRadius: 15,
+              spreadRadius: 0,
+              color: Colors.black.withOpacity(0.1),
+            )
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 54.r,
+              width: 54.r,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: colors,
+                ),
+              ),
+              child: SvgPicture.asset(
+                'assets/svgs/$svg.svg',
+                fit: BoxFit.scaleDown,
+              ),
+            ),
+            8.sbH,
+            Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                height: 1,
+                fontWeight: FontWeight.w600,
+                fontSize: 11.sp,
+                color: const Color(0xff363A43),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
