@@ -104,8 +104,6 @@ class PostRequest {
         .postRequestHandler(path, {'email': email, 'password': password}).then(
       (value) async {
         if (value != null) {
-          print(value.statusCode);
-          print(value.data);
           if (value.statusCode == 200) {
             LocalStorage.instance.setToken(value.data['data']['access_token']);
             LocalStorage.instance.setLoggedIn(true);
@@ -150,7 +148,12 @@ class PostRequest {
     var token = (await LocalStorage.instance.getToken())!;
 
     return await network.postRequestHandler(
-        path, {'identifier_type': "employee_id", "identifier": employeeId},
+        path,
+        {
+          'identifier_type': "employee_id",
+          "identifier": employeeId,
+          "purpose": "employee_verification",
+        },
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 

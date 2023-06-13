@@ -14,15 +14,18 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/all_employees/widget/employee_tile.dart';
+import 'package:acmc/src/features/pagination/model.dart';
+import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
-import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:intl/intl.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class History extends ConsumerStatefulWidget {
   const History({Key? key}) : super(key: key);
@@ -32,10 +35,21 @@ class History extends ConsumerStatefulWidget {
 }
 
 class _HistoryState extends ConsumerState<History> {
-  
+  final PaginationModel paginationModel = PaginationModel();
+  List<EmployeeListModel>? value;
+  late RefreshController refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshController = RefreshController();
+  }
+
   @override
   Widget build(BuildContext context) {
-    var employee = ref.watch(fetchEmployeeProvider);
+    var employee = ref.watch(historyProvider(
+      paginationModel,
+    ));
 
     return Scaffold(
       appBar: AppBar(
@@ -69,44 +83,74 @@ class _HistoryState extends ConsumerState<History> {
           ),
           Expanded(
             child: employee.when(
-              data: (data) => GroupedListView<EmployeeListModel, DateTime>(
-                padding: EdgeInsets.only(
-                  left: 20.w,
-                  right: 20.w,
-                  bottom: 100.h,
-                  top: 21.h,
-                ),
-                elements: data,
-                groupBy: (element) => element.date,
-                groupSeparatorBuilder: (DateTime groupByValue) => Column(
-                  children: [
-                    18.sbH,
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        DateFormat('dd MMM yyyy').format(groupByValue),
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                          color: Color(0xff5E6166),
-                        ),
-                      ),
+              data: (data) {
+                if (data?.statusCode == 200 &&
+                    data != null &&
+                    data.data['status'] == 'success' &&
+                    data.data['code'] == 1) {
+                  paginationModel.total = data.data!['data']['total'];
+                  if (paginationModel.page == 1) {
+                    value = (data.data!['data']['data'] as List)
+                        .map((e) => EmployeeListModel.fromJson(e))
+                        .toList();
+                  }
+                  return GroupedListView<EmployeeListModel, DateTime>(
+                    padding: EdgeInsets.only(
+                      left: 20.w,
+                      right: 20.w,
+                      bottom: 100.h,
+                      top: 21.h,
                     ),
-                    18.sbH,
-                  ],
-                ),
-                itemBuilder: (context, EmployeeListModel element) => Column(
-                  children: [
-                    EmployeeTile(data: element),
-                    8.sbH,
-                    const Divider(
-                      color: IdColors.textColorGrey,
-                      thickness: 1,
-                      height: 20,
-                    )
-                  ],
-                ),
-              ),
+                    elements: value!,
+                    groupBy: (element) => element.date,
+                    groupSeparatorBuilder: (DateTime groupByValue) => Column(
+                      children: [
+                        18.sbH,
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            DateFormat('dd MMM yyyy').format(groupByValue),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                              color: Color(0xff5E6166),
+                            ),
+                          ),
+                        ),
+                        18.sbH,
+                      ],
+                    ),
+                    itemBuilder: (context, EmployeeListModel element) => Column(
+                      children: [
+                        EmployeeTile(data: element),
+                        8.sbH,
+                        const Divider(
+                          color: IdColors.textColorGrey,
+                          thickness: 1,
+                          height: 20,
+                        )
+                      ],
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text('Error'),
+                        SpecialButton2(
+                          text: 'Retry',
+                          onTap: () => ref.refresh(
+                            notificationProvider(
+                              paginationModel,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                }
+              },
               error: (error, trace) => const Center(
                 child: Text('Error'),
               ),

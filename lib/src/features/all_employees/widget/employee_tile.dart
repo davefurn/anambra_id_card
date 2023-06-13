@@ -15,32 +15,32 @@ class EmployeeTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  //    List<String> names = [
-  //   'Ekene Favour',
-  //   'Chukwuemeka Victor',
-  //   'Oragbene Victory',
-  //   'Okoh Chinaza',
-  //   'Favour Godspower',
-  //   'Kenechukwu Isaac',
-  //   'Shedrack Christian',
-  //   'Olamide Ireoluwa'
-  // ];
+    //    List<String> names = [
+    //   'Ekene Favour',
+    //   'Chukwuemeka Victor',
+    //   'Oragbene Victory',
+    //   'Okoh Chinaza',
+    //   'Favour Godspower',
+    //   'Kenechukwu Isaac',
+    //   'Shedrack Christian',
+    //   'Olamide Ireoluwa'
+    // ];
 
-  // List<String> email = [
-  //   'ekene.favour@anambrastate.gov.ng',
-  //   'chukwuemeka.victor@anambrastate.gov.ng',
-  //   'Oragbene.victory@anambrastate.gov.ng',
-  //   'Okoh.Chinaza@anambrastate.gov.ng',
-  //   'Favour.Godspower@anambrastate.gov.ng',
-  //   'Kenechukwu.Isaac@anambrastate.gov.ng',
-  //   'Shedrack.christian@anambrastate.gov.ng',
-  //   'Olamide.Ireoluwa@anambrastate.gov.ng'
-  // ];
+    // List<String> email = [
+    //   'ekene.favour@anambrastate.gov.ng',
+    //   'chukwuemeka.victor@anambrastate.gov.ng',
+    //   'Oragbene.victory@anambrastate.gov.ng',
+    //   'Okoh.Chinaza@anambrastate.gov.ng',
+    //   'Favour.Godspower@anambrastate.gov.ng',
+    //   'Kenechukwu.Isaac@anambrastate.gov.ng',
+    //   'Shedrack.christian@anambrastate.gov.ng',
+    //   'Olamide.Ireoluwa@anambrastate.gov.ng'
+    // ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'James Ngannou',
+          data.name,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
                 color: IdColors.textColorGrey,
@@ -48,7 +48,7 @@ class EmployeeTile extends StatelessWidget {
         ),
         2.sbH,
         Text(
-          'jamesngannou@gmail.com',
+          data.email,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontSize: 16,
                 color: IdColors.textColorGrey,
@@ -59,7 +59,7 @@ class EmployeeTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '08084646545',
+              data.phone,
               style: Theme.of(context).textTheme.displayMedium?.copyWith(
                     fontSize: 16,
                     color: IdColors.textColorGrey,
@@ -105,7 +105,11 @@ class EmployeeTile extends StatelessWidget {
                       ),
                       government: Government(
                           governmentId: 1, governmentName: 'Anambra State'),
-                      verificationId: '1290378734', address: 'amawbia', city: 'Awka', state: 'Anambra State', town: 'Amawbia',
+                      verificationId: '1290378734',
+                      address: 'amawbia',
+                      city: 'Awka',
+                      state: 'Anambra State',
+                      town: 'Amawbia',
                     ),
                   ),
                 )

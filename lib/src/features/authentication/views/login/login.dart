@@ -38,6 +38,7 @@ class _LoginState extends State<Login> {
   late TextEditingController passwordController;
   bool isVisible = false;
   final _formKey = GlobalKey<FormState>();
+  bool submitted = false;
 
   late TextEditingController emailController;
   var state = LoadingState.normal;
@@ -104,6 +105,9 @@ class _LoginState extends State<Login> {
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
                 prefixIcon: Icons.email,
+                autovalidateMode: submitted
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
               ),
               SizedBox(
                 height: 16.h,
@@ -124,6 +128,9 @@ class _LoginState extends State<Login> {
                 obscureText: isVisible ? false : true,
                 keyboardType: TextInputType.visiblePassword,
                 controller: passwordController,
+                autovalidateMode: submitted
+                    ? AutovalidateMode.onUserInteraction
+                    : AutovalidateMode.disabled,
                 suffixIcon: IconButton(
                   icon: Icon(
                     isVisible ? Icons.visibility : Icons.visibility_off,
@@ -141,7 +148,12 @@ class _LoginState extends State<Login> {
               ),
               LoadingButton(
                 state: state,
-                onTap: () => verify(),
+                onTap: () {
+                  setState(() => submitted = true);
+                  if (_formKey.currentState!.validate()) {
+                    verify();
+                  }
+                },
                 text: 'Log in',
               ),
               SizedBox(

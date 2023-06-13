@@ -12,12 +12,12 @@ class EmployeeListModel {
     required this.date,
   });
 
-  EmployeeListModel fromJson(Map<String, dynamic> data) {
+  static EmployeeListModel fromJson(Map<String, dynamic> data) {
     return EmployeeListModel(
-      email: data['email'],
-      name: data['name'],
-      phone: data['phone'],
-      date: DateTime.parse(data['date']),
+      email: data['email'] ?? 'chiaz.aokoli@anambrastate.gov.ng',
+      name: data['name'] ?? 'Chiaza',
+      phone: data['phone'] ?? '080343390101',
+      date: DateTime.parse(data['date'] ?? "2023-07-27"),
     );
   }
 }
@@ -65,6 +65,7 @@ class Designation {
     );
   }
 }
+
 class Government {
   final int governmentId;
   final String governmentName;
