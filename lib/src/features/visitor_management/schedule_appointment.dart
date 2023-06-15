@@ -91,6 +91,8 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           20.sbH,
           Row(
             children: [
+              initialValue == SearchParameter.mda
+                  ? const SizedBox.shrink():
               SpecialButton2(
                 text: selectedEmployee == null
                     ? 'Select employee'
@@ -142,18 +144,18 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           initialValue == SearchParameter.mda
               ? Padding(
                   padding: EdgeInsets.only(top: 20.h),
-                  child: const DropdownMenu(
+                  child:  DropdownMenu(
                     textStyle: TextStyle(
-                      fontSize: 16,
+                      fontSize: 16.sp,
                       fontFamily: 'inter',
                     ),
-                    selectedTrailingIcon: Icon(
+                    selectedTrailingIcon: const Icon(
                       Icons.keyboard_arrow_down,
                     ),
-                    trailingIcon: Icon(
+                    trailingIcon: const Icon(
                       Icons.keyboard_arrow_down,
                     ),
-                    dropdownMenuEntries: [
+                    dropdownMenuEntries: const [
                       DropdownMenuEntry(
                         value: 1,
                         label: 'All employees on payroll',
