@@ -1,7 +1,11 @@
+import 'package:acmc/src/features/visitor_management/appointment_ticket.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../constants/colors.dart';
 
 class AppointmentRequests extends StatefulWidget {
   const AppointmentRequests({super.key});
@@ -27,21 +31,26 @@ class _AppointmentRequestsState extends State<AppointmentRequests> {
         children: [
           Row(
             children: [
-              const SpecialButton2(
+              SpecialButton2(
+                height: 32.h,
                 text: 'Employee',
-                icon: Icon(
+                icon: const Icon(
                   Icons.person_outline,
                 ),
               ),
               12.sbW,
-              const SpecialButton2(
+              SpecialButton2(
+                height: 32.h,
                 text: 'MDA',
-                icon: Icon(
+                icon: const Icon(
                   Icons.apartment_outlined,
                 ),
               ),
               12.sbW,
-              const SpecialButton2(
+              SpecialButton2(
+                height: 32.h,
+                backgroundColor: const Color(0xff010C20),
+                textColor: IdColors.anotherWhite,
                 text: 'All',
               ),
             ],
@@ -56,7 +65,9 @@ class _AppointmentRequestsState extends State<AppointmentRequests> {
               initialDate: DateTime.now(),
               firstDate: DateTime.now(),
               lastDate: DateTime.now().add(const Duration(days: 10 * 365)),
-              onDateChanged: (date) {},
+              onDateChanged: (date) {
+                pushTo(context, const AppointmentTicket());
+              },
             ),
           )
         ],

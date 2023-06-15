@@ -17,6 +17,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomTextInput extends StatelessWidget {
+  final String? suffixText;
+  final TextAlignVertical? textAlignVertical;
   final double? hpD;
   final IconData? prefixIcon;
   final TextEditingController? controller;
@@ -75,6 +77,7 @@ class CustomTextInput extends StatelessWidget {
     this.width,
     this.validator,
     this.autovalidateMode,
+    this.textAlignVertical,  this.suffixText,
   }) : super(key: key);
 
   @override
@@ -97,6 +100,7 @@ class CustomTextInput extends StatelessWidget {
               height: 8.h,
             ),
             TextFormField(
+              textAlignVertical: textAlignVertical,
               controller: controller,
               cursorColor: Colors.black,
               onSaved: onSaved,
@@ -141,6 +145,7 @@ class CustomTextInput extends StatelessWidget {
                   ),
                 ),
                 prefixIcon: null,
+                suffixText: suffixText,
                 suffixIcon: suffixIcon,
                 hintText: hintText,
                 hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(

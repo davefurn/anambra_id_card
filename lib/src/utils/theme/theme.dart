@@ -2,7 +2,6 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/theme/textthem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'gen_swatch.dart';
 import 'elevated_button_theme.dart';
 
@@ -16,6 +15,11 @@ class IdTheme {
     textTheme: TextsTheme.lightTheme,
     appBarTheme: const AppBarTheme(centerTitle: false),
     elevatedButtonTheme: ElevatedButtonThemes.lightTheme,
+    
+    datePickerTheme:const DatePickerThemeData(
+
+    ),
+    timePickerTheme:const TimePickerThemeData(),
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(

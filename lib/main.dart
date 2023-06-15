@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'ANSG IDM',
             debugShowCheckedModeBanner: false,
+            
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,
             theme: IdTheme.lightTheme,
