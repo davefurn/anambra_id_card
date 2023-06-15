@@ -39,8 +39,17 @@ class _ImageLoaderState extends State<ImageLoader>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return widget.image.isEmpty
-        ? const Icon(Icons.person)
+    return widget.image.split('/').last.isEmpty
+        ? Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8.r),
+              color: Colors.grey.withOpacity(0.4),
+            ),
+            child: const Icon(
+              Icons.person,
+              size: 100,
+            ),
+          )
         : ExtendedImage.network(
             widget.image,
             fit: BoxFit.fill,

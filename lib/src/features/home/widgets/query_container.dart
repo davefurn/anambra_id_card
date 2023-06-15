@@ -145,14 +145,16 @@ class ActionContainer extends StatelessWidget {
               ),
             ),
             8.sbH,
-            Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                height: 1,
-                fontWeight: FontWeight.w600,
-                fontSize: 11.sp,
-                color: const Color(0xff363A43),
+            FittedBox(
+              child: Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  height: 1,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 10.sp,
+                  color: const Color(0xff363A43),
+                ),
               ),
             )
           ],

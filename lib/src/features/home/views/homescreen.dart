@@ -295,7 +295,7 @@ class _HomeState extends State<Home> {
                     Color(0xff119D1F),
                   ],
                   svg: 'visitor',
-                  text: 'Visitor\nmanagement',
+                  text: 'Visitor manager',
                   onTap: () => pushTo(context, const VisitorManagement()),
                 ),
                 const ActionContainer(

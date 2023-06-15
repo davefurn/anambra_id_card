@@ -121,8 +121,16 @@ class PostRequest {
                   () => pushToAndClearStack(context, const OtpScreen()));
             }
           } else {
+            late String message;
+            try {
+              message = '${value.data["message"]}';
+              log('CRITICAL LOG');
+            } catch (_) {
+              message = 'Something went wrong';
+            }
+
             ShowFlushBar.showError(
-              error: '${value.data["message"]}',
+              error: message,
               context: context,
             ).whenComplete(() {
               if (email == null) {

@@ -1,5 +1,6 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
 import 'package:acmc/src/features/pagination/model.dart';
 import 'package:acmc/src/features/pagination/provider.dart';
@@ -90,25 +91,24 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           20.sbH,
           Row(
             children: [
-              initialValue == SearchParameter.mda
-                  ? const SizedBox.shrink()
-                  : SpecialButton2(
-                      text: selectedEmployee == null
-                          ? 'Select employee'
-                          : '${selectedEmployee!.lastName} ${selectedEmployee!.firstName} ${selectedEmployee!.middleName}',
-                      icon: selectedEmployee == null
-                          ? null
-                          : const Icon(Icons.person_outline),
-                      onTap: () async {
-                        var a = await showModalBottomSheet<SearchModel>(
-                          context: context,
-                          builder: (context) => const BottomSearhing(),
-                        );
-                        setState(() {
-                          if (a != null) selectedEmployee = a;
-                        });
-                      },
-                    ),
+              SpecialButton2(
+                text: selectedEmployee == null
+                    ? 'Select employee'
+                    : '${selectedEmployee!.lastName} ${selectedEmployee!.firstName} ${selectedEmployee!.middleName}',
+                icon: selectedEmployee == null
+                    ? null
+                    : const Icon(Icons.person_outline),
+                onTap: () async {
+                  var a = await showModalBottomSheet<SearchModel>(
+                    context: globalContext,
+                    isScrollControlled: true,
+                    builder: (context) => const BottomSearhing(),
+                  );
+                  setState(() {
+                    if (a != null) selectedEmployee = a;
+                  });
+                },
+              ),
             ],
           ),
           if (selectedEmployee != null)
@@ -120,7 +120,8 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                   child: GestureDetector(
                     onTap: () async {
                       var a = await showModalBottomSheet<SearchModel>(
-                        context: context,
+                        context: globalContext,
+                        isScrollControlled: true,
                         builder: (context) => const BottomSearhing(),
                       );
                       setState(() {
@@ -230,131 +231,135 @@ class _BottomSearhingState extends State<BottomSearhing> {
 
   @override
   Widget build(BuildContext context) {
-    return PageView(
-      controller: controller,
-      physics: const NeverScrollableScrollPhysics(),
-      children: [
-        Column(
-          children: [
-            32.sbH,
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: Text(
-                  'Select what information you’re searching with.',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14.sp,
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.7,
+      child: PageView(
+        controller: controller,
+        physics: const NeverScrollableScrollPhysics(),
+        children: [
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              32.sbH,
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Text(
+                    'Select what information you’re searching with.',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14.sp,
+                    ),
                   ),
                 ),
               ),
-            ),
-            16.sbH,
-            SizedBox(
-              height: 90.h,
-              child: GridView.count(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                crossAxisCount: 3,
-                crossAxisSpacing: 13.w,
-                childAspectRatio: 103.w / 90.h,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  SearchParameterWidget(
-                    family: initialValue,
-                    parameter: SearchParameter.email,
-                    iconData: Icons.mail_outline,
-                    onTap: (p0) => setState(() {
-                      initialValue = p0;
-                      // textController.text = email;
-                      // focus.requestFocus();
-                    }),
-                    text: 'Email Address',
-                  ),
-                  SearchParameterWidget(
-                    family: initialValue,
-                    parameter: SearchParameter.phoneNumber,
-                    iconData: Icons.phone,
-                    onTap: (p0) => setState(() {
-                      initialValue = p0;
-                      // textController.text = phone;
-                      // focus.requestFocus();
-                    }),
-                    text: 'Phone number',
-                  ),
-                  SearchParameterWidget(
-                    family: initialValue,
-                    parameter: SearchParameter.staffId,
-                    iconData: Icons.person_outlined,
-                    onTap: (p0) => setState(() {
-                      initialValue = p0;
-                      // textController.text = id;
-                      // focus.requestFocus();
-                    }),
-                    text: 'Staff ID',
-                  ),
-                ],
+              16.sbH,
+              SizedBox(
+                height: 90.h,
+                child: GridView.count(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  crossAxisCount: 3,
+                  crossAxisSpacing: 13.w,
+                  childAspectRatio: 103.w / 90.h,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.email,
+                      iconData: Icons.mail_outline,
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        // textController.text = email;
+                        // focus.requestFocus();
+                      }),
+                      text: 'Email Address',
+                    ),
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.phoneNumber,
+                      iconData: Icons.phone,
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        // textController.text = phone;
+                        // focus.requestFocus();
+                      }),
+                      text: 'Phone number',
+                    ),
+                    SearchParameterWidget(
+                      family: initialValue,
+                      parameter: SearchParameter.staffId,
+                      iconData: Icons.person_outlined,
+                      onTap: (p0) => setState(() {
+                        initialValue = p0;
+                        // textController.text = id;
+                        // focus.requestFocus();
+                      }),
+                      text: 'Staff ID',
+                    ),
+                  ],
+                ),
               ),
-            ),
-            20.sbH,
-            CustomTextInput(
-              // focusNode: focus,
-              onChanged: (v) => setState(() {
-                // if (initialValue == SearchParameter.email) {
-                //   email = v;
-                // } else if (initialValue ==
-                //     SearchParameter.phoneNumber) {
-                //   phone = v;
-                // } else {
-                //   id = v;
-                // }
-              }),
-              validator: (v) {
-                return null;
-              },
-              textInputAction: TextInputAction.next,
-              titleText: initialValue == SearchParameter.email
-                  ? 'Email'
-                  : initialValue == SearchParameter.phoneNumber
-                      ? 'Phone'
-                      : 'Staff ID',
-              keyboardType: initialValue == SearchParameter.email
-                  ? TextInputType.emailAddress
-                  : initialValue == SearchParameter.phoneNumber
-                      ? TextInputType.number
-                      : TextInputType.number,
-              controller: textController,
-              suffixIcon: Visibility(
-                visible: textController.text.isNotEmpty,
-                child: IconButton(
-                    onPressed: () => textController.clear(),
-                    icon: const Icon(Icons.clear)),
+              20.sbH,
+              CustomTextInput(
+                // focusNode: focus,
+                onChanged: (v) => setState(() {
+                  // if (initialValue == SearchParameter.email) {
+                  //   email = v;
+                  // } else if (initialValue ==
+                  //     SearchParameter.phoneNumber) {
+                  //   phone = v;
+                  // } else {
+                  //   id = v;
+                  // }
+                }),
+                validator: (v) {
+                  return null;
+                },
+                textInputAction: TextInputAction.next,
+                titleText: initialValue == SearchParameter.email
+                    ? 'Email'
+                    : initialValue == SearchParameter.phoneNumber
+                        ? 'Phone'
+                        : 'Staff ID',
+                keyboardType: initialValue == SearchParameter.email
+                    ? TextInputType.emailAddress
+                    : initialValue == SearchParameter.phoneNumber
+                        ? TextInputType.number
+                        : TextInputType.number,
+                controller: textController,
+                suffixIcon: Visibility(
+                  visible: textController.text.isNotEmpty,
+                  child: IconButton(
+                      onPressed: () => textController.clear(),
+                      icon: const Icon(Icons.clear)),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 24.h,
-            ),
-            CustomButton(
-              thickLine: 1,
-              onpressed: () {
-                if (textController.text.isNotEmpty) {
-                  controller.animateToPage(
-                    1,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeIn,
-                  );
-                }
-              },
-              text: 'Search Database',
-              textcolor: IdColors.textColorBlack,
-              disable: textController.text.isEmpty,
-            ),
-          ],
-        ),
-        SearchResult(
-          word: textController.text,
-        )
-      ],
+              SizedBox(
+                height: 24.h,
+              ),
+              CustomButton(
+                thickLine: 1,
+                onpressed: () {
+                  if (textController.text.isNotEmpty) {
+                    controller.animateToPage(
+                      1,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeIn,
+                    );
+                  }
+                },
+                text: 'Search Database',
+                textcolor: IdColors.textColorBlack,
+                disable: textController.text.isEmpty,
+              ),
+            ],
+          ),
+          SearchResult(
+            word: textController.text,
+          )
+        ],
+      ),
     );
   }
 }
