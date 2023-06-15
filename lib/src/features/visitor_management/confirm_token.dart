@@ -1,7 +1,9 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/home/widgets/query_container.dart';
+import 'package:acmc/src/features/visitor_management/confirm_token_details.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:flutter/material.dart';
@@ -81,12 +83,13 @@ class _ConfirmTokenState extends State<ConfirmToken> {
                   child: CustomTextInput(
                     titleText: 'Enter token',
                     hpD: 0,
+                    keyboardType: TextInputType.numberWithOptions(),
                   ),
                 ),
                 8.sbW,
                 LoadingButton(
                   state: LoadingState.normal,
-                  onTap: () {},
+                  onTap: () => pushTo(context, const ConfirmTicket()),
                   text: 'Go',
                   width: 15,
                 ),

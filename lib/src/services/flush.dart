@@ -6,20 +6,20 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ShowFlushBar {
   static Future<void> showError({
     required BuildContext context,
-    int duration = 3,
+    int duration = 1,
     String? error,
   }) async {
     final flushBar = Flushbar(
-      backgroundColor: Colors.red.withOpacity(0.8),
-      borderColor: Colors.red,
-      borderRadius: BorderRadius.circular(8.r),
-      margin: EdgeInsets.symmetric(horizontal: 8.w),
+      backgroundColor: IdColors.backgroundColour,
+      borderColor: const Color(0xffEF4444),
+      borderRadius: BorderRadius.circular(6.r),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       messageText: Text(
         error ?? 'Something went wrong, Check your internet connection',
         textAlign: TextAlign.center,
         style: const TextStyle(
-          color: IdColors.backgroundColour,
+          color: Color(0xffEF4444),
           fontWeight: FontWeight.w500,
           fontSize: 18,
         ),
@@ -36,16 +36,16 @@ class ShowFlushBar {
       Duration? duration,
       Function()? perform}) async {
     final flushBar = Flushbar(
-      backgroundColor: Colors.green.withOpacity(0.8),
-      borderColor: Colors.green,
-      borderRadius: BorderRadius.circular(8.r),
-      margin: EdgeInsets.symmetric(horizontal: 8.w),
+      backgroundColor: IdColors.backgroundColour,
+      borderColor: const Color(0xff1DCD24),
+      borderRadius: BorderRadius.circular(6.r),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
       messageText: Text(
         message ?? 'Successful',
         textAlign: TextAlign.center,
         style: const TextStyle(
-          color: IdColors.backgroundColour,
+          color: Color(0xff1DCD24),
           fontWeight: FontWeight.w500,
           fontSize: 18,
         ),

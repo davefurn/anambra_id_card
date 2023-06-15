@@ -4,6 +4,7 @@ import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
 import 'package:acmc/src/features/pagination/model.dart';
 import 'package:acmc/src/features/pagination/provider.dart';
+import 'package:acmc/src/features/visitor_management/schedule_details.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/get_requests.dart';
@@ -138,6 +139,41 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
                 ),
               ],
             ),
+          initialValue == SearchParameter.mda
+              ? Padding(
+                  padding: EdgeInsets.only(top: 20.h),
+                  child: const DropdownMenu(
+                    textStyle: TextStyle(
+                      fontSize: 16,
+                      fontFamily: 'inter',
+                    ),
+                    selectedTrailingIcon: Icon(
+                      Icons.keyboard_arrow_down,
+                    ),
+                    trailingIcon: Icon(
+                      Icons.keyboard_arrow_down,
+                    ),
+                    dropdownMenuEntries: [
+                      DropdownMenuEntry(
+                        value: 1,
+                        label: 'All employees on payroll',
+                      ),
+                      DropdownMenuEntry(
+                        value: 2,
+                        label: 'Ministry of Health',
+                      ),
+                      DropdownMenuEntry(
+                        value: 3,
+                        label: 'ICT Agency',
+                      ),
+                      DropdownMenuEntry(
+                        value: 5,
+                        label: 'Ministry of Health',
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox.shrink(),
           20.sbH,
           const CustomTextInput(
             titleText: 'Full name',
@@ -156,7 +192,9 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           30.sbH,
           LoadingButton(
             state: LoadingState.normal,
-            onTap: () {},
+            onTap: () {
+              pushTo(context, const ScheduleDetails());
+            },
             text: 'Next',
           )
         ],
