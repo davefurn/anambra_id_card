@@ -20,7 +20,6 @@ import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 import '../../model/enums.dart';
 import '../../widgets/loading_button.dart';
 import '../../widgets/special_button_2.dart';
@@ -47,26 +46,31 @@ class _ScheduleDetailsState extends State<ScheduleDetails> {
       body: Column(
         children: [
           32.sbH,
-          Row(
-            children: [
-              const Expanded(
-                  child: CustomTextInput(
-                titleText: 'Choose Date',
-                suffixIcon: Icon(
-                  Icons.date_range,
-                  color: IdColors.grey,
-                ),
-              )),
-              24.sbW,
-              const Expanded(
-                  child: CustomTextInput(
-                titleText: 'Choose Time',
-                suffixIcon: Icon(
-                  Icons.timer,
-                  color: IdColors.grey,
-                ),
-              )),
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Row(
+              children: [
+                const Expanded(
+                    child: CustomTextInput(
+                  titleText: 'Choose Date',
+                  hpD: 0,
+                  suffixIcon: Icon(
+                    Icons.date_range,
+                    color: IdColors.grey,
+                  ),
+                )),
+                10.sbW,
+                const Expanded(
+                    child: CustomTextInput(
+                  titleText: 'Choose Time',
+                  hpD: 0,
+                  suffixIcon: Icon(
+                    Icons.timer,
+                    color: IdColors.grey,
+                  ),
+                )),
+              ],
+            ),
           ),
           21.sbH,
           const CustomTextInput(
@@ -111,13 +115,12 @@ class _ScheduleDetailsState extends State<ScheduleDetails> {
                       textAlign: TextAlign.center,
                     ),
                     10.sbH,
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 70.w),
+                    Center(
                       child: SpecialButton2(
                         onTap: () {
-                          pushToAndClearStack(context,const HomeScreen());
+                          pushToAndClearStack(context, const HomeScreen());
                         },
-                        height: 32.h,
+                        // height: 32.h,
                         text: 'Return to home',
                         backgroundColor: IdColors.backgroundColour,
                         borderColor: Colors.grey,

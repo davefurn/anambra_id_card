@@ -1,8 +1,7 @@
-import 'package:acmc/src/features/authentication/views/auth_decide/auth.dart';
+import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/onboarding/views/onboard.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -56,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,
             theme: IdTheme.lightTheme,
-            home: widget.firstTime ? const Onboard() : const Auth(),
+            home: widget.firstTime ? const Onboard() : const Login(),
           );
         },
       ),

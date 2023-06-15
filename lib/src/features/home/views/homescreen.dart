@@ -287,7 +287,7 @@ class _HomeState extends State<Home> {
                     Color(0xffA414BB),
                   ],
                   svg: 'special_scan',
-                  text: 'Special scan',
+                  text: 'Special\nScan',
                 ),
                 ActionContainer(
                   colors: const [
@@ -295,7 +295,7 @@ class _HomeState extends State<Home> {
                     Color(0xff119D1F),
                   ],
                   svg: 'visitor',
-                  text: 'Visitor manager',
+                  text: 'Visitors\nManager',
                   onTap: () => pushTo(context, const VisitorManagement()),
                 ),
                 const ActionContainer(
@@ -304,7 +304,7 @@ class _HomeState extends State<Home> {
                     Color(0xffA51515),
                   ],
                   svg: 'clock',
-                  text: 'Clock-in',
+                  text: 'Staff\nClock-in',
                 ),
               ],
             ),
