@@ -88,7 +88,7 @@ class _ScheduleDetailsState extends State<ScheduleDetails> {
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   title: Icon(
-                    Icons.security_update_good,
+                    Icons.verified,
                     size: 34.sp,
                     color: IdColors.green,
                   ),
