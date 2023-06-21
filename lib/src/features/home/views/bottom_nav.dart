@@ -32,6 +32,7 @@ import '../../../router/app_routes.dart';
 import '../../settings/views/settings_view.dart';
 
 late BuildContext globalContext;
+late CupertinoTabController controller;
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -50,7 +51,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   ];
 
   int currentIndex = 0;
-  late CupertinoTabController controller;
 
   AppLifecycleState? _lastLifecycleState;
   Timer? _timer;

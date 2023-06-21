@@ -24,7 +24,7 @@ class ShowFlushBar {
           fontSize: 18,
         ),
       ),
-      positionOffset: kBottomNavigationBarHeight.h,
+      positionOffset: kBottomNavigationBarHeight.h + 50,
       duration: Duration(seconds: duration),
     );
     await flushBar.show(context);
@@ -50,7 +50,7 @@ class ShowFlushBar {
           fontSize: 18,
         ),
       ),
-      positionOffset: kBottomNavigationBarHeight.h,
+      positionOffset: kBottomNavigationBarHeight.h + 50,
       duration: duration ?? const Duration(seconds: 3),
     );
     await flushBar.show(context);

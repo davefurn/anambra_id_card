@@ -15,21 +15,20 @@
 import 'package:acmc/src/features/pagination/model.dart';
 import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
-import 'package:acmc/src/router/app_routes.dart';
-import 'package:acmc/src/services/get_requests.dart';
-import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
-import 'package:acmc/src/widgets/special_button_2.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class Searching extends ConsumerStatefulWidget {
   final String searchWord;
+  final String identifier;
+  final bool? asGuest;
   const Searching({
     Key? key,
     required this.searchWord,
+    required this.identifier,
+    this.asGuest,
   }) : super(key: key);
 
   @override
@@ -37,15 +36,14 @@ class Searching extends ConsumerStatefulWidget {
 }
 
 class _SearchingState extends ConsumerState<Searching> {
-  final PaginationModel paginationModel = PaginationModel();
-  late RefreshController refreshController;
-  List<SearchModel> value = [];
+  final EmployeePaginationModel paginationModel = EmployeePaginationModel();
 
   @override
   void initState() {
     super.initState();
-    refreshController = RefreshController();
     paginationModel.word = widget.searchWord;
+    paginationModel.identifier = widget.identifier;
+    paginationModel.asGuest = widget.asGuest;
   }
 
   @override
@@ -67,110 +65,36 @@ class _SearchingState extends ConsumerState<Searching> {
       ),
       body: searchList.when(
         data: (val) {
-          if (val?.statusCode == 200 &&
-              val != null &&
-              val.data != null &&
-              val.data['status'] == 'success' &&
-              val.data['code'] == 1) {
-            paginationModel.total = val.data!['data']['total'];
-            if (paginationModel.page == 1) {
-              value = (val.data!['data']['data'] as List)
-                  .map((e) => SearchModel.fromJson(e))
-                  .toList();
+          if (val?.statusCode == 200 && val != null && val.data != null) {
+            Map<String, dynamic> convertedMap = {};
+            val.data.forEach((key, value) {
+              convertedMap[key] = value;
+            });
+
+            SearchModel? newP;
+            GuestSearchModel? guest;
+            if (paginationModel.asGuest == true) {
+              guest = GuestSearchModel.fromJson(convertedMap);
+            } else {
+              newP = SearchModel.fromJson(convertedMap);
             }
-            return value.isNotEmpty
-                ? Column(
-                    children: [
-                      Expanded(
-                        child: SmartRefresher(
-                          controller: refreshController,
-                          enablePullUp: true,
-                          physics: const ClampingScrollPhysics(),
-                          onRefresh: () async {
-                            value.clear();
-                            setState(() {});
-                            paginationModel.page = 1;
-                            paginationModel.total = 100;
-                            var _ = await ref.refresh(
-                                searchProvider(paginationModel).future);
-                            refreshController.refreshCompleted();
-                          },
-                          onLoading: () async {
-                            if (value.length != paginationModel.total) {
-                              try {
-                                paginationModel.page += 1;
-                                final a =
-                                    await GetRequest.search(paginationModel);
-                                var b = (a!.data!['data']['data'] as List)
-                                    .map((e) => SearchModel.fromJson(e))
-                                    .toList();
-                                value.addAll(b);
-                                refreshController.loadComplete();
-                                setState(() {});
-                              } catch (_) {
-                                refreshController.refreshFailed();
-                              }
-                            } else {
-                              refreshController.loadNoData();
-                            }
-                          },
-                          child: ListView.separated(
-                            itemCount: value.length,
-                            itemBuilder: (context, index) {
-                              return Cards(
-                                model: value[index],
-                              );
-                            },
-                            separatorBuilder: (context, index) => 20.sbH,
-                          ),
-                        ),
-                      ),
-                      90.sbH,
-                    ],
-                  )
-                : Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.info_outline,
-                          color: Color(0xffF97618),
-                          size: 20,
-                        ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
-                        Text(
-                          "No result found",
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                        ),
-                        SizedBox(
-                          height: 6.h,
-                        ),
-                        GestureDetector(
-                          onTap: () => pop(context),
-                          child: const SpecialButton2(
-                            icon: Icon(Icons.search),
-                            text: 'Search again',
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+            return Column(
+              children: [
+                Cards(
+                  model: newP,
+                  guest: guest,
+                ),
+              ],
+            );
           } else {
-            return const Center(
-              child: Text('Error'),
+            return Center(
+              child: AppErrorWidget(
+                errorData: val?.data,
+              ),
             );
           }
         },
-        error: (error, trace) => const Center(
-          child: Text('Error'),
-        ),
+        error: (error, trace) => Center(child: AppErrorWidget(error: error)),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
         ),

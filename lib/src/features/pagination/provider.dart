@@ -1,12 +1,15 @@
 import 'package:acmc/src/services/get_requests.dart';
+import 'package:acmc/src/services/post_requests.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'model.dart';
 
-final searchProvider = FutureProvider.autoDispose
-    .family((_, PaginationModel pagination) => GetRequest.search(pagination));
+final searchProvider = FutureProvider.autoDispose.family(
+    (_, EmployeePaginationModel pagination) => PostRequest.search(pagination));
 
 final notificationProvider = FutureProvider.autoDispose.family(
-    (_, PaginationModel pagination) => GetRequest.getNotification(pagination));
-final historyProvider = FutureProvider.autoDispose.family(
-    (_, PaginationModel pagination) => GetRequest.getHistory(pagination));
+    (_, EmployeePaginationModel pagination) =>
+        GetRequest.getNotification(pagination));
+final historyProvider = FutureProvider.family(
+    (_, EmployeePaginationModel pagination) =>
+        GetRequest.getHistory(pagination));

@@ -27,8 +27,9 @@ import '../features/search/search_parameters/views/search_details.dart';
 import '../router/app_routes.dart';
 import 'qrcode_widget.dart';
 
-class Cards extends StatelessWidget {
-  final SearchModel model;
+class Cards extends StatefulWidget {
+  final SearchModel? model;
+  final GuestSearchModel? guest;
   final bool showDetails;
   final VoidCallback? select;
   const Cards({
@@ -36,7 +37,18 @@ class Cards extends StatelessWidget {
     required this.model,
     this.showDetails = true,
     this.select,
+    this.guest,
   });
+
+  @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,39 +88,46 @@ class Cards extends StatelessWidget {
                       Image.asset(
                         'assets/images/anambra.png',
                       ),
-                      RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'MDA: ',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14.sp,
-                                color: IdColors.textColorBlack,
+                      if (widget.model != null)
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'MDA: ',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14.sp,
+                                  color: IdColors.textColorBlack,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: model.departments.departmentName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 14.sp,
-                                color: IdColors.textColorBlack,
-                              ),
-                            )
-                          ],
+                              TextSpan(
+                                text:
+                                    widget.model!.departments?.departmentName ??
+                                        '****',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 14.sp,
+                                  color: IdColors.textColorBlack,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
                 8.sbW,
                 Hero(
-                  tag: model.employeeId,
+                  tag: widget.model != null
+                      ? widget.model!.employeeId
+                      : widget.guest!.employeeId,
                   child: SizedBox(
                     height: 99.h,
                     width: 117.w,
                     child: ImageLoader(
-                      image: model.profilePicture,
+                      image: widget.model != null
+                          ? widget.model!.profilePicture
+                          : widget.guest!.profilePicture,
                       boxFit: BoxFit.cover,
                     ),
                   ),
@@ -130,7 +149,9 @@ class Cards extends StatelessWidget {
                 ),
                 FittedBox(
                   child: Text(
-                    '${model.lastName} ${model.middleName} ${model.firstName}',
+                    widget.model != null
+                        ? '${widget.model!.lastName} ${widget.model!.middleName} ${widget.model!.firstName}'
+                        : '${widget.guest!.lastName}  ${widget.guest!.firstName}',
                     style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 16,
@@ -140,7 +161,9 @@ class Cards extends StatelessWidget {
                 4.sbH,
                 FittedBox(
                   child: Text(
-                    model.designation.designationName,
+                    widget.model != null
+                        ? widget.model!.designation?.designationName ?? '****'
+                        : '****',
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,
@@ -161,35 +184,48 @@ class Cards extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: model.isActive == 1 ? 'Valid' : 'Invalid',
+                        text: widget.model != null
+                            ? widget.model!.isActive == 1
+                                ? 'Valid'
+                                : 'Invalid'
+                            : widget.guest!.isActive
+                                ? 'Valid'
+                                : 'Invalid',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 14,
-                          color:
-                              model.isActive == 1 ? Colors.green : Colors.red,
+                          color: widget.model != null
+                              ? widget.model!.isActive == 1
+                                  ? Colors.green
+                                  : Colors.red
+                              : widget.guest!.isActive
+                                  ? Colors.green
+                                  : Colors.red,
                         ),
                       ),
                     ],
                   ),
                 ),
-                if (showDetails)
+                if (widget.model != null && widget.showDetails)
                   Align(
                     alignment: Alignment.centerRight,
                     child: InkWell(
                       onTap: () {
-                        if (select == null) {
+                        if (widget.select == null) {
                           pushTo(
                             context,
                             SearchDetails(
-                              model: model,
+                              model: widget.model!,
                             ),
                           );
                         } else {
-                          Navigator.of(context).pop(model);
+                          Navigator.of(context).pop(widget.model);
                         }
                       },
                       child: SpecialButton2(
-                        text: select == null ? 'View all details' : 'Select',
+                        text: widget.select == null
+                            ? 'View all details'
+                            : 'Select',
                       ),
                     ),
                   )

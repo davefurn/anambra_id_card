@@ -14,10 +14,14 @@ class EmployeeListModel {
 
   static EmployeeListModel fromJson(Map<String, dynamic> data) {
     return EmployeeListModel(
-      email: data['email'] ?? 'chiaz.aokoli@anambrastate.gov.ng',
+      email: data['identifier_value'],
       name: data['name'] ?? 'Chiaza',
       phone: data['phone'] ?? '080343390101',
-      date: DateTime.parse(data['date'] ?? "2023-07-27"),
+      date: DateTime(
+        DateTime.parse(data['search_time']).year,
+        DateTime.parse(data['search_time']).month,
+        DateTime.parse(data['search_time']).day,
+      ),
     );
   }
 }
@@ -100,8 +104,37 @@ class MdaLocation {
   }
 }
 
+class GuestSearchModel {
+  final int userId;
+  final String employeeId;
+  final String firstName;
+  final String lastName;
+  final String profilePicture;
+  final bool isActive;
+
+  GuestSearchModel({
+    required this.userId,
+    required this.employeeId,
+    required this.firstName,
+    required this.lastName,
+    required this.profilePicture,
+    required this.isActive,
+  });
+
+  factory GuestSearchModel.fromJson(Map<String, dynamic> json) {
+    return GuestSearchModel(
+      userId: json['user_id'],
+      employeeId: json['employee_id'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      profilePicture: json['profile_picture'],
+      isActive: json['is_active'] == 1,
+    );
+  }
+}
+
 class SearchModel {
-  final int id;
+  final String id;
   final String employeeId;
   final String firstName;
   final String lastName;
@@ -109,7 +142,7 @@ class SearchModel {
   final String profilePicture;
   final String dateOfBirth;
   final String contactNo;
-  final int isActive;
+  int isActive;
   final String email;
   final String gender;
   final String employeeType;
@@ -125,11 +158,13 @@ class SearchModel {
   final String town;
   final String city;
   final String state;
+  final String searchingUserRole;
+  final String? emailResponse;
 
-  final Departments departments;
-  final MdaLocation mdaLocation;
-  final Designation designation;
-  final Government government;
+  final Departments? departments;
+  final MdaLocation? mdaLocation;
+  final Designation? designation;
+  final Government? government;
   SearchModel({
     required this.address,
     required this.town,
@@ -149,6 +184,7 @@ class SearchModel {
     required this.employeeType,
     required this.gender,
     required this.email,
+    required this.searchingUserRole,
     required this.dateOfBirth,
     required this.id,
     required this.employeeId,
@@ -159,6 +195,7 @@ class SearchModel {
     required this.isActive,
     required this.departments,
     required this.mdaLocation,
+    this.emailResponse,
   });
 
   static SearchModel fromJson(Map<String, dynamic> data) {
@@ -167,10 +204,9 @@ class SearchModel {
       town: data['town'],
       city: data['city'],
       state: data['state'],
+      searchingUserRole: data['searchingUserRole'],
       contactNo: data['contact_no'],
-      government: Government.fromJson(data['government']),
       verificationId: data['verification_id'],
-      designation: Designation.fromJson(data['designation']),
       basicSalary: data['basic_salary'],
       dataStatus: data['data_status'],
       dateOfJoining: data['date_of_joining'],
@@ -188,8 +224,19 @@ class SearchModel {
       lastName: data['last_name'],
       middleName: data['middle_name'],
       isActive: data['is_active'],
-      departments: Departments.fromJson(data['departments']),
-      mdaLocation: MdaLocation.fromJson(data['mda_location']),
+      emailResponse: data['emailResponse'],
+      designation: ['higher'].contains(data['searchingUserRole'])
+          ? Designation.fromJson(data['designation'])
+          : null,
+      government: ['higher'].contains(data['searchingUserRole'])
+          ? Government.fromJson(data['government'])
+          : null,
+      departments: ['higher'].contains(data['searchingUserRole'])
+          ? Departments.fromJson(data['departments'])
+          : null,
+      mdaLocation: ['higher'].contains(data['searchingUserRole'])
+          ? MdaLocation.fromJson(data['mda_location'])
+          : null,
       profilePicture: AppEndpoints.pictureUrl + data['profile_picture'],
     );
   }
@@ -208,6 +255,38 @@ class NotificatinModel {
     return NotificatinModel(
       title: data['title'],
       message: data['message'],
+    );
+  }
+}
+
+class LoginSearchedList {
+  final int id;
+  final String employeeId;
+  final String identifierType;
+  final String identifierValue;
+  final DateTime searchTime;
+  final String status;
+  final String searchParams;
+
+  LoginSearchedList({
+    required this.id,
+    required this.employeeId,
+    required this.identifierType,
+    required this.identifierValue,
+    required this.searchTime,
+    required this.status,
+    required this.searchParams,
+  });
+
+  factory LoginSearchedList.fromJson(Map<String, dynamic> json) {
+    return LoginSearchedList(
+      id: json['id'],
+      employeeId: json['employee_id'],
+      identifierType: json['identifier_type'],
+      identifierValue: json['identifier_value'],
+      searchTime: DateTime.parse(json['search_time']),
+      status: json['status'],
+      searchParams: json['search_params'],
     );
   }
 }
