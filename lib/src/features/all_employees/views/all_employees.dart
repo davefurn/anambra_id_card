@@ -4,6 +4,7 @@ import 'package:acmc/src/features/all_employees/widget/group_order.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:acmc/src/widgets/no_access.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,7 +93,7 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
                           ),
                         ],
                       ),
-                      error: (error, trace) => const Text('Error'),
+                      error: (error, trace) => AppErrorWidget(error: error),
                       loading: () => const Center(
                         child: CircularProgressIndicator.adaptive(),
                       ),

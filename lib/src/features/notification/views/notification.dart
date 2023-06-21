@@ -17,11 +17,11 @@ import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants/colors.dart';
@@ -34,7 +34,7 @@ class NotificationP extends ConsumerStatefulWidget {
 }
 
 class _NotificationPState extends ConsumerState<NotificationP> {
-  final PaginationModel paginationModel = PaginationModel();
+  final EmployeePaginationModel paginationModel = EmployeePaginationModel();
   List<NotificatinModel>? value;
   late RefreshController refreshController;
 
@@ -60,15 +60,15 @@ class _NotificationPState extends ConsumerState<NotificationP> {
               Theme.of(context).textTheme.headlineLarge?.copyWith(fontSize: 24),
         ),
       ),
-      floatingActionButton: value != null
-          ? null
-          : Padding(
-              padding: const EdgeInsets.only(bottom: 60),
-              child: SpecialButton2(
-                icon: SvgPicture.asset('assets/svgs/download.svg'),
-                text: 'Clear all',
-              ),
-            ),
+      // floatingActionButton: value != null
+      //     ? null
+      //     : Padding(
+      //         padding: const EdgeInsets.only(bottom: 60),
+      //         child: SpecialButton2(
+      //           icon: SvgPicture.asset('assets/svgs/download.svg'),
+      //           text: 'Clear all',
+      //         ),
+      //       ),
       body: notificationList.when(
         data: (val) {
           if (val?.statusCode == 200 &&
@@ -198,25 +198,22 @@ class _NotificationPState extends ConsumerState<NotificationP> {
                   );
           } else {
             return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Error'),
-                  SpecialButton2(
-                    text: 'Retry',
-                    onTap: () => ref.refresh(
-                      notificationProvider(
-                        paginationModel,
-                      ),
+              child: AppErrorWidget(
+                errorData: val?.data,
+                retry: SpecialButton2(
+                  text: 'Retry',
+                  onTap: () => ref.refresh(
+                    notificationProvider(
+                      paginationModel,
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
             );
           }
         },
-        error: (error, trace) => const Center(
-          child: Text('Error'),
+        error: (error, trace) => Center(
+          child: AppErrorWidget(error: error),
         ),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),

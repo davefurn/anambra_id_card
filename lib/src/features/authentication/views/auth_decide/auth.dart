@@ -17,6 +17,7 @@ import 'package:acmc/src/features/authentication/views/auth_decide/widgets/click
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
+import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,7 +57,12 @@ class Auth extends StatelessWidget {
               ),
               CustomButton(
                 text: 'Use as guest',
-                onpressed: () {},
+                onpressed: () => pushTo(
+                  context,
+                  const SearchParameters(
+                    asGuest: true,
+                  ),
+                ),
                 thickLine: 1,
                 color: IdColors.backgroundColour,
                 textcolor: IdColors.textColorBlack,

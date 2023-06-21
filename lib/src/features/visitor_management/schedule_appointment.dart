@@ -7,9 +7,9 @@ import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/features/visitor_management/schedule_details.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
-import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:acmc/src/widgets/search_parameter_widget.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
@@ -92,25 +92,25 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           Row(
             children: [
               initialValue == SearchParameter.mda
-                  ? const SizedBox.shrink():
-              SpecialButton2(
-                text: selectedEmployee == null
-                    ? 'Select employee'
-                    : '${selectedEmployee!.lastName} ${selectedEmployee!.firstName} ${selectedEmployee!.middleName}',
-                icon: selectedEmployee == null
-                    ? null
-                    : const Icon(Icons.person_outline),
-                onTap: () async {
-                  var a = await showModalBottomSheet<SearchModel>(
-                    context: globalContext,
-                    isScrollControlled: true,
-                    builder: (context) => const BottomSearhing(),
-                  );
-                  setState(() {
-                    if (a != null) selectedEmployee = a;
-                  });
-                },
-              ),
+                  ? const SizedBox.shrink()
+                  : SpecialButton2(
+                      text: selectedEmployee == null
+                          ? 'Select employee'
+                          : '${selectedEmployee!.lastName} ${selectedEmployee!.firstName} ${selectedEmployee!.middleName}',
+                      icon: selectedEmployee == null
+                          ? null
+                          : const Icon(Icons.person_outline),
+                      onTap: () async {
+                        var a = await showModalBottomSheet<SearchModel>(
+                          context: globalContext,
+                          isScrollControlled: true,
+                          builder: (context) => const BottomSearhing(),
+                        );
+                        setState(() {
+                          if (a != null) selectedEmployee = a;
+                        });
+                      },
+                    ),
             ],
           ),
           if (selectedEmployee != null)
@@ -144,7 +144,7 @@ class _ScheduleAppointmentState extends State<ScheduleAppointment> {
           initialValue == SearchParameter.mda
               ? Padding(
                   padding: EdgeInsets.only(top: 20.h),
-                  child:  DropdownMenu(
+                  child: DropdownMenu(
                     textStyle: TextStyle(
                       fontSize: 16.sp,
                       fontFamily: 'inter',
@@ -382,7 +382,7 @@ class SearchResult extends ConsumerStatefulWidget {
 }
 
 class _SearchResultState extends ConsumerState<SearchResult> {
-  final PaginationModel paginationModel = PaginationModel();
+  final EmployeePaginationModel paginationModel = EmployeePaginationModel();
   late RefreshController refreshController;
   List<SearchModel> value = [];
 
@@ -391,6 +391,7 @@ class _SearchResultState extends ConsumerState<SearchResult> {
     super.initState();
     refreshController = RefreshController();
     paginationModel.word = widget.word;
+    paginationModel.identifier = 'email';
   }
 
   @override
@@ -420,112 +421,26 @@ class _SearchResultState extends ConsumerState<SearchResult> {
           Expanded(
             child: searchList.when(
               data: (val) {
-                if (val?.statusCode == 200 &&
-                    val != null &&
-                    val.data != null &&
-                    val.data['status'] == 'success' &&
-                    val.data['code'] == 1) {
-                  paginationModel.total = val.data!['data']['total'];
-                  if (paginationModel.page == 1) {
-                    value = (val.data!['data']['data'] as List)
-                        .map((e) => SearchModel.fromJson(e))
-                        .toList();
-                  }
-                  return value.isNotEmpty
-                      ? Column(
-                          children: [
-                            Expanded(
-                              child: SmartRefresher(
-                                controller: refreshController,
-                                enablePullUp: true,
-                                physics: const ClampingScrollPhysics(),
-                                onRefresh: () async {
-                                  value.clear();
-                                  setState(() {});
-                                  paginationModel.page = 1;
-                                  paginationModel.total = 100;
-                                  var _ = await ref.refresh(
-                                      searchProvider(paginationModel).future);
-                                  refreshController.refreshCompleted();
-                                },
-                                onLoading: () async {
-                                  if (value.length != paginationModel.total) {
-                                    try {
-                                      paginationModel.page += 1;
-                                      final a = await GetRequest.search(
-                                          paginationModel);
-                                      var b = (a!.data!['data']['data'] as List)
-                                          .map((e) => SearchModel.fromJson(e))
-                                          .toList();
-                                      value.addAll(b);
-                                      refreshController.loadComplete();
-                                      setState(() {});
-                                    } catch (_) {
-                                      refreshController.refreshFailed();
-                                    }
-                                  } else {
-                                    refreshController.loadNoData();
-                                  }
-                                },
-                                child: ListView.separated(
-                                  itemCount: value.length,
-                                  itemBuilder: (context, index) {
-                                    return Cards(
-                                      model: value[index],
-                                      select: () {},
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) => 20.sbH,
-                                ),
-                              ),
-                            ),
-                            90.sbH,
-                          ],
-                        )
-                      : Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Icon(
-                                Icons.info_outline,
-                                color: Color(0xffF97618),
-                                size: 20,
-                              ),
-                              SizedBox(
-                                height: 6.h,
-                              ),
-                              Text(
-                                "No result found",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                              ),
-                              SizedBox(
-                                height: 6.h,
-                              ),
-                              GestureDetector(
-                                onTap: () => pop(context),
-                                child: const SpecialButton2(
-                                  icon: Icon(Icons.search),
-                                  text: 'Search again',
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                if (val?.statusCode == 200 && val != null && val.data != null) {
+                  Map<String, dynamic> convertedMap = {};
+                  val.data.forEach((key, value) {
+                    convertedMap[key] = value;
+                  });
+                  var newP = SearchModel.fromJson(convertedMap);
+                  return Cards(
+                    model: newP,
+                    select: () {},
+                  );
                 } else {
-                  return const Center(
-                    child: Text('Error'),
+                  return Center(
+                    child: AppErrorWidget(
+                      errorData: val?.data,
+                    ),
                   );
                 }
               },
-              error: (error, trace) => const Center(
-                child: Text('Error'),
+              error: (error, trace) => Center(
+                child: AppErrorWidget(error: error),
               ),
               loading: () => const Center(
                 child: CircularProgressIndicator.adaptive(),

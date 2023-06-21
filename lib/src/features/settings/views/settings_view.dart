@@ -16,7 +16,7 @@ import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
-import 'package:acmc/src/features/feedback/views/suggest_improvement.dart';
+import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
@@ -79,7 +79,8 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () => ShowFlushBar.showSuccess(
+                context: context, message: 'Not Enabled.'),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -103,7 +104,9 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () => pushTo(context, const SuggestImprovement()),
+            // onTap: () => pushTo(context, const SuggestImprovement()),
+            onTap: () => ShowFlushBar.showSuccess(
+                context: context, message: 'Not Enabled.'),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +130,8 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () => ShowFlushBar.showSuccess(
+                context: context, message: 'Not Enabled.'),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,

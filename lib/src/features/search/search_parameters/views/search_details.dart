@@ -183,27 +183,27 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.contact_phone,
               mainText: 'CONTACT DETAILS',
               widgets: [
-                 DataTesting(
+                DataTesting(
                   firstText: 'First Name',
                   secondText: widget.model.firstName,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Middle Name',
                   secondText: widget.model.middleName,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Last Name',
                   secondText: widget.model.lastName,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Email',
                   secondText: widget.model.email,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Phone Number',
                   secondText: widget.model.contactNo,
                 ),
@@ -215,22 +215,22 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.location_on,
               mainText: 'LOCATION DETAILS',
               widgets: [
-                 DataTesting(
+                DataTesting(
                   firstText: 'Address',
                   secondText: widget.model.address,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Town',
                   secondText: widget.model.town,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'City',
                   secondText: widget.model.city,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'State',
                   secondText: widget.model.state,
                 ),
@@ -257,32 +257,32 @@ class _SearchDetailsState extends State<SearchDetails> {
                   secondText: widget.model.maritalStatus,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Date of Joining',
                   secondText: widget.model.dateOfJoining,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Date of leaving',
                   secondText: widget.model.dateOfLeaving,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Date of birth',
                   secondText: widget.model.dateOfBirth,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Data Status',
                   secondText: widget.model.dataStatus,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Gender',
                   secondText: widget.model.gender,
                 ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'State of Origin',
                   secondText: widget.model.stateOfOrigin,
                 ),
@@ -294,7 +294,7 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.work,
               mainText: 'WORK DETAILS',
               widgets: [
-                 DataTesting(
+                DataTesting(
                   firstText: 'Employee Type',
                   secondText: widget.model.employeeType,
                 ),
@@ -304,31 +304,45 @@ class _SearchDetailsState extends State<SearchDetails> {
                 //   secondText:'N ${widget.model.basicSalary}',
                 // ),
                 16.sbH,
-                 DataTesting(
+                DataTesting(
                   firstText: 'Grade',
                   secondText: widget.model.grade,
                 ),
                 16.sbH,
-                 DataTesting(
-                  firstText: 'Department',
-                  secondText: widget.model.departments.departmentName,
-                ),
-                16.sbH,
-                 DataTesting(
-                  firstText: 'Designation',
-                  secondText: widget.model.designation.designationName,
-                ),
-                // 16.sbH,
-                //  DataTesting(
-                //   firstText: 'MDA ',
-                //   secondText: widget.model.mdaLocation.locationName,
-                // ),
-                16.sbH,
-                 DataTesting(
-                  firstText: 'Government ',
-                  secondText: widget.model.government.governmentName,
-                ),
-                16.sbH,
+                if (widget.model.departments != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DataTesting(
+                        firstText: 'Department',
+                        secondText: widget.model.departments!.departmentName,
+                      ),
+                      16.sbH,
+                    ],
+                  ),
+                if (widget.model.designation != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DataTesting(
+                        firstText: 'Designation',
+                        secondText: widget.model.designation!.designationName,
+                      ),
+                      16.sbH,
+                    ],
+                  ),
+
+                if (widget.model.government != null)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      DataTesting(
+                        firstText: 'Government ',
+                        secondText: widget.model.government!.governmentName,
+                      ),
+                      16.sbH,
+                    ],
+                  ),
               ],
             ),
             8.sbH,
@@ -336,7 +350,7 @@ class _SearchDetailsState extends State<SearchDetails> {
               icon: Icons.more_horiz,
               mainText: 'OTHER DETAILS',
               widgets: [
-                 DataTesting(
+                DataTesting(
                   firstText: 'Verification ID',
                   secondText: widget.model.verificationId,
                 ),

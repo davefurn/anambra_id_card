@@ -26,7 +26,11 @@ import '../../../../router/app_routes.dart';
 import '../../../onboarding/widgets/custom_button.dart';
 
 class SearchParameters extends StatefulWidget {
-  const SearchParameters({super.key});
+  final bool? asGuest;
+  const SearchParameters({
+    super.key,
+    this.asGuest,
+  });
 
   @override
   State<SearchParameters> createState() => _SearchParametersState();
@@ -143,10 +147,6 @@ class _SearchParametersState extends State<SearchParameters> {
                     id = v;
                   }
                 }),
-                validator: (v) {
-                  return null;
-                },
-                textInputAction: TextInputAction.next,
                 titleText: initialValue == SearchParameter.email
                     ? 'Email'
                     : initialValue == SearchParameter.phoneNumber
@@ -173,7 +173,15 @@ class _SearchParametersState extends State<SearchParameters> {
                 onpressed: () => pushTo(
                   context,
                   Searching(
+                    asGuest: widget.asGuest,
                     searchWord: textController.text,
+                    identifier: initialValue == SearchParameter.email
+                        ? 'email'
+                        : initialValue == SearchParameter.phoneNumber
+                            ? 'mobile'
+                            : initialValue == SearchParameter.staffId
+                                ? 'employee_id'
+                                : 'mda',
                   ),
                 ),
                 text: 'Search Database',

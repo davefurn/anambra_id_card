@@ -112,7 +112,6 @@ class CustomTextInput extends StatelessWidget {
               autofocus: autofocus,
               obscuringCharacter: obscuringCharacter,
               obscureText: obscureText,
-              enableSuggestions: enableSuggestions,
               maxLength: maxLength,
               maxLines: maxLines,
               minLines: minLines,

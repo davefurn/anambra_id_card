@@ -16,25 +16,27 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
+import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../router/app_routes.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
-class Login extends StatefulWidget {
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginState extends ConsumerState<Login> {
   late TextEditingController passwordController;
   bool isVisible = false;
   final _formKey = GlobalKey<FormState>();
@@ -66,6 +68,7 @@ class _LoginState extends State<Login> {
       login: true,
       email: emailController.text,
       password: passwordController.text,
+      ref: ref,
     );
     setState(() {
       state = LoadingState.normal;
@@ -209,8 +212,13 @@ class _LoginState extends State<Login> {
                 padding: EdgeInsets.symmetric(
                   horizontal: 112.w,
                 ),
-                child: const SpecialButton2(
+                child: SpecialButton2(
                   text: 'Use as guest',
+                  onTap: () => pushTo(
+                      context,
+                      const SearchParameters(
+                        asGuest: true,
+                      )),
                   textColor: IdColors.textColorBlack,
                 ),
               ),

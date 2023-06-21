@@ -17,6 +17,7 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
@@ -205,7 +206,12 @@ class _CreateAccountState extends State<CreateAccount> {
                   horizontal: 112.w,
                 ),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () => pushTo(
+                    context,
+                    const SearchParameters(
+                      asGuest: true,
+                    ),
+                  ),
                   child: const SpecialButton2(
                     text: 'Use as guest',
                     textColor: IdColors.textColorBlack,

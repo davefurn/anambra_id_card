@@ -58,6 +58,7 @@ class _QrCodeState extends ConsumerState<QrCode> {
             )
           : Searching(
               searchWord: resultText,
+              identifier: 'employee_id',
             ),
     );
   }

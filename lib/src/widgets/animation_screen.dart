@@ -1,17 +1,18 @@
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';
 
-class AnimationScreen extends StatefulWidget {
+class AnimationScreen extends ConsumerStatefulWidget {
   final bool isLogin;
   const AnimationScreen({Key? key, this.isLogin = false}) : super(key: key);
 
   @override
-  State<AnimationScreen> createState() => _AnimationScreenState();
+  ConsumerState<AnimationScreen> createState() => _AnimationScreenState();
 }
 
-class _AnimationScreenState extends State<AnimationScreen>
+class _AnimationScreenState extends ConsumerState<AnimationScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -29,7 +30,11 @@ class _AnimationScreenState extends State<AnimationScreen>
   }
 
   Future<void> goToVerify() async {
-    await PostRequest.fetchBearerToken(context, login: widget.isLogin);
+    await PostRequest.fetchBearerToken(
+      context,
+      login: widget.isLogin,
+      ref: ref,
+    );
   }
 
   @override

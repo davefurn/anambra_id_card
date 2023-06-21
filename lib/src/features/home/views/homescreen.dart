@@ -16,46 +16,40 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/constants/end_points.dart';
 
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
-import 'package:acmc/src/features/history/views/history.dart';
+import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/home/widgets/query_container.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
 import 'package:acmc/src/features/search_mda/view/view.dart';
 import 'package:acmc/src/features/statistics/views/view.dart';
 import 'package:acmc/src/features/visitor_management/view.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/local_storage.dart';
+import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../search/qr_scanner/views/results.dart';
 
-class Home extends StatefulWidget {
+class Home extends ConsumerStatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  ConsumerState<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends ConsumerState<Home> {
   var accessLevel = AccessLevel.none;
   String name = '';
   String department = '';
   String designation = '';
-  List<String> names = [
-    'Ekene Favour',
-    'Chukwuemeka Victor',
-    'Oragbene Victory',
-    'Okoh Chinaza',
-    'Favour Godspower',
-    'Kenechukwu Isaac',
-    'Shedrack Christian',
-    'Olamide Ireoluwa'
-  ];
 
   List<String> email = [
     'ekene.favour@anambrastate.gov.ng',
@@ -129,6 +123,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final searches = ref.watch(recentlySearchedProvider);
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -204,38 +200,7 @@ class _HomeState extends State<Home> {
             SizedBox(
               height: 32.h,
             ),
-            // Align(
-            //   alignment: Alignment.topLeft,
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       const Icon(
-            //         Icons.info_outline,
-            //         color: IdColors.otpGrey,
-            //         size: 16.33,
-            //       ),
-            //       SizedBox(
-            //         width: 5.33.w,
-            //       ),
-            //       Expanded(
-            //         child: FittedBox(
-            //           child: Text(
-            //             'You can only search for those within your MDA',
-            //             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            //                   fontSize: 14,
-            //                   fontWeight: FontWeight.w500,
-            //                   color: IdColors.otpGrey,
-            //                 ),
-            //           ),
-            //         ),
-            //       ),
-            //       20.sbW,
-            //     ],
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 4.h,
-            // ),
+
             GridView.count(
               crossAxisCount: 2,
               childAspectRatio: 160.h / 144.h,
@@ -281,13 +246,15 @@ class _HomeState extends State<Home> {
               padding: EdgeInsets.only(right: 20.w),
               physics: const NeverScrollableScrollPhysics(),
               children: [
-                const ActionContainer(
-                  colors: [
+                ActionContainer(
+                  colors: const [
                     Color(0xffE73BF6),
                     Color(0xffA414BB),
                   ],
                   svg: 'special_scan',
                   text: 'Special\nScan',
+                  onTap: () => ShowFlushBar.showSuccess(
+                      context: context, message: 'Not Enabled.'),
                 ),
                 ActionContainer(
                   colors: const [
@@ -298,150 +265,156 @@ class _HomeState extends State<Home> {
                   text: 'Visitors\nManager',
                   onTap: () => pushTo(context, const VisitorManagement()),
                 ),
-                const ActionContainer(
-                  colors: [
+                ActionContainer(
+                  colors: const [
                     Color(0xffF68B7D),
                     Color(0xffA51515),
                   ],
                   svg: 'clock',
                   text: 'Staff\nClock-in',
+                  onTap: () => ShowFlushBar.showSuccess(
+                      context: context, message: 'Not Enabled.'),
                 ),
               ],
             ),
             26.sbH,
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Recently searched',
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: IdColors.textColorGrey,
-                            ),
-                      ),
-                      SizedBox(
-                        width: 5.73.w,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          pushTo(context, const History());
-                        },
-                        child: Row(
-                          children: [
-                            Text(
-                              'More',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium!
-                                  .copyWith(
+            if (searches.isNotEmpty)
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Recently searched',
+                          style:
+                              Theme.of(context).textTheme.bodyMedium!.copyWith(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
                                     color: IdColors.textColorGrey,
                                   ),
-                            ),
-                            4.sbW,
-                            Icon(
-                              Icons.arrow_forward_ios,
-                              size: 14.r,
-                              color: IdColors.textColorYellow,
-                            )
-                          ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 10.h,
-                ),
-                SizedBox(
-                  height: 90.h,
-                  child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: names.length,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          width: 153.w,
-                          decoration: BoxDecoration(
-                            color: IdColors.mainGrey,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          margin: EdgeInsets.only(right: 8.w),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 16.w,
-                            vertical: 8.h,
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        SizedBox(
+                          width: 5.73.w,
+                        ),
+                        GestureDetector(
+                          onTap: () => controller.index = 1,
+                          child: Row(
                             children: [
                               Text(
-                                names[index],
+                                'More',
                                 style: Theme.of(context)
                                     .textTheme
                                     .bodyMedium!
                                     .copyWith(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14,
+                                      color: IdColors.textColorGrey,
                                     ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                               ),
-                              Text(
-                                email[index],
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14,
-                                        color: IdColors.textColorGrey),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    'status: ',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                            color: IdColors.textColorGrey),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  Text(
-                                    'active',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                            color: IdColors.green),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
+                              4.sbW,
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 14.r,
+                                color: IdColors.textColorYellow,
+                              )
                             ],
                           ),
-                        );
-                      }),
-                ),
-                SizedBox(
-                  height: 26.h,
-                ),
-              ],
-            ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  SizedBox(
+                    height: 90.h,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: searches.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            width: 153.w,
+                            decoration: BoxDecoration(
+                              color: IdColors.mainGrey,
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            margin: EdgeInsets.only(right: 8.w),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 16.w,
+                              vertical: 8.h,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  searches[index].identifierType.capitalize(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14,
+                                      ),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                  searches[index].identifierValue,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium!
+                                      .copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          color: IdColors.textColorGrey),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Status: ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: IdColors.textColorGrey),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    Text(
+                                      searches[index].status,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium!
+                                          .copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 14,
+                                            color: searches[index].status ==
+                                                    'Success'
+                                                ? IdColors.green
+                                                : Colors.red,
+                                          ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                  SizedBox(
+                    height: 26.h,
+                  ),
+                ],
+              ),
             /////////
             if ([AccessLevel.admin, AccessLevel.auditor, AccessLevel.demo]
                 .contains(accessLevel))

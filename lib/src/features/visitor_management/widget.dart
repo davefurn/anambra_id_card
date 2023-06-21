@@ -1,3 +1,4 @@
+import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,7 +18,9 @@ class VisitorHomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      // onTap: onTap,
+      onTap: () =>
+          ShowFlushBar.showSuccess(context: context, message: 'Not Enabled.'),
       child: Container(
         padding: EdgeInsets.all(16.r),
         margin: EdgeInsets.symmetric(horizontal: 34.w),

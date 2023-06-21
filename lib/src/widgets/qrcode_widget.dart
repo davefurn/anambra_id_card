@@ -68,7 +68,13 @@ class _QRCodeWidgetState extends State<QRCodeWidget> {
               ),
             );
           } else {
-            return const Text('Error');
+            return Center(
+              child: Text(
+                snapshot.data!.data.containsKey('message')
+                    ? snapshot.data!.data['message']
+                    : 'Error',
+              ),
+            );
           }
         }
       },
