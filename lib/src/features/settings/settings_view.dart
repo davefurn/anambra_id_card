@@ -16,6 +16,7 @@ import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/settings/change_password.dart';
 import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
@@ -24,8 +25,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import '../../../router/app_routes.dart';
-import '../../profile/views/profile.dart';
+import '../../router/app_routes.dart';
+import '../profile/views/profile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Displays the various settings that can be customized by the user.
@@ -79,8 +80,7 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () => ShowFlushBar.showSuccess(
-                context: context, message: 'Not Enabled.'),
+            onTap: () => pushTo(context, const ChangePassword()),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,

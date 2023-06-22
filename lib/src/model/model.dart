@@ -290,3 +290,62 @@ class LoginSearchedList {
     );
   }
 }
+
+class EmployeeHistoryData {
+  final String employeeId;
+  final int userId;
+
+  EmployeeHistoryData({
+    required this.employeeId,
+    required this.userId,
+  });
+
+  factory EmployeeHistoryData.fromJson(Map<String, dynamic> json) {
+    return EmployeeHistoryData(
+      employeeId: json['employee_id'],
+      userId: json['user_id'],
+    );
+  }
+}
+
+class HistoryModel {
+  final int id;
+  final String employeeId;
+  final String identifierType;
+  final String identifierValue;
+  final String? firstName;
+  final String? lastName;
+  final DateTime searchTime;
+  final String status;
+  final EmployeeHistoryData employeeData;
+
+  HistoryModel({
+    required this.id,
+    required this.employeeId,
+    required this.identifierType,
+    required this.identifierValue,
+    required this.firstName,
+    required this.lastName,
+    required this.searchTime,
+    required this.status,
+    required this.employeeData,
+  });
+
+  factory HistoryModel.fromJson(Map<String, dynamic> json) {
+    return HistoryModel(
+      id: json['id'],
+      employeeId: json['employee_id'],
+      identifierType: json['identifier_type'],
+      identifierValue: json['identifier_value'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
+      searchTime: DateTime(
+        DateTime.parse(json['search_time']).year,
+        DateTime.parse(json['search_time']).month,
+        DateTime.parse(json['search_time']).day,
+      ),
+      status: json['status'],
+      employeeData: EmployeeHistoryData.fromJson(json['employee_data']),
+    );
+  }
+}

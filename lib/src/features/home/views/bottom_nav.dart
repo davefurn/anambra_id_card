@@ -18,7 +18,7 @@ import 'dart:io';
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/views/login/login.dart';
 
-import 'package:acmc/src/features/history/views/history.dart';
+import 'package:acmc/src/features/history/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/views/notification.dart';
 import 'package:acmc/src/services/post_requests.dart';
@@ -29,7 +29,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../router/app_routes.dart';
-import '../../settings/views/settings_view.dart';
+import '../../settings/settings_view.dart';
 
 late BuildContext globalContext;
 late CupertinoTabController controller;

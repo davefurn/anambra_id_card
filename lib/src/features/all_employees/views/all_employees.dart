@@ -81,7 +81,7 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
                           Expanded(
                             child: ListView.separated(
                               itemBuilder: (context, index) =>
-                                  EmployeeTile(data: data[index]),
+                                  EmployeeTile(employeeData: data[index]),
                               separatorBuilder: (context, index) =>
                                   const Divider(
                                 color: IdColors.textColorGrey,

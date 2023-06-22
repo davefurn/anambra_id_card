@@ -13,3 +13,5 @@ final notificationProvider = FutureProvider.autoDispose.family(
 final historyProvider = FutureProvider.family(
     (_, EmployeePaginationModel pagination) =>
         GetRequest.getHistory(pagination));
+final revisitProvider =
+    FutureProvider.autoDispose.family((_, int id) => GetRequest.getRevisit(id));

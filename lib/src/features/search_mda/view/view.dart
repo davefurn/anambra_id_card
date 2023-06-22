@@ -115,7 +115,7 @@ class _SearchMDAScreenState extends State<SearchMDAScreen> {
                   Expanded(
                     child: ListView.separated(
                       itemBuilder: (context, index) =>
-                          EmployeeTile(data: data[index]),
+                          EmployeeTile(employeeData: data[index]),
                       separatorBuilder: (context, index) => const Divider(
                         color: IdColors.textColorGrey,
                         thickness: 1,

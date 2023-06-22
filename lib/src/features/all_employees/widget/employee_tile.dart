@@ -1,16 +1,22 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/constants/end_points.dart';
+import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class EmployeeTile extends StatelessWidget {
-  final EmployeeListModel data;
+  final EmployeeListModel? employeeData;
+  final HistoryModel? historyModel;
   const EmployeeTile({
     super.key,
-    required this.data,
+    this.employeeData,
+    this.historyModel,
   });
 
   @override
@@ -19,7 +25,14 @@ class EmployeeTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          data.name,
+          employeeData != null
+              ? employeeData!.name
+              : (historyModel!.status == 'Exception' ||
+                      historyModel!.firstName == null)
+                  ? 'Failed search'
+                  : historyModel!.firstName!.isEmpty
+                      ? 'Unknown'
+                      : '${historyModel!.lastName} ${historyModel!.firstName}',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 fontSize: 16,
                 color: IdColors.textColorGrey,
@@ -27,73 +40,93 @@ class EmployeeTile extends StatelessWidget {
         ),
         2.sbH,
         Text(
-          data.email,
+          employeeData != null
+              ? employeeData!.email
+              : 'Searched by ${historyModel!.identifierType}',
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 fontSize: 16,
                 color: IdColors.textColorGrey,
               ),
         ),
-        2.sbH,
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              data.phone,
-              style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                    fontSize: 16,
-                    color: IdColors.textColorGrey,
-                  ),
-            ),
-            InkWell(
-              onTap: () => {
-                pushTo(
-                  context,
-                  SearchDetails(
-                    model: SearchModel(
-                      id: '1',
-                      employeeId: '13100014',
-                      firstName: 'firstName',
-                      lastName: 'firstName',
-                      middleName: 'middleName',
-                      searchingUserRole: 'guest',
-                      profilePicture:
-                          '${AppEndpoints.pictureUrl}profile_1591286690.jpg',
-                      departments: Departments(
-                        departmentId: 1,
-                        departmentName: 'departmentName',
-                      ),
-                      isActive: 1,
-                      mdaLocation: MdaLocation(
-                        locationId: 1,
-                        locationName: 'locationName',
-                      ),
-                      basicSalary: '740000',
-                      dataStatus: 'Complete',
-                      dateOfBirth: '1982-11-09',
-                      dateOfJoining: '2014-03-03',
-                      dateOfLeaving: '2042-11-09',
-                      email: 'jamesngannou@gmail.com',
-                      employeeType: 'Regular staff',
-                      gender: 'Male',
-                      grade: '12-CV/9',
-                      maritalStatus: 'Married',
-                      stateOfOrigin: 'Anambra',
-                      contactNo: '08084646545',
-                      designation: Designation(
-                        designationId: 1,
-                        designationName: 'Engr',
-                      ),
-                      government: Government(
-                          governmentId: 1, governmentName: 'Anambra State'),
-                      verificationId: '1290378734',
-                      address: 'amawbia',
-                      city: 'Awka',
-                      state: 'Anambra State',
-                      town: 'Amawbia',
+        4.sbH,
+        Text(
+          employeeData != null
+              ? employeeData!.phone
+              : 'Searched for ${historyModel!.identifierValue}',
+          style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                fontSize: 16,
+                color: IdColors.textColorGrey,
+              ),
+        ),
+        4.sbH,
+        if (historyModel != null)
+          Column(
+            children: [
+              Text(
+                'Searched on ${DateFormat('EEEE, MMM dd').format(historyModel!.searchTime)}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 16,
+                      color: IdColors.textColorGrey,
                     ),
-                  ),
-                )
-              },
+              ),
+              4.sbH,
+            ],
+          ),
+        if (employeeData != null || historyModel?.status != 'Exception')
+          GestureDetector(
+            onTap: () async {
+              showDialog<SearchModel?>(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        var data = ref.watch(revisitProvider(historyModel!.id));
+                        return data.when(
+                          data: (value) {
+                            if (value?.statusCode == 200 &&
+                                value != null &&
+                                value.data != null) {
+                              Map<String, dynamic> convertedMap = {};
+                              value.data.forEach((key, value) {
+                                convertedMap[key] = value;
+                              });
+                              var newP = SearchModel.fromJson(convertedMap);
+                              WidgetsBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop(newP);
+                              });
+                              return const SizedBox.shrink();
+                            } else {
+                              return AppErrorWidget(
+                                errorData: value?.data,
+                              );
+                            }
+                          },
+                          error: (error, trace) {
+                            return AppErrorWidget(
+                              error: error,
+                            );
+                          },
+                          loading: () => SizedBox(
+                            height: 40.h,
+                            child: const CircularProgressIndicator.adaptive(),
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ).then((value) {
+                if (value != null) pushTo(context, SearchDetails(model: value));
+              });
+            },
+            child: Align(
+              alignment: Alignment.centerRight,
               child: Text(
                 'View details',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -102,8 +135,7 @@ class EmployeeTile extends StatelessWidget {
                     ),
               ),
             ),
-          ],
-        ),
+          ),
       ],
     );
   }
