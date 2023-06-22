@@ -416,8 +416,13 @@ class _HomeState extends ConsumerState<Home> {
                 ],
               ),
             /////////
-            if ([AccessLevel.admin, AccessLevel.auditor, AccessLevel.demo]
-                .contains(accessLevel))
+
+            if (1 == 4 &&
+                [
+                  AccessLevel.admin,
+                  AccessLevel.auditor,
+                  AccessLevel.demo,
+                ].contains(accessLevel))
               Column(
                 children: [
                   Padding(

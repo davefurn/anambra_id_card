@@ -43,10 +43,10 @@ class NetworkService {
     }
   }
 
-  Future<Response?> patchRequestHandler(String path, Map<String, dynamic> data,
+  Future<Response?> putRequestHandler(String path, Map<String, dynamic> data,
       {Options? options}) async {
     try {
-      final a = await _dio.patchUri(Uri.parse('${AppEndpoints.baseUrl}$path'),
+      final a = await _dio.putUri(Uri.parse('${AppEndpoints.baseUrl}$path'),
           data: data, options: options);
       log(a.data.toString());
       return a;
@@ -58,7 +58,7 @@ class NetworkService {
           e.response!.data['message'] == 'Token has expired') {
         await PostRequest.refreshToken();
         try {
-          return await _dio.postUri(
+          return await _dio.putUri(
             Uri.parse('${AppEndpoints.baseUrl}$path'),
             data: data,
             options: options,
@@ -91,7 +91,7 @@ class NetworkService {
           e.response!.data['message'] == 'Token has expired') {
         await PostRequest.refreshToken();
         try {
-          return await _dio.postUri(
+          return await _dio.getUri(
             Uri.parse('${AppEndpoints.baseUrl}$path'),
             data: data,
             options: options,

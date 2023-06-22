@@ -27,6 +27,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vcard_maintained/vcard_maintained.dart';
+import 'package:path/path.dart' as p;
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -63,7 +64,8 @@ class _ProfileState extends State<Profile> {
     a.createSync(recursive: true);
     file.copySync(a.path);
     // ignore: use_build_context_synchronously
-    ShowFlushBar.showSuccess(context: context);
+    ShowFlushBar.showSuccess(
+        context: context, message: 'Downloaded to ${p.basename(path)}');
   }
 
   Future<void> downloadQRCode({bool share = false}) async {
@@ -75,7 +77,8 @@ class _ProfileState extends State<Profile> {
       var a = await controller.captureAndSave(path, fileName: fileName);
       if (!share) {
         // ignore: use_build_context_synchronously
-        ShowFlushBar.showSuccess(context: context);
+        ShowFlushBar.showSuccess(
+            context: context, message: 'Downloaded to ${p.basename(path)}');
       } else {
         Share.shareXFiles([XFile(a!)]);
       }

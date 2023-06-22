@@ -73,7 +73,6 @@ class _LoginState extends ConsumerState<Login> {
     setState(() {
       state = LoadingState.normal;
     });
-    await Future.delayed(const Duration(milliseconds: 500));
   }
 
   @override
@@ -146,6 +145,16 @@ class _LoginState extends ConsumerState<Login> {
                   },
                 ),
               ),
+              // Align(
+              //   alignment: Alignment.centerRight,
+              //   child: Padding(
+              //     padding: EdgeInsets.only(right: 10.w),
+              //     child: TextButton(
+              //       onPressed: () {},
+              //       child: Text("Forgot password?"),
+              //     ),
+              //   ),
+              // ),
               SizedBox(
                 height: 24.h,
               ),

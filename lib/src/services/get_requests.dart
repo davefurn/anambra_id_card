@@ -51,4 +51,11 @@ class GetRequest {
     return await network.getRequestHandler(path,
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
+
+  static Future<Response<dynamic>?> getRevisit(int id) async {
+    var path = '/search_history/revisit/$id';
+    var token = (await LocalStorage.instance.getToken())!;
+    return await network.getRequestHandler(path,
+        options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
 }

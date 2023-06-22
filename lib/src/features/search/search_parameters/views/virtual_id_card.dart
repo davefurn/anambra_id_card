@@ -21,6 +21,7 @@ import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:path/path.dart' as p;
 
 class VirtualIDCard extends StatefulWidget {
   final SearchModel model;
@@ -53,7 +54,8 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
           break;
       }
       // ignore: use_build_context_synchronously
-      ShowFlushBar.showSuccess(context: context);
+      ShowFlushBar.showSuccess(
+          context: context, message: 'Downloaded to ${p.basename(path)}');
     } else {
       // ignore: use_build_context_synchronously
       ShowFlushBar.showError(context: context, error: 'Cannot download card');
