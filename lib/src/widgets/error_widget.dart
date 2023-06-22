@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 
 class AppErrorWidget extends StatefulWidget {
-  final Object? error;
   final Map? errorData;
   final Widget? retry;
   const AppErrorWidget({
     super.key,
-    this.error,
     this.errorData,
     this.retry,
   });

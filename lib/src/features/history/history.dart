@@ -155,7 +155,6 @@ class _HistoryState extends ConsumerState<History> {
         },
         error: (error, trace) => Center(
           child: AppErrorWidget(
-            error: error,
             retry: SpecialButton2(
               text: 'Retry',
               onTap: () => ref.refresh(

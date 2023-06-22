@@ -108,8 +108,7 @@ class EmployeeTile extends StatelessWidget {
                             }
                           },
                           error: (error, trace) {
-                            return AppErrorWidget(
-                              error: error,
+                            return const AppErrorWidget(
                             );
                           },
                           loading: () => SizedBox(

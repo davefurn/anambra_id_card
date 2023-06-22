@@ -212,8 +212,8 @@ class _NotificationPState extends ConsumerState<NotificationP> {
             );
           }
         },
-        error: (error, trace) => Center(
-          child: AppErrorWidget(error: error),
+        error: (error, trace) => const Center(
+          child: AppErrorWidget(),
         ),
         loading: () => const Center(
           child: CircularProgressIndicator.adaptive(),
