@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/auth_decide/widgets/click_to_new_page.dart';
-import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
-import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/authentication/auth_decide/widgets/click_to_new_page.dart';
+import 'package:acmc/src/features/authentication/create_account/create_account.dart';
+import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
-import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
+import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

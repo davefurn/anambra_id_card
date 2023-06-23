@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:acmc/src/features/pagination/model.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:dio/dio.dart';
 

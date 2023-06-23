@@ -1,11 +1,11 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
-import 'package:acmc/src/features/pagination/model.dart';
-import 'package:acmc/src/features/pagination/provider.dart';
+
 import 'package:acmc/src/features/visitor_management/schedule_details.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
@@ -439,8 +439,8 @@ class _SearchResultState extends ConsumerState<SearchResult> {
                   );
                 }
               },
-              error: (error, trace) => Center(
-                child: AppErrorWidget(error: error),
+              error: (error, trace) => const Center(
+                child: AppErrorWidget(),
               ),
               loading: () => const Center(
                 child: CircularProgressIndicator.adaptive(),

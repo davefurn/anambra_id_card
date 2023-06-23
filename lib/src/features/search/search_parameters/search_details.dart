@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
-import 'package:acmc/src/features/search/search_parameters/views/virtual_id_card.dart';
+import 'package:acmc/src/features/search/search_parameters/virtual_id_card.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/widgets/data_testing.dart';
 import 'package:acmc/src/widgets/expansion_tile.dart';
 import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/qrcode_widget.dart';
@@ -12,11 +14,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
-import 'package:acmc/src/widgets/special_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
-
-import '../../../../router/app_routes.dart';
-import '../../../../widgets/data_testing.dart';
 
 class SearchDetails extends StatefulWidget {
   final SearchModel model;
@@ -32,75 +30,39 @@ class SearchDetails extends StatefulWidget {
 class _SearchDetailsState extends State<SearchDetails> {
   void openQRCode() async {
     showModalBottomSheet(
-        backgroundColor: Colors.transparent,
-        barrierColor: Colors.black.withOpacity(0.61),
-        context: globalContext,
-        builder: (_) {
-          return Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            decoration: const BoxDecoration(
-                color: IdColors.backgroundColour,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
-                )),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                25.sbH,
-                Center(
-                  child: QRCodeWidget(
-                    employeeId: widget.model.employeeId,
-                    height: 150.h,
-                    width: 150.h,
-                    onLoad: (p0) {},
-                  ),
-                ),
-                12.sbH,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          const snackBar = SnackBar(
-                            elevation: 0,
-                            backgroundColor: Colors.transparent,
-                            behavior: SnackBarBehavior.floating,
-                            content: SpecialButton(
-                              icon: Icons.download_done,
-                              iconColor: IdColors.green,
-                              text: 'Action successful',
-                              width: 180,
-                              height: 40,
-                              borderColor: IdColors.green,
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                          // Find the ScaffoldMessenger in the widget tree
-                          // and use it to show a SnackBar.
-                        },
-                        child: const SpecialButton(
-                          icon: Icons.refresh,
-                          text: 'Regenerate code',
-                          width: 157,
-                        )),
-                    SizedBox(
-                      width: 4.w,
-                    ),
-                    // const SpecialButton(
-                    //   icon: Icons.download,
-                    //   text: 'Download',
-                    // )
-                  ],
-                ),
-                120.sbH,
-              ],
+      backgroundColor: Colors.transparent,
+      barrierColor: Colors.black.withOpacity(0.61),
+      context: globalContext,
+      builder: (_) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          decoration: const BoxDecoration(
+            color: IdColors.backgroundColour,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20),
+              topLeft: Radius.circular(20),
             ),
-          );
-        });
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              80.sbH,
+              Center(
+                child: QRCodeWidget(
+                  employeeId: widget.model.employeeId,
+                  height: 150.h,
+                  width: 150.h,
+                  onLoad: (p0) {},
+                ),
+              ),
+              120.sbH,
+            ],
+          ),
+        );
+      },
+    );
   }
 
   @override

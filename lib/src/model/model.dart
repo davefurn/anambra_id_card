@@ -111,6 +111,8 @@ class GuestSearchModel {
   final String lastName;
   final String profilePicture;
   final bool isActive;
+  final Departments departments;
+  final Designation designation;
 
   GuestSearchModel({
     required this.userId,
@@ -119,16 +121,20 @@ class GuestSearchModel {
     required this.lastName,
     required this.profilePicture,
     required this.isActive,
+    required this.departments,
+    required this.designation,
   });
 
-  factory GuestSearchModel.fromJson(Map<String, dynamic> json) {
+  factory GuestSearchModel.fromJson(Map<String, dynamic> data) {
     return GuestSearchModel(
-      userId: json['user_id'],
-      employeeId: json['employee_id'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
-      profilePicture: json['profile_picture'],
-      isActive: json['is_active'] == 1,
+      userId: data['user_id'],
+      employeeId: data['employee_id'],
+      firstName: data['first_name'],
+      lastName: data['last_name'],
+      profilePicture: AppEndpoints.pictureUrl + data['profile_picture'],
+      isActive: data['is_active'] == 1,
+      designation: Designation.fromJson(data['designation']),
+      departments: Departments.fromJson(data['department']),
     );
   }
 }
@@ -162,8 +168,8 @@ class SearchModel {
   final String? emailResponse;
 
   final Departments? departments;
-  final MdaLocation? mdaLocation;
   final Designation? designation;
+  final MdaLocation? mdaLocation;
   final Government? government;
   SearchModel({
     required this.address,
@@ -199,6 +205,7 @@ class SearchModel {
   });
 
   static SearchModel fromJson(Map<String, dynamic> data) {
+    // print(data['searchingUserRole']);
     return SearchModel(
       address: data['address'],
       town: data['town'],
@@ -225,16 +232,16 @@ class SearchModel {
       middleName: data['middle_name'],
       isActive: data['is_active'],
       emailResponse: data['emailResponse'],
-      designation: ['higher'].contains(data['searchingUserRole'])
+      designation: ['higher', 'basic'].contains(data['searchingUserRole'])
           ? Designation.fromJson(data['designation'])
           : null,
-      government: ['higher'].contains(data['searchingUserRole'])
-          ? Government.fromJson(data['government'])
-          : null,
-      departments: ['higher'].contains(data['searchingUserRole'])
+      departments: ['higher', 'basic'].contains(data['searchingUserRole'])
           ? Departments.fromJson(data['departments'])
           : null,
-      mdaLocation: ['higher'].contains(data['searchingUserRole'])
+      government: ['higher', 'basic'].contains(data['searchingUserRole'])
+          ? Government.fromJson(data['government'])
+          : null,
+      mdaLocation: ['higher', 'basic'].contains(data['searchingUserRole'])
           ? MdaLocation.fromJson(data['mda_location'])
           : null,
       profilePicture: AppEndpoints.pictureUrl + data['profile_picture'],
@@ -278,15 +285,15 @@ class LoginSearchedList {
     required this.searchParams,
   });
 
-  factory LoginSearchedList.fromJson(Map<String, dynamic> json) {
+  factory LoginSearchedList.fromJson(Map<String, dynamic> data) {
     return LoginSearchedList(
-      id: json['id'],
-      employeeId: json['employee_id'],
-      identifierType: json['identifier_type'],
-      identifierValue: json['identifier_value'],
-      searchTime: DateTime.parse(json['search_time']),
-      status: json['status'],
-      searchParams: json['search_params'],
+      id: data['id'],
+      employeeId: data['employee_id'],
+      identifierType: data['identifier_type'],
+      identifierValue: data['identifier_value'],
+      searchTime: DateTime.parse(data['search_time']),
+      status: data['status'],
+      searchParams: data['search_params'],
     );
   }
 }
@@ -300,10 +307,10 @@ class EmployeeHistoryData {
     required this.userId,
   });
 
-  factory EmployeeHistoryData.fromJson(Map<String, dynamic> json) {
+  factory EmployeeHistoryData.fromJson(Map<String, dynamic> data) {
     return EmployeeHistoryData(
-      employeeId: json['employee_id'],
-      userId: json['user_id'],
+      employeeId: data['employee_id'],
+      userId: data['user_id'],
     );
   }
 }
@@ -331,21 +338,36 @@ class HistoryModel {
     required this.employeeData,
   });
 
-  factory HistoryModel.fromJson(Map<String, dynamic> json) {
+  factory HistoryModel.fromJson(Map<String, dynamic> data) {
     return HistoryModel(
-      id: json['id'],
-      employeeId: json['employee_id'],
-      identifierType: json['identifier_type'],
-      identifierValue: json['identifier_value'],
-      firstName: json['first_name'],
-      lastName: json['last_name'],
+      id: data['id'],
+      employeeId: data['employee_id'],
+      identifierType: data['identifier_type'],
+      identifierValue: data['identifier_value'],
+      firstName: data['first_name'],
+      lastName: data['last_name'],
       searchTime: DateTime(
-        DateTime.parse(json['search_time']).year,
-        DateTime.parse(json['search_time']).month,
-        DateTime.parse(json['search_time']).day,
+        DateTime.parse(data['search_time']).year,
+        DateTime.parse(data['search_time']).month,
+        DateTime.parse(data['search_time']).day,
       ),
-      status: json['status'],
-      employeeData: EmployeeHistoryData.fromJson(json['employee_data']),
+      status: data['status'],
+      employeeData: EmployeeHistoryData.fromJson(data['employee_data']),
     );
   }
+}
+
+class EmployeePaginationModel {
+  String word;
+  String identifier;
+  int page;
+  bool? asGuest;
+  late int total;
+  EmployeePaginationModel({
+    this.total = 100,
+    this.page = 1,
+    this.word = '',
+    this.asGuest,
+    this.identifier = '',
+  });
 }

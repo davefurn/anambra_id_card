@@ -18,17 +18,20 @@ import 'package:acmc/src/constants/end_points.dart';
 import 'package:acmc/src/features/all_employees/views/all_employees.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 import 'package:acmc/src/features/home/widgets/query_container.dart';
-import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
-import 'package:acmc/src/features/search_mda/view/view.dart';
+import 'package:acmc/src/features/search/search_parameters/search_details.dart';
+import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
+import 'package:acmc/src/features/search_mda/view.dart';
 import 'package:acmc/src/features/statistics/views/view.dart';
 import 'package:acmc/src/features/visitor_management/view.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/extension/string_extension.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:acmc/src/widgets/image_loader.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +39,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../search/qr_scanner/views/results.dart';
+import '../../search/qr_scanner/results.dart';
 
 class Home extends ConsumerStatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -114,10 +117,60 @@ class _HomeState extends ConsumerState<Home> {
         name = '${value.userData.lastName} ${value.userData.firstName}';
         department = value.department;
         designation = value.designation;
-        // accessLevel = value.userData.role.toAccessLevel();
-        accessLevel = AccessLevel.demo;
+        accessLevel = value.userData.role.toAccessLevel();
+        // accessLevel = AccessLevel.demo;
       });
       setState(() {});
+    });
+  }
+
+  void recentSearchTap(int id) {
+    showDialog<SearchModel?>(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          child: SizedBox(
+            height: 100.h,
+            child: Consumer(
+              builder: (context, ref, child) {
+                var data = ref.watch(revisitProvider(id));
+                return data.when(
+                  data: (value) {
+                    if (value?.statusCode == 200 &&
+                        value != null &&
+                        value.data != null) {
+                      Map<String, dynamic> convertedMap = {};
+                      value.data.forEach((key, value) {
+                        convertedMap[key] = value;
+                      });
+                      var newP = SearchModel.fromJson(convertedMap);
+                      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                        Navigator.of(context).pop(newP);
+                      });
+                      return const SizedBox.shrink();
+                    } else {
+                      return AppErrorWidget(
+                        errorData: value?.data,
+                      );
+                    }
+                  },
+                  error: (error, trace) {
+                    return const AppErrorWidget();
+                  },
+                  loading: () => SizedBox(
+                    height: 40.h,
+                    child: const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      },
+    ).then((value) {
+      if (value != null) pushTo(context, SearchDetails(model: value));
     });
   }
 
@@ -331,11 +384,22 @@ class _HomeState extends ConsumerState<Home> {
                   SizedBox(
                     height: 90.h,
                     child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: searches.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            width: 153.w,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: searches.length,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            if (searches[index].status == 'Exception') {
+                              ShowFlushBar.showError(
+                                context: context,
+                                error: 'Search result failed',
+                              );
+                            } else {
+                              recentSearchTap(searches[index].id);
+                            }
+                          },
+                          child: Container(
+                            width: 155.w,
                             decoration: BoxDecoration(
                               color: IdColors.mainGrey,
                               borderRadius: BorderRadius.circular(8),
@@ -387,28 +451,32 @@ class _HomeState extends ConsumerState<Home> {
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    Text(
-                                      searches[index].status,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                            fontWeight: FontWeight.w500,
-                                            fontSize: 14,
-                                            color: searches[index].status ==
-                                                    'Success'
-                                                ? IdColors.green
-                                                : Colors.red,
-                                          ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                                    Expanded(
+                                      child: Text(
+                                        searches[index].status,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 14,
+                                              color: searches[index].status ==
+                                                      'Success'
+                                                  ? IdColors.green
+                                                  : Colors.red,
+                                            ),
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
                                     ),
                                   ],
                                 ),
                               ],
                             ),
-                          );
-                        }),
+                          ),
+                        );
+                      },
+                    ),
                   ),
                   SizedBox(
                     height: 26.h,
@@ -416,7 +484,6 @@ class _HomeState extends ConsumerState<Home> {
                 ],
               ),
             /////////
-
             if (1 == 4 &&
                 [
                   AccessLevel.admin,

@@ -1,4 +1,4 @@
-import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:acmc/src/features/onboarding/views/onboard.dart';
 import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/theme/theme.dart';
@@ -40,25 +40,24 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return KeyboardDismisser(
-      gestures: const [
-        GestureType.onTap,
-        GestureType.onVerticalDragDown,
-      ],
-      child: ScreenUtilInit(
-        designSize: const Size(375, 812),
-        builder: (context, _) {
-          return MaterialApp(
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, _) {
+        return KeyboardDismisser(
+          gestures: const [
+            GestureType.onTap,
+            GestureType.onVerticalDragStart,
+          ],
+          child: MaterialApp(
             title: 'ANSG IDM',
             debugShowCheckedModeBanner: false,
-            
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,
             theme: IdTheme.lightTheme,
             home: widget.firstTime ? const Onboard() : const Login(),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
