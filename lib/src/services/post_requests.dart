@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:acmc/src/features/authentication/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/create_account/otp_screen.dart';
@@ -139,7 +138,6 @@ class PostRequest {
             late String message;
             try {
               message = '${value.data["message"]}';
-              log('CRITICAL LOG');
             } catch (_) {
               message = 'Something went wrong';
             }
