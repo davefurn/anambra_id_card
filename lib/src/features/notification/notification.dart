@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/features/pagination/model.dart';
-import 'package:acmc/src/features/pagination/provider.dart';
+
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/error_widget.dart';
@@ -24,7 +24,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../constants/colors.dart';
+import '../../constants/colors.dart';
 
 class NotificationP extends ConsumerStatefulWidget {
   const NotificationP({Key? key}) : super(key: key);

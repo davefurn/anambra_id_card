@@ -14,12 +14,11 @@
 
 import 'package:acmc/src/constants/colors.dart';
 
-import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../widgets/special_button_2.dart';
 
 class SuccessPassword extends StatelessWidget {
   const SuccessPassword({Key? key}) : super(key: key);

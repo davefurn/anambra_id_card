@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
-import '../../authentication/views/auth_decide/auth.dart';
+import '../../authentication/auth_decide/auth.dart';
 
 class Onboard extends StatelessWidget {
   const Onboard({Key? key}) : super(key: key);

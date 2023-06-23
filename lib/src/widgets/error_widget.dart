@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppErrorWidget extends StatefulWidget {
-  final Map? errorData;
+  final dynamic errorData;
   final Widget? retry;
   const AppErrorWidget({
     super.key,
@@ -14,7 +14,7 @@ class AppErrorWidget extends StatefulWidget {
 }
 
 class _AppErrorWidgetState extends State<AppErrorWidget> {
-  String? error;
+  String error = 'Something went wrong';
   @override
   void initState() {
     super.initState();
@@ -36,10 +36,7 @@ class _AppErrorWidgetState extends State<AppErrorWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      children: [
-        if (widget.errorData != null) Text(error ?? "Something went wrong"),
-        if (widget.retry != null) widget.retry!
-      ],
+      children: [Text(error), if (widget.retry != null) widget.retry!],
     );
   }
 }

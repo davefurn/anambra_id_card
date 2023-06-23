@@ -15,6 +15,7 @@
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/functions.dart';
+import 'package:acmc/src/services/local_storage.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
@@ -40,6 +41,8 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
   late ScreenshotController frontController;
   late ScreenshotController backController;
 
+  String staffId = '';
+
   void downLoadCard(int id) async {
     var path = await GlobalFunctions.downloadPath();
     var fileName = '${widget.model.lastName}${widget.model.firstName}$id.png';
@@ -55,7 +58,7 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
       }
       // ignore: use_build_context_synchronously
       ShowFlushBar.showSuccess(
-          context: context, message: 'Downloaded to ${p.basename(path)}');
+          context: context, message: 'Downloaded to ${p.basename(path)} folder');
     } else {
       // ignore: use_build_context_synchronously
       ShowFlushBar.showError(context: context, error: 'Cannot download card');
@@ -67,6 +70,12 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
     super.initState();
     frontController = ScreenshotController();
     backController = ScreenshotController();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      LocalStorage.instance.getStaffId().then((value) {
+        staffId = value;
+        setState(() {});
+      });
+    });
   }
 
   @override
@@ -84,23 +93,24 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
       body: Column(
         children: [
           37.sbH,
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.only(right: 20.h),
-              child: InkWell(
-                onTap: () => downLoadCard(1),
-                child: const SpecialButton2(
-                  icon: Icon(
-                    Icons.download,
-                    size: 15,
+          if (staffId == widget.model.employeeId)
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: 20.h),
+                child: InkWell(
+                  onTap: () => downLoadCard(1),
+                  child: const SpecialButton2(
+                    icon: Icon(
+                      Icons.download,
+                      size: 15,
+                    ),
+                    text: 'Download Front',
+                    backgroundColor: Colors.transparent,
                   ),
-                  text: 'Download Front',
-                  backgroundColor: Colors.transparent,
                 ),
               ),
             ),
-          ),
           12.sbH,
           Screenshot(
             controller: frontController,
@@ -110,23 +120,24 @@ class _VirtualIDCardState extends State<VirtualIDCard> {
             ),
           ),
           37.sbH,
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: EdgeInsets.only(right: 20.h),
-              child: InkWell(
-                onTap: () => downLoadCard(2),
-                child: const SpecialButton2(
-                  icon: Icon(
-                    Icons.download,
-                    size: 15,
+          if (staffId == widget.model.employeeId)
+            Align(
+              alignment: Alignment.topRight,
+              child: Padding(
+                padding: EdgeInsets.only(right: 20.h),
+                child: InkWell(
+                  onTap: () => downLoadCard(2),
+                  child: const SpecialButton2(
+                    icon: Icon(
+                      Icons.download,
+                      size: 15,
+                    ),
+                    text: 'Download Back',
+                    backgroundColor: Colors.transparent,
                   ),
-                  text: 'Download Back',
-                  backgroundColor: Colors.transparent,
                 ),
               ),
             ),
-          ),
           12.sbH,
           Screenshot(
             controller: backController,

@@ -14,18 +14,18 @@
 
 import 'package:acmc/src/constants/colors.dart';
 
-import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/title_widget.dart';
-import 'package:acmc/src/features/authentication/views/login/login.dart';
-import 'package:acmc/src/features/search/search_parameters/views/search_parameters.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/title_widget.dart';
+import 'package:acmc/src/features/authentication/login/login.dart';
+import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../router/app_routes.dart';
-import '../../../../widgets/special_button_2.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class CreateAccount extends StatefulWidget {

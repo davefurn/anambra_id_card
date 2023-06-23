@@ -15,7 +15,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../features/authentication/views/create_account/widget/title_widget.dart';
+import '../features/authentication/create_account/widget/title_widget.dart';
 import '../router/app_routes.dart';
 
 class TitleWithBackButton extends StatelessWidget {

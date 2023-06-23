@@ -12,9 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:acmc/src/features/pagination/model.dart';
-import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/widgets/card.dart';
 import 'package:acmc/src/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +69,6 @@ class _SearchingState extends ConsumerState<Searching> {
             val.data.forEach((key, value) {
               convertedMap[key] = value;
             });
-
             SearchModel? newP;
             GuestSearchModel? guest;
             if (paginationModel.asGuest == true) {

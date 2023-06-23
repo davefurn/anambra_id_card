@@ -16,11 +16,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/login/login.dart';
+import 'package:acmc/src/features/authentication/login/login.dart';
 
 import 'package:acmc/src/features/history/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
-import 'package:acmc/src/features/notification/views/notification.dart';
+import 'package:acmc/src/features/notification/notification.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

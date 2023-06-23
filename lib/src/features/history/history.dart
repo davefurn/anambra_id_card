@@ -14,9 +14,8 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/all_employees/widget/employee_tile.dart';
-import 'package:acmc/src/features/pagination/model.dart';
-import 'package:acmc/src/features/pagination/provider.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/error_widget.dart';

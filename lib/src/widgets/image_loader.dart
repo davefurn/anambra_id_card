@@ -1,4 +1,5 @@
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/constants/end_points.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,10 +37,21 @@ class ImageLoader extends StatefulWidget {
 
 class _ImageLoaderState extends State<ImageLoader>
     with AutomaticKeepAliveClientMixin {
+  late String image;
+  @override
+  void initState() {
+    super.initState();
+    if (!widget.image.contains('https')) {
+      image = AppEndpoints.pictureUrl + widget.image;
+    } else {
+      image = widget.image;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return widget.image.split('/').last.isEmpty
+    return image.split('/').last.isEmpty
         ? Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8.r),
@@ -51,7 +63,7 @@ class _ImageLoaderState extends State<ImageLoader>
             ),
           )
         : ExtendedImage.network(
-            widget.image,
+            image,
             fit: BoxFit.fill,
             width: widget.width,
             height: widget.height,
@@ -87,7 +99,7 @@ class _ImageLoaderState extends State<ImageLoader>
                                   backgroundColor:
                                       Theme.of(context).scaffoldBackgroundColor,
                                   child: ImageLoader(
-                                    image: widget.image,
+                                    image: image,
                                     radius: 0,
                                     tap: false,
                                   ),

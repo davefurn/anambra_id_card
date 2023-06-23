@@ -13,17 +13,16 @@
 // limitations under the License.
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
-import 'package:acmc/src/features/search/search_parameters/views/searching.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
+import 'package:acmc/src/features/search/search_parameters/searching.dart';
 import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/search_parameter_widget.dart';
-import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../router/app_routes.dart';
-import '../../../onboarding/widgets/custom_button.dart';
 
 class SearchParameters extends StatefulWidget {
   final bool? asGuest;
@@ -193,16 +192,4 @@ class _SearchParametersState extends State<SearchParameters> {
       ),
     );
   }
-
-  Widget buildDatePicker() => SizedBox(
-        height: 180.h,
-        child: CupertinoDatePicker(
-          minimumYear: 1900,
-          maximumYear: DateTime.now().year,
-          initialDateTime: dateTime,
-          mode: CupertinoDatePickerMode.date,
-          onDateTimeChanged: (dateTime) =>
-              setState(() => this.dateTime = dateTime),
-        ),
-      );
 }

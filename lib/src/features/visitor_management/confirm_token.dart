@@ -1,5 +1,5 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/home/widgets/query_container.dart';
 import 'package:acmc/src/features/visitor_management/confirm_token_details.dart';
 import 'package:acmc/src/model/enums.dart';

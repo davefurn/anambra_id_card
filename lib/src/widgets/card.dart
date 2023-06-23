@@ -23,7 +23,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../constants/colors.dart';
-import '../features/search/search_parameters/views/search_details.dart';
+import '../features/search/search_parameters/search_details.dart';
 import '../router/app_routes.dart';
 import 'qrcode_widget.dart';
 
@@ -88,31 +88,31 @@ class _CardsState extends State<Cards> {
                       Image.asset(
                         'assets/images/anambra.png',
                       ),
-                      if (widget.model != null)
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: 'MDA: ',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 14.sp,
-                                  color: IdColors.textColorBlack,
-                                ),
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'MDA: ',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14.sp,
+                                color: IdColors.textColorBlack,
                               ),
-                              TextSpan(
-                                text:
-                                    widget.model!.departments?.departmentName ??
-                                        '****',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 14.sp,
-                                  color: IdColors.textColorBlack,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            TextSpan(
+                              text: widget.model != null
+                                  ? widget.model!.departments?.departmentName ??
+                                      '****'
+                                  : widget.guest!.departments.departmentName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 14.sp,
+                                color: IdColors.textColorBlack,
+                              ),
+                            )
+                          ],
                         ),
+                      ),
                     ],
                   ),
                 ),
@@ -163,7 +163,7 @@ class _CardsState extends State<Cards> {
                   child: Text(
                     widget.model != null
                         ? widget.model!.designation?.designationName ?? '****'
-                        : '****',
+                        : widget.guest!.designation.designationName,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,

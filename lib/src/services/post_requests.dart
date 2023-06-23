@@ -1,10 +1,10 @@
 import 'dart:developer';
 
-import 'package:acmc/src/features/authentication/views/create_account/create_account.dart';
-import 'package:acmc/src/features/authentication/views/create_account/otp_screen.dart';
-import 'package:acmc/src/features/authentication/views/create_account/password.dart';
+import 'package:acmc/src/features/authentication/create_account/create_account.dart';
+import 'package:acmc/src/features/authentication/create_account/otp_screen.dart';
+import 'package:acmc/src/features/authentication/create_account/password.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
-import 'package:acmc/src/features/pagination/model.dart';
+
 import 'package:acmc/src/model/auth_model.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/riverpod/providers.dart';
@@ -200,15 +200,19 @@ class PostRequest {
     if (pagination.asGuest == true) {
       path = '/guest-search';
     }
-    var token = (await LocalStorage.instance.getToken())!;
-    var staffId = (await LocalStorage.instance.getStaffId());
-    // token =
-    //     '''eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2lkbS5hbmFtYnJhc3RhdGUuZ292Lm5nL2FwaS9hdXRoL2xvZ2luIiwiaWF0IjoxNjg1NTUxNDg2LCJleHAiOjE2ODU1NTUwODYsIm5iZiI6MTY4NTU1MTQ4NiwianRpIjoiY3BoY3VTNE9xN1RhSVJnMyIsInN1YiI6IjIwMDYzNzI1IiwicHJ2IjoiZjY0ZDQ4YTZjZWM3YmRmYTdmYmY4OTk0NTRiNDg4YjNlNDYyNTIwYSJ9.fBwB3kVVuLpIaXOGcH3Nq8yw7Cko2bLwHjqZuPXCBkY''';
-
+    var token = '';
+    var staffId = '';
+    if (pagination.asGuest != true) {
+      token = (await LocalStorage.instance.getToken())!;
+    }
+    if (pagination.asGuest != true) {
+      staffId = (await LocalStorage.instance.getStaffId());
+    }
     var data = {
       "identifier": pagination.identifier,
       "value": pagination.word,
     };
+    // print('object');
     if (pagination.asGuest == true) {
       data.addAll({"user_type": "Guest"});
     } else {
@@ -217,9 +221,11 @@ class PostRequest {
     return await network.postRequestHandler(
       path,
       data,
-      options: Options(
-        headers: {'Authorization': 'Bearer $token'},
-      ),
+      options: (pagination.asGuest == true)
+          ? null
+          : Options(
+              headers: {'Authorization': 'Bearer $token'},
+            ),
     );
   }
 }

@@ -65,7 +65,7 @@ class _ProfileState extends State<Profile> {
     file.copySync(a.path);
     // ignore: use_build_context_synchronously
     ShowFlushBar.showSuccess(
-        context: context, message: 'Downloaded to ${p.basename(path)}');
+        context: context, message: 'Downloaded to ${p.basename(path)} folder');
   }
 
   Future<void> downloadQRCode({bool share = false}) async {
@@ -78,7 +78,8 @@ class _ProfileState extends State<Profile> {
       if (!share) {
         // ignore: use_build_context_synchronously
         ShowFlushBar.showSuccess(
-            context: context, message: 'Downloaded to ${p.basename(path)}');
+            context: context,
+            message: 'Downloaded to ${p.basename(path)} folder');
       } else {
         Share.shareXFiles([XFile(a!)]);
       }

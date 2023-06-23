@@ -14,7 +14,7 @@
 
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:acmc/src/features/authentication/views/create_account/widget/custom_text_input.dart';
+import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/put_request.dart';

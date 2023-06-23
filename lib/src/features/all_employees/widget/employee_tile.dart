@@ -1,7 +1,7 @@
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/features/pagination/provider.dart';
-import 'package:acmc/src/features/search/search_parameters/views/search_details.dart';
+import 'package:acmc/src/features/search/search_parameters/search_details.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/error_widget.dart';
@@ -82,42 +82,41 @@ class EmployeeTile extends StatelessWidget {
               showDialog<SearchModel?>(
                 context: context,
                 builder: (context) {
-                  return Dialog(
-                    child: Consumer(
-                      builder: (context, ref, child) {
-                        var data = ref.watch(revisitProvider(historyModel!.id));
-                        return data.when(
-                          data: (value) {
-                            if (value?.statusCode == 200 &&
-                                value != null &&
-                                value.data != null) {
-                              Map<String, dynamic> convertedMap = {};
-                              value.data.forEach((key, value) {
-                                convertedMap[key] = value;
-                              });
-                              var newP = SearchModel.fromJson(convertedMap);
-                              WidgetsBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop(newP);
-                              });
-                              return const SizedBox.shrink();
-                            } else {
-                              return AppErrorWidget(
-                                errorData: value?.data,
-                              );
-                            }
-                          },
-                          error: (error, trace) {
-                            return const AppErrorWidget(
+                  return Consumer(
+                    builder: (context, ref, child) {
+                      var data = ref.watch(revisitProvider(historyModel!.id));
+                      return data.when(
+                        data: (value) {
+                          if (value?.statusCode == 200 &&
+                              value != null &&
+                              value.data != null) {
+                            Map<String, dynamic> convertedMap = {};
+                            value.data.forEach((key, value) {
+                              convertedMap[key] = value;
+                            });
+                            var newP = SearchModel.fromJson(convertedMap);
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              Navigator.of(context).pop(newP);
+                            });
+                            return const SizedBox.shrink();
+                          } else {
+                            return AppErrorWidget(
+                              errorData: value?.data,
                             );
-                          },
-                          loading: () => SizedBox(
-                            height: 40.h,
-                            child: const CircularProgressIndicator.adaptive(),
+                          }
+                        },
+                        error: (error, trace) {
+                          return const AppErrorWidget();
+                        },
+                        loading: () => SizedBox(
+                          height: 40.h,
+                          child: const Center(
+                            child: CircularProgressIndicator.adaptive(),
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   );
                 },
               ).then((value) {
