@@ -1,3 +1,4 @@
+import 'package:acmc/src/constants/consts.dart';
 import 'package:acmc/src/constants/end_points.dart';
 
 class EmployeeListModel {
@@ -232,16 +233,16 @@ class SearchModel {
       middleName: data['middle_name'],
       isActive: data['is_active'],
       emailResponse: data['emailResponse'],
-      designation: ['higher', 'basic'].contains(data['searchingUserRole'])
+      designation: AppConstants.role.contains(data['searchingUserRole'])
           ? Designation.fromJson(data['designation'])
           : null,
-      departments: ['higher', 'basic'].contains(data['searchingUserRole'])
+      departments: AppConstants.role.contains(data['searchingUserRole'])
           ? Departments.fromJson(data['departments'])
           : null,
-      government: ['higher', 'basic'].contains(data['searchingUserRole'])
+      government: AppConstants.role.contains(data['searchingUserRole'])
           ? Government.fromJson(data['government'])
           : null,
-      mdaLocation: ['higher', 'basic'].contains(data['searchingUserRole'])
+      mdaLocation: AppConstants.role.contains(data['searchingUserRole'])
           ? MdaLocation.fromJson(data['mda_location'])
           : null,
       profilePicture: AppEndpoints.pictureUrl + data['profile_picture'],
