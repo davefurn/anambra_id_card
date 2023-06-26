@@ -64,7 +64,7 @@ class _QRCodeWidgetState extends State<QRCodeWidget> {
               margin: EdgeInsets.symmetric(horizontal: 64.w),
               child: Image.memory(
                 base64Decode(base64),
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             );
           } else {

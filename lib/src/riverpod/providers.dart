@@ -1,7 +1,11 @@
+import 'package:acmc/src/constants/consts.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final activityCount = StateProvider(
+    (ref) => Duration(seconds: AppConstants.logoutTime).inSeconds);
 
 final fetchEmployeeProvider =
     FutureProvider.autoDispose((ref) => GetRequest.fetchEmployees());

@@ -212,7 +212,7 @@ class SearchModel {
       town: data['town'],
       city: data['city'],
       state: data['state'],
-      searchingUserRole: data['searchingUserRole'],
+      searchingUserRole: data['searchingUserRole'] ?? 'personal',
       contactNo: data['contact_no'],
       verificationId: data['verification_id'],
       basicSalary: data['basic_salary'],
@@ -226,25 +226,29 @@ class SearchModel {
       gender: data['gender'],
       email: data['email'],
       dateOfBirth: data['date_of_birth'],
-      id: data['id'],
+      id: data['id'].toString(),
       employeeId: data['employee_id'],
       firstName: data['first_name'],
       lastName: data['last_name'],
       middleName: data['middle_name'],
       isActive: data['is_active'],
       emailResponse: data['emailResponse'],
-      designation: AppConstants.role.contains(data['searchingUserRole'])
-          ? Designation.fromJson(data['designation'])
-          : null,
-      departments: AppConstants.role.contains(data['searchingUserRole'])
-          ? Departments.fromJson(data['departments'])
-          : null,
-      government: AppConstants.role.contains(data['searchingUserRole'])
-          ? Government.fromJson(data['government'])
-          : null,
-      mdaLocation: AppConstants.role.contains(data['searchingUserRole'])
-          ? MdaLocation.fromJson(data['mda_location'])
-          : null,
+      designation:
+          AppConstants.role.contains(data['searchingUserRole'] ?? 'personal')
+              ? Designation.fromJson(data['designation'])
+              : null,
+      departments:
+          AppConstants.role.contains(data['searchingUserRole'] ?? 'personal')
+              ? Departments.fromJson(data['departments'])
+              : null,
+      government:
+          AppConstants.role.contains(data['searchingUserRole'] ?? 'personal')
+              ? Government.fromJson(data['government'])
+              : null,
+      mdaLocation:
+          AppConstants.role.contains(data['searchingUserRole'] ?? 'personal')
+              ? MdaLocation.fromJson(data['mda_location'])
+              : null,
       profilePicture: AppEndpoints.pictureUrl + data['profile_picture'],
     );
   }

@@ -15,6 +15,7 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/create_account/create_account.dart';
 import 'package:acmc/src/model/auth_model.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/widgets/animation_screen.dart';
 import 'package:acmc/src/widgets/data_testing.dart';
@@ -153,7 +154,11 @@ class _VerifyDetailsState extends State<VerifyDetails> {
                               Navigator.pushReplacement(
                                 context,
                                 CustomRoutes.fadeIn(
-                                    const AnimationScreen(isLogin: true)),
+                                  const AnimationScreen(
+                                    isLogin: true,
+                                    loadingOption: LoadingOption.otp,
+                                  ),
+                                ),
                               );
                             },
                             child: SpecialButton2(

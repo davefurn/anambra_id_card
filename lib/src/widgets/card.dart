@@ -102,7 +102,7 @@ class _CardsState extends State<Cards> {
                             TextSpan(
                               text: widget.model != null
                                   ? widget.model!.departments?.departmentName ??
-                                      '****'
+                                      '****s'
                                   : widget.guest!.departments.departmentName,
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
