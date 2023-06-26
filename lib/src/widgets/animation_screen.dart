@@ -1,3 +1,5 @@
+import 'package:acmc/src/model/enums.dart';
+import 'package:acmc/src/services/get_requests.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +8,12 @@ import 'package:lottie/lottie.dart';
 
 class AnimationScreen extends ConsumerStatefulWidget {
   final bool isLogin;
-  const AnimationScreen({Key? key, this.isLogin = false}) : super(key: key);
+  final LoadingOption loadingOption;
+  const AnimationScreen({
+    Key? key,
+    this.isLogin = false,
+    required this.loadingOption,
+  }) : super(key: key);
 
   @override
   ConsumerState<AnimationScreen> createState() => _AnimationScreenState();
@@ -26,13 +33,28 @@ class _AnimationScreenState extends ConsumerState<AnimationScreen>
     );
     _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
     _controller.repeat();
-    goToVerify();
+    switch (widget.loadingOption) {
+      case LoadingOption.otp:
+        goToVerify();
+        break;
+      case LoadingOption.profile:
+        fetchProfile();
+        break;
+      default:
+    }
   }
 
   Future<void> goToVerify() async {
     await PostRequest.fetchBearerToken(
       context,
       login: widget.isLogin,
+      ref: ref,
+    );
+  }
+
+  Future<void> fetchProfile() async {
+    await GetRequest.fetchUserProfile(
+      context,
       ref: ref,
     );
   }

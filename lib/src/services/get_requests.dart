@@ -1,7 +1,12 @@
 import 'dart:math';
 
+import 'package:acmc/src/features/search/search_parameters/search_details.dart';
 import 'package:acmc/src/model/model.dart';
+import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/services/flush.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'local_storage.dart';
 import 'network.dart';
@@ -56,5 +61,56 @@ class GetRequest {
     var token = (await LocalStorage.instance.getToken())!;
     return await network.getRequestHandler(path,
         options: Options(headers: {'Authorization': 'Bearer $token'}));
+  }
+
+  static Future<void> fetchUserProfile(
+    BuildContext context, {
+    required WidgetRef ref,
+  }) async {
+    const path = '/user-profile';
+    var token = (await LocalStorage.instance.getToken())!;
+
+    await network
+        .getRequestHandler(path,
+            options: Options(headers: {'Authorization': 'Bearer $token'}))
+        .then(
+      (value) async {
+        if (value != null) {
+          if (value.statusCode == 200) {
+            SearchModel search = SearchModel.fromJson(value.data);
+            pushReplacementTo(
+              context,
+              SearchDetails(
+                model: search,
+                fromProfile: true,
+              ),
+            );
+          } else {
+            late String message;
+            try {
+              message = '${value.data["message"]}';
+            } catch (_) {
+              message = 'Something went wrong';
+            }
+            ShowFlushBar.showError(
+              error: message,
+              context: context,
+            ).whenComplete(() {
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            });
+          }
+        } else {
+          ShowFlushBar.showError(
+            context: context,
+          ).whenComplete(() {
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
+          });
+        }
+      },
+    );
   }
 }

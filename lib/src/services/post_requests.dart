@@ -1,10 +1,10 @@
-
 import 'package:acmc/src/features/authentication/create_account/create_account.dart';
 import 'package:acmc/src/features/authentication/create_account/otp_screen.dart';
 import 'package:acmc/src/features/authentication/create_account/password.dart';
 import 'package:acmc/src/features/home/views/bottom_nav.dart';
 
 import 'package:acmc/src/model/auth_model.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/router/app_routes.dart';
@@ -34,7 +34,11 @@ class PostRequest {
               message: value.data["user_message"],
               context: context,
               duration: const Duration(milliseconds: 700),
-            ).then((value) => pushTo(context, const AnimationScreen()));
+            ).then((value) => pushTo(
+                context,
+                const AnimationScreen(
+                  loadingOption: LoadingOption.otp,
+                )));
           } else {
             ShowFlushBar.showError(
               error: '${value.data["message"]}',

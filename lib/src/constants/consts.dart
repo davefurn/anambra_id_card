@@ -9,5 +9,8 @@ class AppConstants {
     // Basic
     'basic',
     'security',
+    'personal'
   ];
+
+  static int logoutTime = 5;
 }

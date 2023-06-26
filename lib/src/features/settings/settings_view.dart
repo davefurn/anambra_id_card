@@ -17,16 +17,17 @@ import 'dart:io';
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:acmc/src/features/settings/change_password.dart';
+import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
+import 'package:acmc/src/widgets/animation_screen.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import '../../router/app_routes.dart';
-import '../profile/profile.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Displays the various settings that can be customized by the user.
@@ -56,7 +57,11 @@ class SettingsView extends ConsumerWidget {
         scrollDirection: Axis.vertical,
         children: [
           ListTile(
-            onTap: () => pushTo(context, const Profile()),
+            onTap: () => pushTo(
+                context,
+                const AnimationScreen(
+                  loadingOption: LoadingOption.profile,
+                )),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
