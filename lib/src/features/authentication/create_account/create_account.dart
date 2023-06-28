@@ -17,7 +17,6 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
-import 'package:acmc/src/features/privacy_policy/privacy.dart';
 import 'package:acmc/src/features/privacy_policy/terms.dart';
 import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
 import 'package:acmc/src/model/enums.dart';
@@ -30,6 +29,7 @@ import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -186,9 +186,9 @@ class _CreateAccountState extends State<CreateAccount> {
                                 fontWeight: FontWeight.bold,
                               ),
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () => pushTo(
-                                      context,
-                                      const PrivacyPolicy(),
+                                ..onTap = () => launchUrl(
+                                      Uri.parse(
+                                          'https://ict.anambrastate.gov.ng/e-id-policy/'),
                                     ),
                             ),
                           ],
