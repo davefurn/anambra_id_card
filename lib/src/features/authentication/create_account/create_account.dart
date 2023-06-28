@@ -17,15 +17,19 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
+import 'package:acmc/src/features/privacy_policy/terms.dart';
 import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
+import 'package:acmc/src/services/flush.dart';
 import 'package:acmc/src/services/post_requests.dart';
 import 'package:acmc/src/widgets/loading_button.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class CreateAccount extends StatefulWidget {
@@ -40,6 +44,7 @@ class _CreateAccountState extends State<CreateAccount> {
   String initialCountry = 'NG';
   var state = LoadingState.normal;
   bool submitted = false;
+  bool? checkBox = false;
 
   late TextEditingController emailController;
   late TextEditingController phoneNumberController;
@@ -133,12 +138,79 @@ class _CreateAccountState extends State<CreateAccount> {
               SizedBox(
                 height: 24.h,
               ),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 10.w,
+                  right: 10.w,
+                ),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: checkBox,
+                      checkColor: IdColors.textColorBlack,
+                      activeColor: IdColors.mainColor,
+                      onChanged: (value) => setState(() => checkBox = value),
+                    ),
+                    Expanded(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'I agree to the ',
+                              style: TextStyle(
+                                color: IdColors.textColorBlack,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Terms & Conditions ',
+                              style: const TextStyle(
+                                color: IdColors.mainColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => pushTo(
+                                      context,
+                                      const TermsAndCondition(),
+                                    ),
+                            ),
+                            const TextSpan(
+                              text: 'and ',
+                              style: TextStyle(
+                                color: IdColors.textColorBlack,
+                              ),
+                            ),
+                            TextSpan(
+                              text: 'Privacy Policy',
+                              style: const TextStyle(
+                                color: IdColors.mainColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () => launchUrl(
+                                      Uri.parse(
+                                          'https://ict.anambrastate.gov.ng/e-id-policy/'),
+                                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
               LoadingButton(
                 state: state,
                 onTap: () {
                   setState(() => submitted = true);
                   if (_formKey.currentState!.validate()) {
-                    register();
+                    if (checkBox != true) {
+                      ShowFlushBar.showError(
+                        context: context,
+                        error: 'Please accept the application terms',
+                      );
+                    } else {
+                      register();
+                    }
                   }
                 },
                 text: 'Next',

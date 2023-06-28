@@ -1,0 +1,39 @@
+Terms and Conditions
+These Terms and Conditions ("Terms") govern your use of the ANSG E-ID Card App (referred to as "the App") and its associated services. The App is owned by the Anambra State Government and managed by the Anambra State ICT Agency. By accessing or using the App, you agree to be bound by these Terms. If you do not agree with any part of these Terms, please refrain from using the App.
+
+	0.	App Usage
+1.1 Eligibility: 
+1.1.1 You must be at least 18 years old or have the legal authority to enter into a binding agreement to use the App. 
+1.1.2 By using the App, you represent and warrant that you meet the eligibility criteria.
+1.2 User Accounts: 
+1.2.1 To access certain features or services of the App, you may need to create a user account. 
+1.2.2 You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. 
+1.2.3 You agree to provide accurate and up-to-date information during the registration process. 
+1.2.4 If you suspect any unauthorized use of your account, you must notify us immediately.
+1.3 Prohibited Activities: 
+1.3.1 You agree not to engage in any activities that violate applicable laws, regulations, or these Terms. 
+1.3.2 Prohibited activities include, but are not limited to: unauthorized access to the App, distribution of malware, spamming, data scraping, and any actions that may disrupt or interfere with the App's functionality.
+
+	0.	Intellectual Property
+2.1 Ownership: 
+2.1.1 The App and all its content, including but not limited to text, graphics, logos, images, videos, and software, are owned by the Anambra State Government or its licensors and are protected by intellectual property laws. 
+2.1.2 You may not reproduce, modify, distribute, or exploit any part of the App without prior written permission from the Anambra State Government.
+2.2 User Content: 
+2.2.1 By submitting any content, including but not limited to text, images, or videos, to the App, you grant the Anambra State Government a non-exclusive, royalty-free, worldwide license to use, reproduce, modify, distribute, and display the content for the purpose of operating and improving the App.
+
+	0.	Limitation of Liability
+3.1 Disclaimer of Warranties: 
+3.1.1 The App and its content are provided on an "as is" and "as available" basis. 
+3.1.2 We do not warrant that the App will be uninterrupted, error-free, or free from viruses or other harmful components. 
+3.1.3 We disclaim all warranties, whether express, implied, or statutory, including but not limited to warranties of merchantability, fitness for a particular purpose, and non-infringement.
+3.2 Limitation of Liability: 
+3.2.1 To the extent permitted by law, the Anambra State Government, the Anambra State ICT Agency, and their officers, directors, employees, and affiliates shall not be liable for any direct, indirect, incidental, special, or consequential damages arising out of or in connection with your use of the App or its content.
+
+	0.	Governing Law and Jurisdiction
+4.1 These Terms shall be governed by and construed in accordance with the laws of Nigeria and the Anambra State Government. 
+4.2 Any disputes arising out of or relating to these Terms or the App shall be subject to the exclusive jurisdiction of the courts located in Nigeria.
+
+	0.	Modifications to the Terms
+5.1 The Anambra State Government and the Anambra State ICT Agency reserve the right to modify or revise these Terms at any time. 
+5.2 Updated versions of the Terms will be posted on the App, and it is your responsibility to review them periodically. 
+5.3 Continued use of the App after any modifications to the Terms constitutes your acceptance of the revised Terms.

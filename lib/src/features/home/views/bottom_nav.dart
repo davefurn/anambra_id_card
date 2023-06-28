@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:async';
 import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
+import 'package:acmc/src/constants/consts.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
 
 import 'package:acmc/src/features/history/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/notification.dart';
 import 'package:acmc/src/services/post_requests.dart';
+import 'package:async/async.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -53,7 +54,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   int currentIndex = 0;
 
   AppLifecycleState? _lastLifecycleState;
-  Timer? _timer;
   int kTimeoutInSeconds = const Duration(minutes: 30).inSeconds;
 
   @override
@@ -69,7 +69,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    _timer?.cancel();
+    AppConstants.timer?.cancel();
     super.dispose();
   }
 
@@ -90,9 +90,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   void _keepAlive(bool visible) {
     if (visible) {
-      _timer?.cancel();
+      AppConstants.timer?.cancel();
     } else {
-      _timer = Timer(Duration(seconds: kTimeoutInSeconds), () {
+      AppConstants.timer =
+          RestartableTimer(Duration(seconds: kTimeoutInSeconds), () {
         pushToAndClearStack(context, const Login());
         PostRequest.logout();
         showDialog(
@@ -144,6 +145,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           currentIndex: currentIndex,
           onTap: (value) {
             bool? canpop = tabNavKeys[value].currentState?.canPop();
+            AppConstants.timer?.reset();
             if (currentIndex == value && canpop == true) {
               tabNavKeys[value]
                   .currentState!

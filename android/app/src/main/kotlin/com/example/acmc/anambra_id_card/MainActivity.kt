@@ -1,4 +1,4 @@
-package com.example.acmc.anambra_id_card
+package ng.ansg.idmobile.anambra_id_card
 
 import io.flutter.embedding.android.FlutterActivity
 
