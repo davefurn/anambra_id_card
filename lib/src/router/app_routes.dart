@@ -59,18 +59,3 @@ class CustomRoutes {
     );
   }
 }
-
-GestureDetector backButton(BuildContext context) {
-  return GestureDetector(
-    onTap: () {
-      pop(context);
-    },
-    child: const Align(
-      alignment: Alignment.centerLeft,
-      child: Icon(
-        Icons.arrow_back,
-        size: 24,
-      ),
-    ),
-  );
-}

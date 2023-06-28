@@ -1,3 +1,4 @@
+import 'package:acmc/src/constants/consts.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:acmc/src/features/onboarding/views/onboard.dart';
 import 'package:acmc/src/services/local_storage.dart';
@@ -54,7 +55,12 @@ class _MyAppState extends State<MyApp> {
             darkTheme: IdTheme.darkTheme,
             themeMode: ThemeMode.light,
             theme: IdTheme.lightTheme,
-            home: widget.firstTime ? const Onboard() : const Login(),
+            home: Material(
+              child: InkWell(
+                onTap: () => AppConstants.timer?.reset(),
+                child: widget.firstTime ? const Onboard() : const Login(),
+              ),
+            ),
           ),
         );
       },

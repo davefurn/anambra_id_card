@@ -30,6 +30,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   another_flushbar: ^1.12.30
+  async: ^2.11.0
   cupertino_icons: ^1.0.2
   dio: ^5.1.2
   extended_image: ^8.0.2
@@ -88,6 +89,7 @@ flutter:
     - assets/images/
     - assets/svgs/
     - assets/lottie/
+    - assets/doc/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

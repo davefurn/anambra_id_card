@@ -16,6 +16,7 @@ import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
+import 'package:acmc/src/features/privacy_policy/privacy.dart';
 import 'package:acmc/src/features/settings/change_password.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/flush.dart';
@@ -135,8 +136,10 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () => ShowFlushBar.showSuccess(
-                context: context, message: 'Not Enabled.'),
+            onTap: () => pushTo(
+              context,
+              const PrivacyPolicy(),
+            ),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,

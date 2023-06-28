@@ -13,13 +13,11 @@ class IdTheme {
     useMaterial3: true,
     brightness: Brightness.light,
     textTheme: TextsTheme.lightTheme,
+    fontFamily: 'Inter',
     appBarTheme: const AppBarTheme(centerTitle: false),
     elevatedButtonTheme: ElevatedButtonThemes.lightTheme,
-    
-    datePickerTheme:const DatePickerThemeData(
-
-    ),
-    timePickerTheme:const TimePickerThemeData(),
+    datePickerTheme: const DatePickerThemeData(),
+    timePickerTheme: const TimePickerThemeData(),
     dropdownMenuTheme: DropdownMenuThemeData(
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
@@ -52,6 +50,7 @@ class IdTheme {
     useMaterial3: true,
     brightness: Brightness.dark,
     textTheme: TextsTheme.darkTheme,
+    fontFamily: 'Inter',
     appBarTheme: const AppBarTheme(centerTitle: false),
     elevatedButtonTheme: ElevatedButtonThemes.darkTheme,
   );

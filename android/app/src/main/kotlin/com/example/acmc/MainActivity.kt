@@ -1,4 +1,4 @@
-package com.example.acmc
+package ng.ansg.idmobile
 
 import io.flutter.embedding.android.FlutterActivity
 
