@@ -27,7 +27,7 @@ class EmployeeTile extends StatelessWidget {
         Text(
           employeeData != null
               ? employeeData!.name
-              : (historyModel!.status == 'Exception' ||
+              : (historyModel!.status.toLowerCase() == 'exception' ||
                       historyModel!.firstName == null)
                   ? 'Failed search'
                   : historyModel!.firstName!.isEmpty
@@ -76,7 +76,7 @@ class EmployeeTile extends StatelessWidget {
               4.sbH,
             ],
           ),
-        if (employeeData != null || historyModel?.status != 'Exception')
+        if (employeeData != null || historyModel?.status.toLowerCase() != 'exception')
           GestureDetector(
             onTap: () async {
               showDialog<SearchModel?>(
