@@ -21,7 +21,7 @@ class ShowFlushBar {
         style: const TextStyle(
           color: Color(0xffEF4444),
           fontWeight: FontWeight.w500,
-          fontSize: 18,
+          fontSize: 14,
         ),
       ),
       positionOffset: kBottomNavigationBarHeight.h + 50,

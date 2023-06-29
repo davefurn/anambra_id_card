@@ -14,7 +14,7 @@
 
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
-import 'package:acmc/src/features/privacy_policy/privacy.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:acmc/src/features/settings/change_password.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/services/flush.dart';
@@ -134,10 +134,10 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap: () => pushTo(
-              context,
-              const PrivacyPolicy(),
-            ),
+            onTap:  () => launchUrl(
+                                      Uri.parse(
+                                          'https://ict.anambrastate.gov.ng/e-id-policy/'),
+                                    ),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
