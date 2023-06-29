@@ -315,7 +315,7 @@ class _HomeState extends ConsumerState<Home> {
                     Color(0xff119D1F),
                   ],
                   svg: 'visitor',
-                  text: 'Visitors\nManagement',
+                  text: 'Visitors\nManager',
                   onTap: () => pushTo(context, const VisitorManagement()),
                 ),
                 ActionContainer(
