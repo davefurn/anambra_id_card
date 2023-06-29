@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:io';
-
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/login/login.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -164,7 +162,6 @@ class SettingsView extends ConsumerWidget {
           ),
           ListTile(
             onTap: () async {
-              var platform = Platform.isAndroid ? 'Android' : 'Ios';
               PackageInfo.fromPlatform().then((value) {
                 String version = value.version;
                 showDialog(
@@ -186,16 +183,6 @@ class SettingsView extends ConsumerWidget {
                           ),
                         ),
                       ),
-                      Text(
-                        'For $platform OS, designed with Flutter.',
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                          color: Color(
-                            0xff010C20,
-                          ),
-                        ),
-                      )
                     ],
                   ),
                 );

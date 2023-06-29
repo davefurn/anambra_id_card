@@ -389,7 +389,7 @@ class _HomeState extends ConsumerState<Home> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            if (searches[index].status == 'Exception') {
+                            if (searches[index].status.toLowerCase() == 'exception') {
                               ShowFlushBar.showError(
                                 context: context,
                                 error: 'Search result failed',

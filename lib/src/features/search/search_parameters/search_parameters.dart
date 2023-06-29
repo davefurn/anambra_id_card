@@ -15,15 +15,19 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/onboarding/widgets/custom_button.dart';
+import 'package:acmc/src/features/search/qr_scanner/results.dart';
 import 'package:acmc/src/features/search/search_parameters/searching.dart';
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/search_parameter_widget.dart';
-import 'package:acmc/src/widgets/special_button.dart';
+import 'package:acmc/src/widgets/special_button_2.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SearchParameters extends StatefulWidget {
   final bool? asGuest;
@@ -53,6 +57,28 @@ class _SearchParametersState extends State<SearchParameters> {
     textController = TextEditingController();
   }
 
+  Future scanBarcode() async {
+    try {
+      FlutterBarcodeScanner.scanBarcode(
+        "#FDB813",
+        "Cancel",
+        true,
+        ScanMode.QR,
+      ).then((value) {
+        if (value != '-1') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => QrCode(code: value),
+            ),
+          );
+        }
+      });
+    } on PlatformException {
+      //
+    }
+  }
+
   @override
   void dispose() {
     textController.dispose();
@@ -71,6 +97,19 @@ class _SearchParametersState extends State<SearchParameters> {
           maxLines: 1,
         ),
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: widget.asGuest == true
+          ? SpecialButton2(
+              onTap: scanBarcode,
+              text: 'Scan Code',
+              icon: SvgPicture.asset(
+                'assets/svgs/scan.svg',
+                color: Colors.black,
+              ),
+              borderColor: Colors.black,
+              textColor: Colors.black,
+            )
+          : null,
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
@@ -187,15 +226,8 @@ class _SearchParametersState extends State<SearchParameters> {
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: widget.asGuest!
-                    ? InkWell(
-                        onTap: () {},
-                        child: const SpecialButton(
-                            icon: Icons.qr_code, text: 'Scan code'))
-                    : const SizedBox.shrink(),
-              )
+            
+
             ],
           ),
         ),
