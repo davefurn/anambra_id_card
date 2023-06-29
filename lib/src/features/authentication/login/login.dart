@@ -17,7 +17,6 @@ import 'package:acmc/src/features/authentication/create_account/create_account.d
 import 'package:acmc/src/features/authentication/create_account/widget/custom_text_input.dart';
 import 'package:acmc/src/features/authentication/create_account/widget/title_widget.dart';
 import 'package:acmc/src/features/search/search_parameters/search_parameters.dart';
-
 import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/services/post_requests.dart';
@@ -26,7 +25,6 @@ import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../auth_decide/widgets/click_to_new_page.dart';
 
 class Login extends ConsumerStatefulWidget {
@@ -79,6 +77,7 @@ class _LoginState extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+      
         child: Form(
           key: _formKey,
           child: Column(

@@ -20,6 +20,7 @@ import 'package:acmc/src/model/enums.dart';
 import 'package:acmc/src/router/app_routes.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/search_parameter_widget.dart';
+import 'package:acmc/src/widgets/special_button.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -186,6 +187,15 @@ class _SearchParametersState extends State<SearchParameters> {
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: widget.asGuest!
+                    ? InkWell(
+                        onTap: () {},
+                        child: const SpecialButton(
+                            icon: Icons.qr_code, text: 'Scan code'))
+                    : const SizedBox.shrink(),
+              )
             ],
           ),
         ),
