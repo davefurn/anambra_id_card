@@ -13,7 +13,7 @@ class GlobalFunctions {
     late String path;
     if (Platform.isAndroid) {
       path = await ExternalPath.getExternalStoragePublicDirectory(
-          ExternalPath.DIRECTORY_DOWNLOADS);
+          ExternalPath.DIRECTORY_DOCUMENTS);
     } else {
       path = (await getApplicationDocumentsDirectory()).path;
     }
