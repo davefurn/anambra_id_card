@@ -61,6 +61,7 @@ class _LoginState extends ConsumerState<Login> {
     setState(() {
       state = LoadingState.loading;
     });
+    FocusScope.of(context).unfocus();
     await PostRequest.fetchBearerToken(
       context,
       login: true,
@@ -77,7 +78,6 @@ class _LoginState extends ConsumerState<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-      
         child: Form(
           key: _formKey,
           child: Column(

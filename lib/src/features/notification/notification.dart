@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/services/get_requests.dart';
@@ -200,6 +199,7 @@ class _NotificationPState extends ConsumerState<NotificationP> {
             return Center(
               child: AppErrorWidget(
                 errorData: val?.data,
+                errorCode: val?.statusCode,
                 retry: SpecialButton2(
                   text: 'Retry',
                   onTap: () => ref.refresh(

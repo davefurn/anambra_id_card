@@ -1,13 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:acmc/src/constants/end_points.dart';
-import 'package:acmc/src/services/post_requests.dart';
 import 'package:dio/dio.dart';
 
 class NetworkService {
   static final Dio _dio = Dio();
 
-  Future<Response?> postRequestHandler(String path, Map<String, dynamic> data,
+  Future<Response?> postRequestHandler(String path, Map<String, dynamic>? data,
       {Options? options}) async {
     try {
       final a = await _dio.postUri(
@@ -19,23 +18,20 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      if (e.response?.statusCode == 401 &&
-          e.response != null &&
-          e.response!.data.containsKey('message') &&
-          e.response!.data['message'] == 'Token has expired') {
-        await PostRequest.refreshToken();
-        try {
-          return await _dio.postUri(
-            Uri.parse('${AppEndpoints.baseUrl}$path'),
-            data: data,
-            options: options,
-          );
-        } catch (_) {
-          return null;
-        }
-      } else {
-        return e.response;
-      }
+      // if (e.response?.statusCode == 401 && e.response != null) {
+      // await PostRequest.refreshToken();
+      // try {
+      //   return await _dio.postUri(
+      //     Uri.parse('${AppEndpoints.baseUrl}$path'),
+      //     data: data,
+      //     options: options,
+      //   );
+      // } catch (_) {
+      //   return null;
+      // }
+      // } else {
+      // }
+      return e.response;
     } on SocketException catch (_) {
       return null;
     } catch (_) {
@@ -52,23 +48,20 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      if (e.response?.statusCode == 401 &&
-          e.response != null &&
-          e.response!.data.containsKey('message') &&
-          e.response!.data['message'] == 'Token has expired') {
-        await PostRequest.refreshToken();
-        try {
-          return await _dio.putUri(
-            Uri.parse('${AppEndpoints.baseUrl}$path'),
-            data: data,
-            options: options,
-          );
-        } catch (_) {
-          return null;
-        }
-      } else {
-        return e.response;
-      }
+      // if (e.response?.statusCode == 401 && e.response != null) {
+      //   await PostRequest.refreshToken();
+      //   try {
+      //     return await _dio.putUri(
+      //       Uri.parse('${AppEndpoints.baseUrl}$path'),
+      //       data: data,
+      //       options: options,
+      //     );
+      //   } catch (_) {
+      //     return null;
+      //   }
+      // } else {
+      // }
+      return e.response;
     } on SocketException catch (_) {
       return null;
     } catch (_) {
@@ -85,23 +78,20 @@ class NetworkService {
       return a;
     } on DioError catch (e) {
       log(e.response.toString());
-      if (e.response?.statusCode == 401 &&
-          e.response != null &&
-          e.response!.data.containsKey('message') &&
-          e.response!.data['message'] == 'Token has expired') {
-        await PostRequest.refreshToken();
-        try {
-          return await _dio.getUri(
-            Uri.parse('${AppEndpoints.baseUrl}$path'),
-            data: data,
-            options: options,
-          );
-        } catch (_) {
-          return null;
-        }
-      } else {
-        return e.response;
-      }
+      // if (e.response?.statusCode == 401 && e.response != null) {
+      //   await PostRequest.refreshToken();
+      //   try {
+      //     return await _dio.getUri(
+      //       Uri.parse('${AppEndpoints.baseUrl}$path'),
+      //       data: data,
+      //       options: options,
+      //     );
+      //   } catch (_) {
+      //     return null;
+      //   }
+      // } else {
+      // }
+      return e.response;
     } on SocketException catch (_) {
       return null;
     } catch (_) {

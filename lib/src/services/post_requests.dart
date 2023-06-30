@@ -192,7 +192,7 @@ class PostRequest {
   static Future<void> refreshToken() async {
     var path = '/refresh';
     var token = (await LocalStorage.instance.getToken())!;
-    network.postRequestHandler(path, {},
+    await network.postRequestHandler(path, null,
         options: Options(headers: {'Authorization': 'Bearer $token'}));
   }
 

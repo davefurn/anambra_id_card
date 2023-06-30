@@ -66,6 +66,7 @@ class _CreateAccountState extends State<CreateAccount> {
     setState(() {
       state = LoadingState.loading;
     });
+    FocusScope.of(context).unfocus();
     await PostRequest.register({
       'email': emailController.text,
       'mobile_number': phoneNumberController.text,

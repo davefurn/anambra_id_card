@@ -88,6 +88,7 @@ class _SearchingState extends ConsumerState<Searching> {
             return Center(
               child: AppErrorWidget(
                 errorData: val?.data,
+                errorCode: val?.statusCode,
               ),
             );
           }
