@@ -22,7 +22,7 @@ import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/utils/extension/widget_extension.dart';
 import 'package:acmc/src/widgets/special_button_2.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:saf/saf.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:vcard_maintained/vcard_maintained.dart';
@@ -171,11 +171,12 @@ class _SearchDetailsState extends State<SearchDetails> {
     file.createSync(recursive: true);
 
     await vCard.saveToFile('contact.vcf');
-    if (!(await Permission.manageExternalStorage.isGranted)) {
-      await Permission.manageExternalStorage.request();
-    }
-    if (await Permission.manageExternalStorage.isGranted) {
-      var down = '$path/contact.vcf';
+
+    var down = '$path/contact.vcf';
+    Saf saf = Saf(down);
+
+    bool? isGranted = await saf.getDirectoryPermission(isDynamic: true);
+    if (isGranted != null && isGranted) {
       var a = File(down);
       a.createSync(recursive: true);
       file.copySync(a.path);
