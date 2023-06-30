@@ -216,7 +216,9 @@ class _NotificationPState extends ConsumerState<NotificationP> {
           child: AppErrorWidget(),
         ),
         loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
+          child: CircularProgressIndicator.adaptive(
+            backgroundColor: IdColors.mainColor,
+          ),
         ),
       ),
     );

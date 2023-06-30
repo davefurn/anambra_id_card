@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/features/search/search_parameters/searching.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -54,7 +55,9 @@ class _QrCodeState extends ConsumerState<QrCode> {
           : null,
       body: _isBusy == true
           ? const Center(
-              child: CircularProgressIndicator.adaptive(),
+              child: CircularProgressIndicator.adaptive(
+                backgroundColor: IdColors.mainColor,
+              ),
             )
           : Searching(
               searchWord: resultText,

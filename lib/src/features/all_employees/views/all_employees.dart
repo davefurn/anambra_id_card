@@ -95,7 +95,9 @@ class _AllEmployeeState extends ConsumerState<AllEmployee> {
                       ),
                       error: (error, trace) => const AppErrorWidget(),
                       loading: () => const Center(
-                        child: CircularProgressIndicator.adaptive(),
+                        child: CircularProgressIndicator.adaptive(
+                          backgroundColor: IdColors.mainColor,
+                        ),
                       ),
                     ),
                   )
