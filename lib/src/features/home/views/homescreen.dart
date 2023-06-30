@@ -161,7 +161,9 @@ class _HomeState extends ConsumerState<Home> {
                   loading: () => SizedBox(
                     height: 40.h,
                     child: const Center(
-                      child: CircularProgressIndicator.adaptive(),
+                      child: CircularProgressIndicator.adaptive(
+                        backgroundColor: IdColors.mainColor,
+                      ),
                     ),
                   ),
                 );

@@ -86,35 +86,44 @@ class EmployeeTile extends StatelessWidget {
                   return Consumer(
                     builder: (context, ref, child) {
                       var data = ref.watch(revisitProvider(historyModel!.id));
-                      return data.when(
-                        data: (value) {
-                          if (value?.statusCode == 200 &&
-                              value != null &&
-                              value.data != null) {
-                            Map<String, dynamic> convertedMap = {};
-                            value.data.forEach((key, value) {
-                              convertedMap[key] = value;
-                            });
-                            var newP = SearchModel.fromJson(convertedMap);
-                            WidgetsBinding.instance
-                                .addPostFrameCallback((timeStamp) {
-                              Navigator.of(context).pop(newP);
-                            });
-                            return const SizedBox.shrink();
-                          } else {
-                            return AppErrorWidget(
-                              errorData: value?.data,
-                              errorCode: value?.statusCode,
-                            );
-                          }
-                        },
-                        error: (error, trace) {
-                          return const AppErrorWidget();
-                        },
-                        loading: () => SizedBox(
-                          height: 40.h,
-                          child: const Center(
-                            child: CircularProgressIndicator.adaptive(),
+                      return Dialog(
+                        child: SizedBox(
+                          height: 100.h,
+                          child: Center(
+                            child: data.when(
+                              data: (value) {
+                                if (value?.statusCode == 200 &&
+                                    value != null &&
+                                    value.data != null) {
+                                  Map<String, dynamic> convertedMap = {};
+                                  value.data.forEach((key, value) {
+                                    convertedMap[key] = value;
+                                  });
+                                  var newP = SearchModel.fromJson(convertedMap);
+                                  WidgetsBinding.instance
+                                      .addPostFrameCallback((timeStamp) {
+                                    Navigator.of(context).pop(newP);
+                                  });
+                                  return const SizedBox.shrink();
+                                } else {
+                                  return AppErrorWidget(
+                                    errorData: value?.data,
+                                    errorCode: value?.statusCode,
+                                  );
+                                }
+                              },
+                              error: (error, trace) {
+                                return const AppErrorWidget();
+                              },
+                              loading: () => SizedBox(
+                                height: 40.h,
+                                child: const Center(
+                                  child: CircularProgressIndicator.adaptive(
+                                    backgroundColor: IdColors.mainColor,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );

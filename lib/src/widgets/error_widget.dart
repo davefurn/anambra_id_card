@@ -45,10 +45,18 @@ class _AppErrorWidgetState extends State<AppErrorWidget> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(error),
-        20.sbH,
-        if (widget.retry != null) widget.retry!,
+        if (widget.retry != null)
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              20.sbH,
+              widget.retry!,
+            ],
+          ),
       ],
     );
   }

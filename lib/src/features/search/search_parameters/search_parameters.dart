@@ -145,6 +145,7 @@ class _SearchParametersState extends State<SearchParameters> {
                       onTap: (p0) => setState(() {
                         initialValue = p0;
                         textController.text = email;
+                        focus.unfocus();
                         // focus.requestFocus();
                       }),
                       text: 'Email Address',
@@ -156,6 +157,7 @@ class _SearchParametersState extends State<SearchParameters> {
                       onTap: (p0) => setState(() {
                         initialValue = p0;
                         textController.text = phone;
+                        focus.unfocus();
                         // focus.requestFocus();
                       }),
                       text: 'Phone number',
@@ -167,6 +169,7 @@ class _SearchParametersState extends State<SearchParameters> {
                       onTap: (p0) => setState(() {
                         initialValue = p0;
                         textController.text = id;
+                        focus.unfocus();
                         // focus.requestFocus();
                       }),
                       text: 'Staff ID',
@@ -200,7 +203,21 @@ class _SearchParametersState extends State<SearchParameters> {
                 suffixIcon: Visibility(
                   visible: textController.text.isNotEmpty,
                   child: IconButton(
-                      onPressed: () => textController.clear(),
+                      onPressed: () {
+                        switch (initialValue) {
+                          case SearchParameter.email:
+                            email = '';
+                            break;
+                          case SearchParameter.phoneNumber:
+                            phone = '';
+                            break;
+                          case SearchParameter.staffId:
+                            id = '';
+                            break;
+                          default:
+                        }
+                        textController.clear();
+                      },
                       icon: const Icon(Icons.clear)),
                 ),
               ),
@@ -226,8 +243,6 @@ class _SearchParametersState extends State<SearchParameters> {
                 text: 'Search Database',
                 textcolor: IdColors.textColorBlack,
               ),
-            
-
             ],
           ),
         ),

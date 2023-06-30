@@ -444,7 +444,9 @@ class _SearchResultState extends ConsumerState<SearchResult> {
                 child: AppErrorWidget(),
               ),
               loading: () => const Center(
-                child: CircularProgressIndicator.adaptive(),
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: IdColors.mainColor,
+                ),
               ),
             ),
           ),

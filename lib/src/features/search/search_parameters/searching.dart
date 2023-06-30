@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/model/model.dart';
 import 'package:acmc/src/riverpod/providers.dart';
 import 'package:acmc/src/widgets/card.dart';
@@ -95,7 +96,9 @@ class _SearchingState extends ConsumerState<Searching> {
         },
         error: (error, trace) => const Center(child: AppErrorWidget()),
         loading: () => const Center(
-          child: CircularProgressIndicator.adaptive(),
+          child: CircularProgressIndicator.adaptive(
+            backgroundColor: IdColors.mainColor,
+          ),
         ),
       ),
     );
