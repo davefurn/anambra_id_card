@@ -134,10 +134,10 @@ class SettingsView extends ConsumerWidget {
             iconColor: IdColors.textColorGrey,
           ),
           ListTile(
-            onTap:  () => launchUrl(
-                                      Uri.parse(
-                                          'https://ict.anambrastate.gov.ng/e-id-policy/'),
-                                    ),
+            onTap: () => launchUrl(
+              Uri.parse('https://ict.anambrastate.gov.ng/e-id-policy/'),
+              mode: LaunchMode.externalApplication,
+            ),
             horizontalTitleGap: 18,
             leading: const Column(
               mainAxisAlignment: MainAxisAlignment.center,

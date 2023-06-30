@@ -190,6 +190,7 @@ class _CreateAccountState extends State<CreateAccount> {
                                 ..onTap = () => launchUrl(
                                       Uri.parse(
                                           'https://ict.anambrastate.gov.ng/e-id-policy/'),
+                                      mode: LaunchMode.externalApplication,
                                     ),
                             ),
                           ],
