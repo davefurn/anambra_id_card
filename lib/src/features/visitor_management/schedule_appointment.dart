@@ -435,6 +435,7 @@ class _SearchResultState extends ConsumerState<SearchResult> {
                   return Center(
                     child: AppErrorWidget(
                       errorData: val?.data,
+                      errorCode: val?.statusCode,
                     ),
                   );
                 }

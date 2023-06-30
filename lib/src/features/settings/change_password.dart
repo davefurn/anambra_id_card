@@ -60,6 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> {
     setState(() {
       state = LoadingState.loading;
     });
+    FocusScope.of(context).unfocus();
     var reset = await PutRequest.resetPassword({
       'current_password': oldController.text,
       'new_password': newController.text

@@ -48,6 +48,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     setState(() {
       state = LoadingState.loading;
     });
+    FocusScope.of(context).unfocus();
     await PostRequest.verifyOtp({
       'email_otp': emailController.text,
       'mobile_otp': phoneController.text,

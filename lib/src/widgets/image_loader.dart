@@ -1,10 +1,11 @@
 import 'package:acmc/src/constants/colors.dart';
 import 'package:acmc/src/constants/end_points.dart';
+import 'package:acmc/src/router/app_routes.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:zoom_widget/zoom_widget.dart';
+import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
 
 class ImageLoader extends StatefulWidget {
   final String image;
@@ -89,20 +90,16 @@ class _ImageLoaderState extends State<ImageLoader>
                   return GestureDetector(
                     onTap: () {
                       if (widget.tap) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                              appBar: AppBar(),
-                              body: Center(
-                                child: Zoom(
-                                  initTotalZoomOut: true,
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  child: ImageLoader(
-                                    image: image,
-                                    radius: 0,
-                                    tap: false,
-                                  ),
+                        pushTo(
+                          context,
+                          Scaffold(
+                            appBar: AppBar(),
+                            body: Center(
+                              child: ZoomOverlay(
+                                child: ImageLoader(
+                                  image: image,
+                                  radius: 0,
+                                  tap: false,
                                 ),
                               ),
                             ),

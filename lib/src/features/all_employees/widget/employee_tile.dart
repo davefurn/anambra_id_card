@@ -76,7 +76,8 @@ class EmployeeTile extends StatelessWidget {
               4.sbH,
             ],
           ),
-        if (employeeData != null || historyModel?.status.toLowerCase() != 'exception')
+        if (employeeData != null ||
+            historyModel?.status.toLowerCase() != 'exception')
           GestureDetector(
             onTap: () async {
               showDialog<SearchModel?>(
@@ -103,6 +104,7 @@ class EmployeeTile extends StatelessWidget {
                           } else {
                             return AppErrorWidget(
                               errorData: value?.data,
+                              errorCode: value?.statusCode,
                             );
                           }
                         },
