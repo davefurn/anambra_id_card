@@ -34,6 +34,9 @@ extension AccessLevelExtension on String {
       case 'admin':
         accessLevel = AccessLevel.admin;
         break;
+      case 'super_admin':
+        accessLevel = AccessLevel.admin;
+        break;
       case 'security':
         accessLevel = AccessLevel.security;
         break;

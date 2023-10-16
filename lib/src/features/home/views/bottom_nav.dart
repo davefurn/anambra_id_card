@@ -15,21 +15,16 @@
 import 'dart:io';
 
 import 'package:acmc/src/constants/colors.dart';
-import 'package:acmc/src/constants/consts.dart';
-import 'package:acmc/src/features/authentication/login/login.dart';
 
 import 'package:acmc/src/features/history/history.dart';
 import 'package:acmc/src/features/home/views/homescreen.dart';
 import 'package:acmc/src/features/notification/notification.dart';
-import 'package:acmc/src/services/post_requests.dart';
-import 'package:async/async.dart';
+import 'package:acmc/src/riverpod/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../router/app_routes.dart';
 import '../../settings/settings_view.dart';
 
 late BuildContext globalContext;
@@ -42,8 +37,7 @@ class HomeScreen extends ConsumerStatefulWidget {
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen>
-    with WidgetsBindingObserver {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final List<GlobalKey<NavigatorState>> tabNavKeys = [
     GlobalKey<NavigatorState>(),
     GlobalKey<NavigatorState>(),
@@ -53,78 +47,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
 
   int currentIndex = 0;
 
-  AppLifecycleState? _lastLifecycleState;
-  int kTimeoutInSeconds = const Duration(minutes: 30).inSeconds;
-
   @override
   void initState() {
     super.initState();
     globalContext = context;
     controller = CupertinoTabController();
-    WidgetsBinding.instance.addObserver(this);
-    _lastLifecycleState = WidgetsBinding.instance.lifecycleState;
-    _keepAlive(false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      ref.read(appSessionServiceProvider.notifier).countTime();
+    });
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    AppConstants.timer?.cancel();
     super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    if (_lastLifecycleState == AppLifecycleState.resumed &&
-        state == AppLifecycleState.paused) {
-      _keepAlive(true);
-    } else if (_lastLifecycleState == AppLifecycleState.paused &&
-        state == AppLifecycleState.resumed) {
-      _keepAlive(false);
-    }
-
-    _lastLifecycleState = state;
-  }
-
-  void _keepAlive(bool visible) {
-    if (visible) {
-      AppConstants.timer?.cancel();
-    } else {
-      AppConstants.timer =
-          RestartableTimer(Duration(seconds: kTimeoutInSeconds), () {
-        pushToAndClearStack(context, const Login());
-        PostRequest.logout();
-        showDialog(
-          context: context,
-          builder: (context) => SimpleDialog(
-            surfaceTintColor: Colors.white,
-            contentPadding: EdgeInsets.all(20.r),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            title: SvgPicture.asset(
-              'assets/svgs/info_big.svg',
-              color: const Color(0xff0E5CE3),
-              width: 34.r,
-              height: 34.r,
-            ),
-            children: [
-              Center(
-                child: Text(
-                  'Logged out due to inactivity',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16.sp,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
-    }
   }
 
   @override
@@ -145,7 +80,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
           currentIndex: currentIndex,
           onTap: (value) {
             bool? canpop = tabNavKeys[value].currentState?.canPop();
-            AppConstants.timer?.reset();
             if (currentIndex == value && canpop == true) {
               tabNavKeys[value]
                   .currentState!

@@ -50,7 +50,6 @@ this consists of the views, widgets and some config files
 - flutter_riverpod: State management option
 - flutter_screenutil: A flutter plugin for adapting screen and font size
 - flutter_svg: An SVG rendering and widget library for Flutter
-- grouped_list: Flutter ListView where the list items can be grouped into sections
 - intl: Contains code to deal with internationalized/localized
 - keyboard_dismisser: To hide the keyboard when performing a gesture outside of it
 - lottie: Render After Effects animations natively on Flutter
