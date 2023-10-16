@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 
 class AppConstants {
   static List<String> role = [
@@ -15,6 +14,4 @@ class AppConstants {
   ];
 
   static int logoutTime = 5;
-
-  static RestartableTimer? timer;
 }

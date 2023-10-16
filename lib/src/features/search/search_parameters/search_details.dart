@@ -173,20 +173,32 @@ class _SearchDetailsState extends State<SearchDetails> {
     await vCard.saveToFile('contact.vcf');
 
     var down = '$path/contact.vcf';
-    Saf saf = Saf(down);
+    if (Platform.isAndroid) {
+      Saf saf = Saf(down);
 
-    bool? isGranted = await saf.getDirectoryPermission(isDynamic: true);
-    if (isGranted != null && isGranted) {
+      bool? isGranted = await saf.getDirectoryPermission(isDynamic: true);
+      if (isGranted != null && isGranted) {
+        var a = File(down);
+        a.createSync(recursive: true);
+        file.copySync(a.path);
+        // ignore: use_build_context_synchronously
+        ShowFlushBar.showSuccess(
+          context: context,
+          message: 'Downloaded to ${p.basename(path)} folder',
+        );
+      } else {
+        // ignore: use_build_context_synchronously
+        ShowFlushBar.showError(context: context, error: 'Permission denied');
+      }
+    } else {
       var a = File(down);
       a.createSync(recursive: true);
       file.copySync(a.path);
       // ignore: use_build_context_synchronously
       ShowFlushBar.showSuccess(
-          context: context,
-          message: 'Downloaded to ${p.basename(path)} folder');
-    } else {
-      // ignore: use_build_context_synchronously
-      ShowFlushBar.showError(context: context, error: 'Permission denied');
+        context: context,
+        message: 'Downloaded to ${p.basename(path)} folder',
+      );
     }
   }
 
